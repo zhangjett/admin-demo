@@ -42,7 +42,13 @@ $config = [
                 ],
             ],
         ],
-        'db' => require(__DIR__ . '/db.php'),
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=demo',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+        ],
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
