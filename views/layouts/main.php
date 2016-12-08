@@ -1,8 +1,12 @@
 <?php
 
+use yii\helpers\Html;
+use app\assets\AppAsset;
 use app\components\NavMenu;
 
+AppAsset::register($this);
 ?>
+<?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,17 +15,18 @@ use app\components\NavMenu;
     <title>AdminLTE 2 | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <?= Html::csrfMetaTags() ?>
     <!-- Bootstrap 3.3.6 -->
 <!--    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">-->
 
-    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">-->
     <!-- Theme style -->
-    <link rel="stylesheet" href="css/AdminLTE.min.css">
+<!--    <link rel="stylesheet" href="css/AdminLTE.min.css">-->
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="css/skin-green-light.css">
+<!--    <link rel="stylesheet" href="css/skin-green-light.css">-->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -29,8 +34,10 @@ use app\components\NavMenu;
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <?php $this->head() ?>
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">
+<?php $this->beginBody() ?>
 <div class="wrapper">
 
     <header class="main-header">
@@ -379,6 +386,7 @@ use app\components\NavMenu;
                             'label' => 'Calendar',
                             'icon' => 'fa fa-calendar',
                             'url' => '#',
+                            'options' => ['id' => 'sidebar-menu-calendar']
                         ],
                         [
                             'label' => 'Mailbox',
@@ -425,6 +433,7 @@ use app\components\NavMenu;
                             'label' => 'Documentation',
                             'icon' => 'fa fa-book',
                             'url' => '#',
+                            'options' => ['id' => 'sidebar-menu-documentation']
                         ],
                         [
                             'label' => 'MAIN NAVIGATION',
@@ -489,13 +498,16 @@ use app\components\NavMenu;
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery 2.2.3 -->
-<script src="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>
-<!-- Bootstrap 3.3.6 -->
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<!-- SlimScroll 1.3.0 -->
-<script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-<!-- AdminLTE App -->
-<script src="js/AdminLTE.min.js"></script>
+<!--<!-- jQuery 2.2.3 -->-->
+<!--<script src="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js"></script>-->
+<!--<!-- Bootstrap 3.3.6 -->-->
+<!--<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
+<!--<!-- SlimScroll 1.3.0 -->-->
+<!--<script src="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>-->
+<!--<!-- AdminLTE App -->-->
+<!--<script src="js/AdminLTE.min.js"></script>-->
+
+<?php $this->endBody() ?>
 </body>
 </html>
+<?php $this->endPage() ?>
