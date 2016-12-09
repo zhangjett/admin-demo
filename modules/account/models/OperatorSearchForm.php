@@ -13,6 +13,7 @@ use yii\db\Query;
 class OperatorSearchForm extends Model
 {
     public $status;
+    public $type;
     public $beginTime;
     public $endTime;
     public $filter;
@@ -21,7 +22,7 @@ class OperatorSearchForm extends Model
     public function rules()
     {
         return [
-            [['status','beginTime','endTime','filter','pageSize'], 'safe'],
+            [['status', 'type', 'beginTime', 'endTime', 'filter', 'pageSize'], 'safe'],
         ];
     }
 
@@ -29,6 +30,7 @@ class OperatorSearchForm extends Model
     {
         return [
             'status' => '状态',
+            'type' => '类型',
             'beginTime' => '开始时间',
             'endTime' => '结束时间',
             'filter' => '账号/姓名'
