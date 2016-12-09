@@ -61,7 +61,7 @@ class OperatorSearchForm extends Model
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
         $rows = $query
-            ->select(['operator_id', 'login', 'name', 'gender', 'status', 'create_time AS createTime', 'update_time AS updateTime'])
+            ->select(['operator_id AS operatorId', 'login', 'name', 'email', 'status', 'create_time AS createTime', 'update_time AS updateTime'])
             ->from('operator')
             ->where($condition)
             ->offset($pages->offset)

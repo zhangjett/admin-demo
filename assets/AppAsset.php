@@ -26,7 +26,9 @@ class AppAsset extends AssetBundle
     public $js = [
         'js/jquery.slimscroll.min.js',
         'js/AdminLTE.min.js',
-        'js/app.js'
+        'js/app.js',
+        'js/layer/layer.js',
+        'js/tool.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
