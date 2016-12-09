@@ -4,13 +4,20 @@ namespace app\components;
 
 use yii;
 
-
 class Controller extends yii\web\Controller
 {
-    public $layout = "/main";
-
     public $cssFile = [];
 
     public $jsFile = [];
+
+    public function getCssFile()
+    {
+        return $this->cssFile;
+    }
+
+    public function getJsFile()
+    {
+        return $this->jsFile;
+    }
 
 }

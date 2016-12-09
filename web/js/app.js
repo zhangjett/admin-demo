@@ -1,4 +1,25 @@
 $(function () {
+    $(document).on('icheck', function(){
+        $('.mailbox-messages input[type="checkbox"]').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        });
+    }).trigger('icheck'); // trigger it for page load
+
+    $(document).on("click",".checkbox-toggle",function(){
+        var clicks = $(this).data('clicks');
+        if (clicks) {
+            //Uncheck all checkboxes
+            $(".mailbox-messages input[type='checkbox']").iCheck("uncheck");
+            $(".fa", this).removeClass("fa-check-square-o").addClass('fa-square-o');
+        } else {
+            //Check all checkboxes
+            $(".mailbox-messages input[type='checkbox']").iCheck("check");
+            $(".fa", this).removeClass("fa-square-o").addClass('fa-check-square-o');
+        }
+        $(this).data("clicks", !clicks);
+    });
+
     var html = '<span class="pull-right-container">'
         +'<small class="label pull-right bg-green">new</small>'
         +'</span>';

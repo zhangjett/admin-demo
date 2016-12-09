@@ -8,6 +8,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
+use yii\web\View;
 
 /**
  * @author Qiang Xue <qiang.xue@gmail.com>
@@ -18,10 +19,9 @@ class AppAsset extends AssetBundle
     public $basePath = '@webroot';
     public $baseUrl = '@web';
     public $css = [
-//        'css/site.css',
         'css/font-awesome.min.css',
         'css/AdminLTE.min.css',
-        'css/skin-green-light.css'
+        'css/skin-green-light.min.css'
     ];
     public $js = [
         'js/jquery.slimscroll.min.js',
@@ -32,4 +32,22 @@ class AppAsset extends AssetBundle
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
     ];
+
+    //定义按需加载JS方法，注意加载顺序在最后
+    public static function addCss(View $view, $cssFile) {
+        if(is_array($cssFile)&&count($cssFile)>0){
+            foreach($cssFile as $css){
+                $view->registerCssFile('@web/css/'.$css, [AppAsset::className(), 'depends' => 'app\assets\AppAsset']);
+            }
+        }
+    }
+
+    //定义按需加载JS方法，注意加载顺序在最后
+    public static function addScript(View $view, $jsFile) {
+        if(is_array($jsFile)&&count($jsFile)>0){
+            foreach($jsFile as $js){
+                $view->registerJsFile('@web/js/'.$js, [AppAsset::className(), 'depends' => 'app\assets\AppAsset']);
+            }
+        }
+    }
 }
