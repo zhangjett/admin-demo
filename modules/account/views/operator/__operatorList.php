@@ -13,6 +13,7 @@ use yii\helpers\Url;
     </div>
     <!-- /.btn-group -->
     <button type="button" class="btn btn-default btn-sm refresh" href="<?php echo Url::current(['page' => (int)$pages->page+1,'per-page'=>$pages->pageSize]); ?>"><i class="fa fa-refresh"></i></button>
+    <button type="button" class="btn btn-default btn-sm add"><i class="fa fa-plus"></i></button>
     <div class="pull-right">
         <?php echo ($pages->getOffset()+1).'-'.($pages->getOffset()+$pages->getPageSize()).'/'.$pages->totalCount; ?>
         <?php
@@ -66,6 +67,7 @@ use yii\helpers\Url;
         <button type="button" class="btn btn-default btn-sm"><i class="fa fa-share"></i></button>
     </div>
     <button type="button" class="btn btn-default btn-sm refresh" href="<?php echo Url::current(['page' => (int)$pages->page+1,'per-page'=>$pages->pageSize]); ?>"><i class="fa fa-refresh"></i></button>
+    <button type="button" class="btn btn-default btn-sm add"><i class="fa fa-plus"></i></button>
     <div class="pull-right">
         <?php echo ($pages->getOffset()+1).'-'.($pages->getOffset()+$pages->getPageSize()).'/'.$pages->totalCount; ?>
         <?php

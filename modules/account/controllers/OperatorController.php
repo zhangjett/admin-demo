@@ -4,6 +4,7 @@ namespace app\modules\account\controllers;
 
 use Yii;
 use app\components\Controller;
+use app\modules\account\models\OperatorForm;
 use app\modules\account\models\OperatorSearchForm;
 
 /**
@@ -37,6 +38,23 @@ class OperatorController extends Controller
         return $this->render('index', [
             "content" => $content,
             'model' => $model
+        ]);
+    }
+
+    public function actionCreate()
+    {
+        $model = new OperatorForm();
+        $model->setScenario('create');
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate() && $model->create()) {
+                Yii::$app->session->setFlash('createOperator', 'success');
+                return $this->refresh();
+            }
+        }
+
+        return $this->render('update', [
+            "model" => $model,
         ]);
     }
 }

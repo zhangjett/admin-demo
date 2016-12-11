@@ -52,6 +52,10 @@ use yii\bootstrap\ActiveForm;
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        $('.box-body').on("click",".mailbox-controls button.add",function(){
+            var url = '<?php echo Url::to(['//account/operator/create']); ?>';
+            window.open(url);
+        });
         //翻页
         $('.box-body').on("click",".pull-right .btn-group button",function(){
             tool.ajax({
