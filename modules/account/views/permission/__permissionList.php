@@ -29,27 +29,27 @@ use yii\helpers\Url;
         <thead>
             <tr>
                 <th>#</th>
-                <th>账号</th>
-                <th>姓名</th>
-                <th>电子邮箱</th>
+                <th>权限名称</th>
+                <th>权限路由</th>
+                <th>类别</th>
                 <th>修改时间</th>
                 <th>状态</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
-        <?php if (is_array($operatorList) && count($operatorList) > 0) {
-            foreach ($operatorList as $index => $operator) { ; ?>
+        <?php if (is_array($permissionList) && count($permissionList) > 0) {
+            foreach ($permissionList as $index => $permission) { ; ?>
                 <tr>
-                    <td><input type="checkbox" value="<?php echo $operator['operatorId']; ?>"></td>
-                    <td><a href="javascript:void(0);"><?php echo $operator['login']; ?></a></td>
-                    <td><?php echo $operator['name']; ?></td>
-                    <td><?php echo $operator['email']; ?></td>
-                    <td><?php echo $operator['updateTime']; ?></td>
-                    <td><span class="label <?php echo (int)$operator['status']==1?'label-success':'label-danger';?>"><?php echo (int)$operator['status']==1?'正常':'停用'; ?></span></td>
+                    <td><input type="checkbox" value="<?php echo $permission['permissionId']; ?>"></td>
+                    <td><?php echo $permission['name']; ?></td>
+                    <td><a href="javascript:void(0);"><?php echo $permission['description']; ?></a></td>
+                    <td><?php echo $permission['groupName']; ?></td>
+                    <td><?php echo $permission['updateTime']; ?></td>
+                    <td><span class="label <?php echo (int)$permission['status']==1?'label-success':'label-danger';?>"><?php echo (int)$permission['status']==1?'正常':'停用'; ?></span></td>
                     <td>
-                        <span class="label label-success edit" data="<?php echo $operator['operatorId']; ?>" href="<?php echo Url::to(['//account/operator/update','id'=>$operator['operatorId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-danger delete" data="<?php echo $operator['operatorId']; ?>" href="<?php echo Url::to(['//account/operator/update','id'=>$operator['operatorId']]); ?>"><?php echo $operator['status']==0?"恢复":"停用"?></span>
+                        <span class="label label-success edit" data="<?php echo $permission['permissionId']; ?>" href="<?php echo Url::to(['//account/operator/update','id'=>$permission['permissionId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-danger delete" data="<?php echo $permission['permissionId']; ?>" href="<?php echo Url::to(['//account/operator/update','id'=>$permission['permissionId']]); ?>"><?php echo $permission['status']==0?"恢复":"停用"?></span>
                     </td>
                 </tr>
             <?php }

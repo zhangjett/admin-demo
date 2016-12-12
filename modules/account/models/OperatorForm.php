@@ -18,6 +18,7 @@ class OperatorForm extends Model
     public $name;
     public $email;
     public $status;
+    public $gender;
     public $createTime;
     public $updateTime;
     public $roles;
@@ -52,6 +53,8 @@ class OperatorForm extends Model
             'password' => '密码',
             'name' => '姓名',
             'email' => '电子邮箱',
+            'status' => '状态',
+            'gender' => '性别',
             'createTime' => '创建时间',
             'updateTime' => '修改时间'
         ];
