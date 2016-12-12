@@ -16,24 +16,26 @@ use yii\bootstrap\ActiveForm;
                     ],
                     'layout' => 'inline',
                 ]); ?>
-                <?php echo $form->field($model,'status', [
-                ])->dropDownList(
-                    ['1' => '正常', '2' => '正常'], ['prompt' => '选择状态']
-                )->label($model->getAttributeLabel('status'));
+                <?php echo $form
+                    ->field($model,'status', [])
+                    ->dropDownList(['1' => '正常', '2' => '正常'], ['prompt' => '选择状态'])
+                    ->label($model->getAttributeLabel('status'));
                 ?>
                 &nbsp;&nbsp;
-                <?php echo $form->field($model,'type', [
-                ])->dropDownList(
-                    ['0' => '账号', '1' => '姓名'], ['prompt' => '选择类型']
-                )->label($model->getAttributeLabel('type'));
+                <?php echo $form
+                    ->field($model,'type', [])
+                    ->dropDownList(['0' => '账号', '1' => '姓名'], ['prompt' => '选择类型'])
+                    ->label($model->getAttributeLabel('type'));
                 ?>
-                <?php echo $form->field($model,'filter',[
-                        'inputOptions' => [
-                            'placeholder' =>'search...',
-                        ],
-                        'inputTemplate' => '<div class="has-feedback">{input}<span class="glyphicon glyphicon-search form-control-feedback"></span></div>'
-                    ]
-                )->label($model->getAttributeLabel('filter')); ?>
+                <?php echo $form
+                    ->field($model,'filter',[
+                            'inputOptions' => [
+                                'placeholder' =>'search...',
+                            ],
+                            'inputTemplate' => '<div class="has-feedback">{input}<span class="glyphicon glyphicon-search form-control-feedback"></span></div>'
+                        ]
+                    )
+                    ->label($model->getAttributeLabel('filter')); ?>
                 <?php ActiveForm::end(); ?>
             </div>
             <!-- /.box-header -->

@@ -1,0 +1,19 @@
+.icon {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.15em;
+    fill: currentColor;
+    overflow: hidden;
+}
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > svg{
+    z-index: 5;
+    height: 90px;
+    width: 90px;
+}
+
+/*解决上下不居中*/
+label.radio-inline > div{
+    height: 24px;
+    /*vertical-align: bottom;*/
+}
+

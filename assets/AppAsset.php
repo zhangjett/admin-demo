@@ -21,7 +21,8 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/font-awesome.min.css',
         'css/AdminLTE.min.css',
-        'css/skin-green-light.min.css'
+        'css/skin-green-light.min.css',
+        'css/app.css'
     ];
     public $js = [
         'js/jquery.slimscroll.min.js',
@@ -29,6 +30,7 @@ class AppAsset extends AssetBundle
         'js/app.js',
         'js/layer/layer.js',
         'js/tool.js',
+        'js/iconfont/iconfont.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

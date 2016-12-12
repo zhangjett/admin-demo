@@ -4,6 +4,10 @@ $(function () {
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'
         });
+        $('.box-body input[type="radio"]').iCheck({
+            checkboxClass: 'icheckbox_flat-green',
+            radioClass: 'iradio_flat-green'
+        });
     }).trigger('icheck'); // trigger it for page load
 
     $(document).on("click",".checkbox-toggle",function(){

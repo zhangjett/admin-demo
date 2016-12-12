@@ -1,5 +1,6 @@
 <?php
 use yii\bootstrap\ActiveForm;
+use yii\helpers\Html;
 ?>
 <div class="box box-solid">
     <div class="box-header with-border">
@@ -29,14 +30,15 @@ use yii\bootstrap\ActiveForm;
                     </div>
                 <?php }; ?>
                 <?php
-                if (Yii::$app->session->getFlash('updateOperator')=='success'){
+                if (Yii::$app->session->getFlash('updateOperator') == 'success'){
                     echo Html::hiddenInput("updateOperator","success",['id'=>'updateOperator']);
                 }
-                if (Yii::$app->session->getFlash('createOperator')=='success'){
+                if (Yii::$app->session->getFlash('createOperator') == 'success'){
                     echo Html::hiddenInput("createOperator","success",['id'=>'createOperator']);
                 }
                 ?>
-                <?php echo $form->field($model,'login',[
+                <?php echo $form
+                    ->field($model,'login',[
                         'inputOptions' => [
                             'class'=>'form-control',
                             'type'=>'text',
@@ -44,7 +46,8 @@ use yii\bootstrap\ActiveForm;
                         ],
                     ]
                 )->label($model->getAttributeLabel('login')); ?>
-                <?php echo $form->field($model,'password',[
+                <?php echo $form
+                    ->field($model,'password',[
                         'inputOptions' => [
                             'class'=>'form-control',
                             'type'=>'password',
@@ -52,7 +55,8 @@ use yii\bootstrap\ActiveForm;
                         ],
                     ]
                 )->label($model->getAttributeLabel('password')); ?>
-                <?php echo $form->field($model,'name',[
+                <?php echo $form
+                    ->field($model,'name',[
                         'inputOptions' => [
                             'class'=>'form-control',
                             'type'=>'text',
@@ -60,7 +64,8 @@ use yii\bootstrap\ActiveForm;
                         ],
                     ]
                 )->label($model->getAttributeLabel('name')); ?>
-                <?php echo $form->field($model,'email',[
+                <?php echo $form
+                    ->field($model,'email',[
                         'inputOptions' => [
                             'class'=>'form-control',
                             'type'=>'text',
@@ -74,12 +79,14 @@ use yii\bootstrap\ActiveForm;
                                 'wrapper' => 'col-sm-2',
                             ]
                         ])
-                    ->dropDownList([0=>'停用',1=>'正常'],['prompt'=>'状态'])
+                    ->dropDownList([0 => '停用', 1 => '正常'], ['prompt' => '状态'])
                     ->label($model->getAttributeLabel('status')); ?>
                 <?php echo $form
-                    ->field($model,'status')
+                    ->field($model, 'status')
                     ->inline()
-                    ->radioList(['1'=>'男','2'=>'女','0'=>'保密'])
+                    ->radioList(
+                        ['1'=>'男','2'=>'女','0'=>'保密']
+                    )
                     ->label($model->getAttributeLabel('status')); ?>
             </div>
             <!-- /.col -->
@@ -121,3 +128,13 @@ use yii\bootstrap\ActiveForm;
         the plugin.
     </div>
 </div>
+<script>
+    <?php $this->beginBlock('JS_END');?>
+    $(function(){
+        console.log($('label.radio-inline').contents());
+    });
+    <?php
+    $this->endBlock();
+    $this->registerJs($this->blocks['JS_END'],\yii\web\view::POS_END);
+    ?>
+</script>

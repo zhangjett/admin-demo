@@ -24,7 +24,7 @@ class OperatorController extends Controller
     {
         $model = new OperatorSearchForm();
 
-        if (Yii::$app->request->isAjax){
+        if (Yii::$app->request->isAjax) {
             $model->load(Yii::$app->request->post());
             $result = $model->search();
             echo $this->renderPartial("__operatorList", ['operatorList' => $result['rows'],'pages' => $result['pages']]);
