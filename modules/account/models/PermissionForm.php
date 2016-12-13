@@ -12,7 +12,7 @@ use yii\base\Exception;
  */
 class PermissionForm extends Model
 {
-    public $id;
+    public $permissionId;
     public $name;
     public $category;
     public $module;
@@ -22,7 +22,7 @@ class PermissionForm extends Model
     public function rules()
     {
         return [
-            [['id'], 'required', 'on' => 'update'],
+            [['permissionId'], 'required', 'on' => 'update'],
             [['name', 'category', 'module', 'controller', 'action'], 'required'],
             ['action', 'validateName', 'on' => 'create'],
         ];
@@ -75,7 +75,7 @@ class PermissionForm extends Model
 
         list($this->module, $this->controller, $this->action) = explode("/",$row['description']);
 
-        $this->id = $row['id'];
+        $this->permissionId = $row['id'];
         $this->name = $row['name'];
         $this->category = $row['category'];
 

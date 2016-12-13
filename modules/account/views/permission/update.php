@@ -30,29 +30,29 @@ use yii\helpers\Html;
                     </div>
                 <?php }; ?>
                 <?php
-                if (Yii::$app->session->getFlash('updateOperator') == 'success'){
-                    echo Html::hiddenInput("updateOperator","success",['id'=>'updateOperator']);
+                if (Yii::$app->session->getFlash('updatePermission') == 'success'){
+                    echo Html::hiddenInput("updateOperator","success",['id'=>'updatePermission']);
                 }
-                if (Yii::$app->session->getFlash('createOperator') == 'success'){
-                    echo Html::hiddenInput("createOperator","success",['id'=>'createOperator']);
+                if (Yii::$app->session->getFlash('createPermission') == 'success'){
+                    echo Html::hiddenInput("createOperator","success",['id'=>'createPermission']);
                 }
                 ?>
                 <?php echo $form
-                    ->field($model,'login',[
+                    ->field($model,'name',[
                         'inputOptions' => [
                             'type' => 'text',
                             'placeholder' =>'',
                         ],
                     ]
-                )->label($model->getAttributeLabel('login')); ?>
+                )->label($model->getAttributeLabel('name')); ?>
                 <?php echo $form
-                    ->field($model,'password',[
+                    ->field($model,'module',[
                         'inputOptions' => [
-                            'type' => 'password',
+                            'type' => 'text',
                             'placeholder' =>'',
                         ],
                     ]
-                )->label($model->getAttributeLabel('password')); ?>
+                )->label($model->getAttributeLabel('module')); ?>
                 <?php echo $form
                     ->field($model,'name',[
                         'inputOptions' => [
@@ -60,30 +60,30 @@ use yii\helpers\Html;
                             'placeholder' => '',
                         ],
                     ]
-                )->label($model->getAttributeLabel('name')); ?>
+                )->label($model->getAttributeLabel('module')); ?>
                 <?php echo $form
-                    ->field($model,'email',[
+                    ->field($model,'controller',[
                         'inputOptions' => [
                             'type' => 'text',
                             'placeholder' => '',
                         ],
                     ]
-                )->label($model->getAttributeLabel('email')); ?>
+                )->label($model->getAttributeLabel('controller')); ?>
                 <?php echo $form
-                    ->field($model, 'gender')
+                    ->field($model, 'action')
                     ->inline()
                     ->radioList(
                         ['1' => '男', '2' => '女', '0' => '保密']
                     )
-                    ->label($model->getAttributeLabel('gender')); ?>
+                    ->label($model->getAttributeLabel('action')); ?>
                 <?php echo $form
-                    ->field($model,'status', [
+                    ->field($model,'action', [
                         'horizontalCssClasses' => [
                             'wrapper' => 'col-sm-3',
                         ]
                     ])
                     ->dropDownList([0 => '停用', 1 => '正常'], ['prompt' => '状态'])
-                    ->label($model->getAttributeLabel('status')); ?>
+                    ->label($model->getAttributeLabel('action')); ?>
             </div>
             <!-- /.col -->
             <div class="col-md-6">

@@ -6,9 +6,16 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'zh-CN',
     'modules' => [
         'account' => [
             'class' => 'app\modules\account\Module',
+        ],
+        'v1' => [
+            'class' => 'app\modules\v1\Module',
+        ],
+        'v2' => [
+            'class' => 'app\modules\v2\Module',
         ],
     ],
     'components' => [
