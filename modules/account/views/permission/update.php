@@ -1,6 +1,7 @@
 <?php
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use app\components\App;
 ?>
 <div class="box box-solid">
     <div class="box-header with-border">
@@ -37,6 +38,9 @@ use yii\helpers\Html;
                     echo Html::hiddenInput("createOperator","success",['id'=>'createPermission']);
                 }
                 ?>
+                <?php
+                    $app = new App()
+                ?>
                 <?php echo $form
                     ->field($model,'name',[
                         'inputOptions' => [
@@ -46,43 +50,36 @@ use yii\helpers\Html;
                     ]
                 )->label($model->getAttributeLabel('name')); ?>
                 <?php echo $form
-                    ->field($model,'module',[
-                        'inputOptions' => [
-                            'type' => 'text',
-                            'placeholder' =>'',
-                        ],
-                    ]
-                )->label($model->getAttributeLabel('module')); ?>
+                    ->field($model,'module', [
+                        'horizontalCssClasses' => [
+                            'wrapper' => 'col-sm-4',
+                        ]
+                    ])
+                    ->dropDownList($app->getAppModule(), ['prompt' => '---module---'])
+                    ->label($model->getAttributeLabel('module')); ?>
                 <?php echo $form
-                    ->field($model,'name',[
-                        'inputOptions' => [
-                            'type' => 'text',
-                            'placeholder' => '',
-                        ],
-                    ]
-                )->label($model->getAttributeLabel('module')); ?>
-                <?php echo $form
-                    ->field($model,'controller',[
-                        'inputOptions' => [
-                            'type' => 'text',
-                            'placeholder' => '',
-                        ],
-                    ]
-                )->label($model->getAttributeLabel('controller')); ?>
-                <?php echo $form
-                    ->field($model, 'action')
-                    ->inline()
-                    ->radioList(
-                        ['1' => '男', '2' => '女', '0' => '保密']
-                    )
-                    ->label($model->getAttributeLabel('action')); ?>
+                    ->field($model,'controller', [
+                        'horizontalCssClasses' => [
+                            'wrapper' => 'col-sm-4',
+                        ]
+                    ])
+                    ->dropDownList($app->getAppModuleController(), ['prompt' => '---controller---', 'disabled' => 'disabled'])
+                    ->label($model->getAttributeLabel('controller')); ?>
                 <?php echo $form
                     ->field($model,'action', [
+                        'horizontalCssClasses' => [
+                            'wrapper' => 'col-sm-4',
+                        ]
+                    ])
+                    ->dropDownList($app->getAppModuleControllerAction(), ['prompt' => '---action---', 'disabled' => 'disabled'])
+                    ->label($model->getAttributeLabel('action')); ?>
+                <?php echo $form
+                    ->field($model,'status', [
                         'horizontalCssClasses' => [
                             'wrapper' => 'col-sm-3',
                         ]
                     ])
-                    ->dropDownList([0 => '停用', 1 => '正常'], ['prompt' => '状态'])
+                    ->dropDownList([1 => '正常', 2 => '停用'], ['prompt' => '--状态--'])
                     ->label($model->getAttributeLabel('action')); ?>
             </div>
             <!-- /.col -->

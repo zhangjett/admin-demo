@@ -18,12 +18,13 @@ class PermissionForm extends Model
     public $module;
     public $controller;
     public $action;
+    public $status;
 
     public function rules()
     {
         return [
             [['permissionId'], 'required', 'on' => 'update'],
-            [['name', 'category', 'module', 'controller', 'action'], 'required'],
+            [['name', 'category', 'module', 'controller', 'action', 'status'], 'required'],
             ['action', 'validateName', 'on' => 'create'],
         ];
     }

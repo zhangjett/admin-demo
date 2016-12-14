@@ -56,4 +56,18 @@ class App extends Object
         $cache = Yii::$app->cache;
         return json_decode($cache->get("appModule"), true);
     }
+
+    public function getAppModuleController()
+    {
+        $cache = Yii::$app->cache;
+
+        return json_decode($cache->get("appModuleController"), true);
+    }
+
+    public function getAppModuleControllerAction()
+    {
+        $cache = Yii::$app->cache;
+
+        return json_decode($cache->get("appModuleControllerAction"), true);
+    }
 }

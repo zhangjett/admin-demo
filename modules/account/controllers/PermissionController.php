@@ -44,9 +44,6 @@ class PermissionController extends Controller
 
     public function actionCreate()
     {
-        $component = new App();
-        $component->getPermissionList();
-
         $model = new PermissionForm();
         $model->setScenario('create');
 
