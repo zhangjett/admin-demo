@@ -4,7 +4,7 @@ namespace app\modules\account\controllers;
 
 use Yii;
 use app\components\Controller;
-use app\components\Permission;
+use app\components\App;
 use app\modules\account\models\PermissionForm;
 use app\modules\account\models\PermissionSearchForm;
 
@@ -44,7 +44,7 @@ class PermissionController extends Controller
 
     public function actionCreate()
     {
-        $component = new Permission();
+        $component = new App();
         $component->getPermissionList();
 
         $model = new PermissionForm();
