@@ -20,23 +20,24 @@ class App extends Object
 
             $moduleNameSpace = 'app\modules';
             $modules = array_diff(scandir(Yii::getAlias('@'.str_replace('\\', '/', $moduleNameSpace))), ['..', '.']);
-            $moduleList = array_values($modules);
+            $moduleList = array_combine(array_values($modules),array_values($modules));
 
-
-            if (is_array($modules) && count($modules) > 0) {
+            if (is_array($modules) && (count($modules) > 0)) {
                 foreach ($modules as $module) {
                     $controllerNameSpace = 'app\modules\\'.$module.'\controllers';
                     $files = array_diff(scandir(Yii::getAlias('@'.str_replace('\\', '/', $controllerNameSpace))), ['..', '.']);
                     if (is_array($files) && count($files) > 0) {
                         foreach ($files as $file) {
                             list($fileName, $ext) = explode(".", $file);
-                            $moduleControllerList[$module][] = strtolower(str_replace('Controller', '', $fileName));
-                            $controllerName = $controllerNameSpace.'\\'.$fileName;
-                            $methods = (new \ReflectionClass($controllerName))->getMethods();
+                            $fileNameWithoutController = strtolower(str_replace('Controller', '', $fileName));
+                            $moduleControllerList[$module][$fileNameWithoutController] = $fileNameWithoutController;
+                            $controller = $controllerNameSpace.'\\'.$fileName;
+                            $methods = (new \ReflectionClass($controller))->getMethods();
                             if (is_array($methods) && count($methods) > 0) {
                                 foreach ($methods as $method) {
-                                    if (($method->class == $controllerName) && (strpos($method->name, 'action') !== false)) {
-                                        $moduleControllerActionList[$module.'-'.strtolower(str_replace('Controller', '', $fileName))][] = strtolower(str_replace('action', '', $method->name));
+                                    if (($method->class == $controller) && (strpos($method->name, 'action') !== false)) {
+                                        $actionWithoutAction = strtolower(str_replace('action', '', $method->name));
+                                        $moduleControllerActionList[$module.'-'.$fileNameWithoutController][$actionWithoutAction] = $actionWithoutAction;
                                     }
                                 }
                             }

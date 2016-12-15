@@ -1,6 +1,7 @@
 <?php
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use app\components\App;
 ?>
 <div class="box box-solid">
@@ -14,16 +15,16 @@ use app\components\App;
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <?php $form = ActiveForm::begin([
-            'id' => 'updateForm',
-            'enableClientValidation'=>true,
-            'options' => [
-                'method' => 'post',
-                'role'=>"form"
-            ],
-            'layout' => 'horizontal',
-        ]); ?>
         <div class="row">
+            <?php $form = ActiveForm::begin([
+                'id' => 'updateForm',
+                'enableClientValidation'=>true,
+                'options' => [
+                    'method' => 'post',
+                    'role'=>"form"
+                ],
+                'layout' => 'horizontal',
+            ]); ?>
             <div class="col-md-6">
                 <?php if(count($model->getFirstErrors())>0){ ?>
                     <div class="alert alert-danger alert-dismissible">
@@ -52,7 +53,7 @@ use app\components\App;
                 <?php echo $form
                     ->field($model,'module', [
                         'horizontalCssClasses' => [
-                            'wrapper' => 'col-sm-4',
+//                            'wrapper' => 'col-sm-4',
                         ]
                     ])
                     ->dropDownList($app->getAppModule(), ['prompt' => '---module---'])
@@ -60,7 +61,7 @@ use app\components\App;
                 <?php echo $form
                     ->field($model,'controller', [
                         'horizontalCssClasses' => [
-                            'wrapper' => 'col-sm-4',
+//                            'wrapper' => 'col-sm-4',
                         ]
                     ])
                     ->dropDownList($app->getAppModuleController(), ['prompt' => '---controller---', 'disabled' => 'disabled'])
@@ -68,7 +69,7 @@ use app\components\App;
                 <?php echo $form
                     ->field($model,'action', [
                         'horizontalCssClasses' => [
-                            'wrapper' => 'col-sm-4',
+//                            'wrapper' => 'col-sm-4',
                         ]
                     ])
                     ->dropDownList($app->getAppModuleControllerAction(), ['prompt' => '---action---', 'disabled' => 'disabled'])
@@ -76,11 +77,11 @@ use app\components\App;
                 <?php echo $form
                     ->field($model,'status', [
                         'horizontalCssClasses' => [
-                            'wrapper' => 'col-sm-3',
+//                            'wrapper' => 'col-sm-3',
                         ]
                     ])
                     ->dropDownList([1 => '正常', 2 => '停用'], ['prompt' => '--状态--'])
-                    ->label($model->getAttributeLabel('action')); ?>
+                    ->label($model->getAttributeLabel('status')); ?>
             </div>
             <!-- /.col -->
             <div class="col-md-6">
@@ -123,7 +124,31 @@ use app\components\App;
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
-        console.log($('label.radio-inline').contents());
+        $("#permissionform-module").on("change", function(){
+            if($(this).val() != "") {
+                $("#permissionform-controller").attr("disabled",false);
+                $.each($("#permissionform-controller").find("optgroup"), function () {
+                    if ($(this).attr('label') == $("#permissionform-module").val()) {
+                        $(this).css('display', 'inline');
+                        return true;
+                    }
+                    $(this).css('display', 'none');
+                });
+            }
+        });
+
+        $("#permissionform-controller").on("change", function(){
+            if($(this).val() != "") {
+                $("#permissionform-action").attr("disabled",false);
+                $.each($("#permissionform-action").find("optgroup"), function () {
+                    if ($(this).attr('label') == ($("#permissionform-module").val()+'-'+$("#permissionform-controller").val())) {
+                        $(this).css('display', 'inline');
+                        return true;
+                    }
+                    $(this).css('display', 'none');
+                });
+            }
+        });
     });
     <?php
     $this->endBlock();

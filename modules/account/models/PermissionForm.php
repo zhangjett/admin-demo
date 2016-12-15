@@ -57,6 +57,7 @@ class PermissionForm extends Model
             'module' => 'module',
             'controller' => 'controller',
             'action' => 'action',
+            'status' => '状态',
         ];
     }
 
