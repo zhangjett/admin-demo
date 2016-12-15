@@ -3,6 +3,7 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\components\App;
+use app\components\Dictionary;
 ?>
 <div class="box box-solid">
     <div class="box-header with-border">
@@ -13,120 +14,107 @@ use app\components\App;
             <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
         </div>
     </div>
+    <?php $form = ActiveForm::begin([
+        'id' => 'updateForm',
+        'enableClientValidation'=>true,
+        'options' => [
+            'method' => 'post',
+            'role'=>"form"
+        ],
+        'layout' => 'horizontal',
+    ]); ?>
     <!-- /.box-header -->
     <div class="box-body">
-        <div class="row">
-            <?php $form = ActiveForm::begin([
-                'id' => 'updateForm',
-                'enableClientValidation'=>true,
-                'options' => [
-                    'method' => 'post',
-                    'role'=>"form"
-                ],
-                'layout' => 'horizontal',
-            ]); ?>
-            <div class="col-md-6">
-                <?php if(count($model->getFirstErrors())>0){ ?>
-                    <div class="alert alert-danger alert-dismissible">
-                        <?php echo $form->errorSummary($model); ?>
-                    </div>
-                <?php }; ?>
-                <?php
-                if (Yii::$app->session->getFlash('updatePermission') == 'success'){
-                    echo Html::hiddenInput("updateOperator","success",['id'=>'updatePermission']);
-                }
-                if (Yii::$app->session->getFlash('createPermission') == 'success'){
-                    echo Html::hiddenInput("createOperator","success",['id'=>'createPermission']);
-                }
-                ?>
-                <?php
-                    $app = new App()
-                ?>
-                <?php echo $form
-                    ->field($model,'name',[
-                        'inputOptions' => [
-                            'type' => 'text',
-                            'placeholder' =>'',
-                        ],
-                    ]
-                )->label($model->getAttributeLabel('name')); ?>
-                <?php echo $form
-                    ->field($model,'module', [
-                        'horizontalCssClasses' => [
-//                            'wrapper' => 'col-sm-4',
-                        ]
-                    ])
-                    ->dropDownList($app->getAppModule(), ['prompt' => '---module---'])
-                    ->label($model->getAttributeLabel('module')); ?>
-                <?php echo $form
-                    ->field($model,'controller', [
-                        'horizontalCssClasses' => [
-//                            'wrapper' => 'col-sm-4',
-                        ]
-                    ])
-                    ->dropDownList($app->getAppModuleController(), ['prompt' => '---controller---', 'disabled' => 'disabled'])
-                    ->label($model->getAttributeLabel('controller')); ?>
-                <?php echo $form
-                    ->field($model,'action', [
-                        'horizontalCssClasses' => [
-//                            'wrapper' => 'col-sm-4',
-                        ]
-                    ])
-                    ->dropDownList($app->getAppModuleControllerAction(), ['prompt' => '---action---', 'disabled' => 'disabled'])
-                    ->label($model->getAttributeLabel('action')); ?>
-                <?php echo $form
-                    ->field($model,'status', [
-                        'horizontalCssClasses' => [
-//                            'wrapper' => 'col-sm-3',
-                        ]
-                    ])
-                    ->dropDownList([1 => '正常', 2 => '停用'], ['prompt' => '--状态--'])
-                    ->label($model->getAttributeLabel('status')); ?>
-            </div>
-            <!-- /.col -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Multiple</label>
-                    <select class="form-control" multiple="">
-                        <option>Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                    </select>
-                </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                    <label>Disabled Result</label>
-                    <select class="form-control">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option disabled="disabled">California (disabled)</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                    </select>
-                </div>
-            </div>
-            <!-- /.col -->
+    <?php if(count($model->getFirstErrors()) > 0){ ?>
+        <div class="alert alert-danger alert-dismissible">
+            <?php echo $form->errorSummary($model); ?>
         </div>
-        <!-- /.row -->
-        <?php ActiveForm::end(); ?>
+    <?php }; ?>
+    <?php
+    if (Yii::$app->session->getFlash('createPermission') == 'success'){
+        echo Html::hiddenInput("createOperator","success",['id'=>'createPermission']);
+    }
+    if (Yii::$app->session->getFlash('updatePermission') == 'success'){
+        echo Html::hiddenInput("updateOperator","success",['id'=>'updatePermission']);
+    }
+
+    ?>
+    <?php
+        $app = new App();
+        $dictionary = new Dictionary();
+    ?>
+    <?php echo $form
+        ->field($model,'name',[
+            'horizontalCssClasses' => [
+                'wrapper' => 'col-sm-3',
+            ],
+            'inputOptions' => [
+                'type' => 'text',
+                'placeholder' =>'',
+            ],
+        ]
+    )->label($model->getAttributeLabel('name')); ?>
+    <?php echo $form
+        ->field($model,'module', [
+            'horizontalCssClasses' => [
+                'wrapper' => 'col-sm-3',
+            ]
+        ])
+        ->dropDownList($app->getAppModule(), ['prompt' => '--module--'])
+        ->label($model->getAttributeLabel('module')); ?>
+    <?php echo $form
+        ->field($model,'controller', [
+            'horizontalCssClasses' => [
+                'wrapper' => 'col-sm-3',
+            ]
+        ])
+        ->dropDownList($app->getAppModuleController(), ['prompt' => '--controller--'])
+        ->label($model->getAttributeLabel('controller')); ?>
+    <?php echo $form
+        ->field($model,'action', [
+            'horizontalCssClasses' => [
+                'wrapper' => 'col-sm-3',
+            ]
+        ])
+        ->dropDownList($app->getAppModuleControllerAction(), ['prompt' => '--action--'])
+        ->label($model->getAttributeLabel('action')); ?>
+    <?php echo $form
+        ->field($model,'group', [
+            'horizontalCssClasses' => [
+                'wrapper' => 'col-sm-2',
+            ]
+        ])
+        ->dropDownList($dictionary->getGroup(), ['prompt' => '--分组--'])
+        ->label($model->getAttributeLabel('group')); ?>
+    <?php echo $form
+        ->field($model,'status', [
+            'horizontalCssClasses' => [
+                'wrapper' => 'col-sm-2',
+            ]
+        ])
+        ->dropDownList([1 => '正常', 2 => '停用'], ['prompt' => '--状态--'])
+        ->label($model->getAttributeLabel('status')); ?>
+    <?php echo $form->field($model, 'permissionId')->hiddenInput()->label(false); ?>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-        <button type="submit" class="btn btn-success pull-right">提交</button>
+        <?php echo Html::submitButton('提交', ['class' => 'btn btn-success pull-right']); ?>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>
+
+
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        if(($('#createPermission').length > 0) && ($('#createPermission').val() == 'success')){
+            setTimeout(function(){layer.msg('新建成功了呦', {icon: 6});}, 1000);
+        }
+        if(($('#updatePermission').length > 0) && ($('#updatePermission').val() == 'success')){
+            setTimeout(function(){layer.msg('修改成功了呦', {icon: 6});}, 1000);
+        }
         $("#permissionform-module").on("change", function(){
             if($(this).val() != "") {
-                $("#permissionform-controller").attr("disabled",false);
                 $.each($("#permissionform-controller").find("optgroup"), function () {
                     if ($(this).attr('label') == $("#permissionform-module").val()) {
                         $(this).css('display', 'inline');
@@ -139,7 +127,6 @@ use app\components\App;
 
         $("#permissionform-controller").on("change", function(){
             if($(this).val() != "") {
-                $("#permissionform-action").attr("disabled",false);
                 $.each($("#permissionform-action").find("optgroup"), function () {
                     if ($(this).attr('label') == ($("#permissionform-module").val()+'-'+$("#permissionform-controller").val())) {
                         $(this).css('display', 'inline');

@@ -4,14 +4,14 @@ namespace app\modules\account\controllers;
 
 use Yii;
 use app\components\Controller;
-use app\modules\account\models\PermissionForm;
-use app\modules\account\models\PermissionSearchForm;
+use app\modules\account\models\RoleForm;
+use app\modules\account\models\RoleSearchForm;
 use yii\helpers\Json;
 
 /**
- * Permission controller for the `account` module
+ * Role controller for the `account` module
  */
-class PermissionController extends Controller
+class RoleController extends Controller
 {
     public $cssFile = [
         'icheck/green.css'
@@ -23,17 +23,17 @@ class PermissionController extends Controller
 
     public function actionIndex()
     {
-        $model = new PermissionSearchForm();
+        $model = new RoleSearchForm();
 
         if (Yii::$app->request->isAjax) {
             $model->load(Yii::$app->request->post());
             $result = $model->search();
-            echo $this->renderPartial("__permissionList", ['permissionList' => $result['rows'],'pages' => $result['pages']]);
+            echo $this->renderPartial("__roleList", ['roleList' => $result['rows'],'pages' => $result['pages']]);
             Yii::$app->end();
         } else {
             $model->status = 1;
             $result = $model->search();
-            $content = $this->renderPartial("__permissionList", ['permissionList' => $result['rows'],'pages' => $result['pages']]);
+            $content = $this->renderPartial("__roleList", ['roleList' => $result['rows'],'pages' => $result['pages']]);
         }
 
         return $this->render('index', [
@@ -44,7 +44,7 @@ class PermissionController extends Controller
 
     public function actionCreate()
     {
-        $model = new PermissionForm();
+        $model = new RoleForm();
         $model->setScenario('create');
 
         if ($model->load(Yii::$app->request->post())) {
@@ -65,7 +65,7 @@ class PermissionController extends Controller
      */
     public function actionDelete()
     {
-        $model = new PermissionForm();
+        $model = new RoleForm();
         $permissionId = Yii::$app->request->post("permissionId");
 
         if (is_array($permissionId) && count($permissionId)>0 && $model->delete($permissionId)) {
@@ -77,7 +77,7 @@ class PermissionController extends Controller
 
     public function actionUpdate()
     {
-        $model = new PermissionForm();
+        $model = new RoleForm();
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {

@@ -14,7 +14,7 @@ class PermissionForm extends Model
 {
     public $permissionId;
     public $name;
-    public $category;
+    public $group;
     public $module;
     public $controller;
     public $action;
@@ -24,7 +24,7 @@ class PermissionForm extends Model
     {
         return [
             [['permissionId'], 'required', 'on' => 'update'],
-            [['name', 'category', 'module', 'controller', 'action', 'status'], 'required'],
+            [['name', 'group', 'module', 'controller', 'action', 'status'], 'required'],
             ['action', 'validateName', 'on' => 'create'],
         ];
     }
@@ -52,8 +52,9 @@ class PermissionForm extends Model
     public function attributeLabels()
     {
         return [
+            'permissionId' => '权限ID',
             'name' => '名称',
-            'category' => '类别',
+            'group' => '组别',
             'module' => 'module',
             'controller' => 'controller',
             'action' => 'action',
@@ -70,16 +71,17 @@ class PermissionForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['id','name','description','category','update_time'])
+            ->select(['item_id AS permission_id', 'name', 'description', 'group_id', 'status'])
             ->from('auth_item')
-            ->where(['id' => $id])
+            ->where(['item_id' => $id])
             ->one();
 
         list($this->module, $this->controller, $this->action) = explode("/",$row['description']);
 
-        $this->permissionId = $row['id'];
+        $this->permissionId = $row['permission_id'];
         $this->name = $row['name'];
-        $this->category = $row['category'];
+        $this->group = $row['group_id'];
+        $this->status = $row['status'];
 
         return true;
     }
@@ -98,12 +100,12 @@ class PermissionForm extends Model
         try {
             $columns = [
                 'name' => $this->name,
-                'category' => (int)$this->category,
+                'group_id' => (int)$this->group,
                 'description' => $description,
                 'update_time' => date("Y-m-d H:i:s")
             ];
             $condition = [
-                'id' => $this->id,
+                'item_id' => $this->permissionId,
             ];
             $connection->createCommand()->update('auth_item', $columns, $condition)->execute();
             $transaction->commit();
@@ -125,12 +127,11 @@ class PermissionForm extends Model
         $transaction = $connection->beginTransaction();
 
         try {
-            $name = $this->module."/".$this->controller."/".$this->action;
             $date = date("Y-m-d H:i:s");
             $columns = [
                 'name' => $this->name,
                 'type' => 2,
-                'description' => $this->description,
+                'description' => $this->module."/".$this->controller."/".$this->action,
                 'category' => $this->category,
                 'created_at' => $date,
                 'updated_at' => $date,

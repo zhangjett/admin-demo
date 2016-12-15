@@ -38,18 +38,18 @@ use yii\helpers\Url;
             </tr>
         </thead>
         <tbody>
-        <?php if (is_array($permissionList) && count($permissionList) > 0) {
-            foreach ($permissionList as $index => $permission) { ; ?>
+        <?php if (is_array($roleList) && count($roleList) > 0) {
+            foreach ($roleList as $index => $role) { ; ?>
                 <tr>
-                    <td><input type="checkbox" value="<?php echo $permission['permissionId']; ?>"></td>
-                    <td><?php echo $permission['name']; ?></td>
-                    <td><a href="javascript:void(0);"><?php echo $permission['description']; ?></a></td>
-                    <td><?php echo $permission['groupName']; ?></td>
-                    <td><?php echo $permission['updateTime']; ?></td>
-                    <td><span class="label <?php echo (int)$permission['status']==1?'label-success':'label-danger';?>"><?php echo (int)$permission['status']==1?'正常':'停用'; ?></span></td>
+                    <td><input type="checkbox" value="<?php echo $role['roleId']; ?>"></td>
+                    <td><?php echo $role['name']; ?></td>
+                    <td><a href="javascript:void(0);"><?php echo $role['description']; ?></a></td>
+                    <td><?php echo $role['groupName']; ?></td>
+                    <td><?php echo $role['updateTime']; ?></td>
+                    <td><span class="label <?php echo (int)$role['status']==1?'label-success':'label-danger';?>"><?php echo (int)$role['status']==1?'正常':'停用'; ?></span></td>
                     <td>
-                        <span class="label label-success edit" data="<?php echo $permission['permissionId']; ?>" href="<?php echo Url::to(['//account/permission/update','id'=>$permission['permissionId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-danger delete" data="<?php echo $permission['permissionId']; ?>" href="<?php echo Url::to(['//account/permission/update','id'=>$permission['permissionId']]); ?>"><?php echo $permission['status']==0?"恢复":"停用"?></span>
+                        <span class="label label-success edit" data="<?php echo $role['roleId']; ?>" href="<?php echo Url::to(['//account/role/update','id'=>$role['roleId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-danger delete" data="<?php echo $role['roleId']; ?>" href="<?php echo Url::to(['//account/role/update','id'=>$role['roleId']]); ?>"><?php echo $role['status']==0?"恢复":"停用"?></span>
                     </td>
                 </tr>
             <?php }
