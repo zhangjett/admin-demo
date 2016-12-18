@@ -7,28 +7,28 @@ use yii\db\Query;
 
 class Dictionary extends Object
 {
-    public function getGroup()
+    /**
+     * 获取组别
+     * @param int $type
+     * @return array
+     */
+    public function getGroup($type = 1)
     {
         $rows = (new Query())
             ->select(['name'])
             ->from('group')
+            ->where('type = :type')
+            ->addParams([':type' => $type])
             ->indexBy('group_id')
             ->column();
 
         return $rows;
     }
 
-    public function getAppModuleController()
+    public function getAllPermission()
     {
-        $cache = Yii::$app->cache;
+        $rows = [];
 
-        return json_decode($cache->get("appModuleController"), true);
-    }
-
-    public function getAppModuleControllerAction()
-    {
-        $cache = Yii::$app->cache;
-
-        return json_decode($cache->get("appModuleControllerAction"), true);
+        return $rows;
     }
 }

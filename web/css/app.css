@@ -14,6 +14,5 @@
 /*解决上下不居中*/
 label.radio-inline > div{
     height: 24px;
-    /*vertical-align: bottom;*/
 }
 

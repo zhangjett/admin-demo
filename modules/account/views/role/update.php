@@ -31,11 +31,11 @@ use app\components\Dictionary;
         </div>
     <?php }; ?>
     <?php
-    if (Yii::$app->session->getFlash('createPermission') == 'success'){
-        echo Html::hiddenInput("createOperator","success",['id'=>'createPermission']);
+    if (Yii::$app->session->getFlash('createRole') == 'success'){
+        echo Html::hiddenInput("createOperator","success",['id'=>'createRole']);
     }
-    if (Yii::$app->session->getFlash('updatePermission') == 'success'){
-        echo Html::hiddenInput("updateOperator","success",['id'=>'updatePermission']);
+    if (Yii::$app->session->getFlash('updateRole') == 'success'){
+        echo Html::hiddenInput("updateOperator","success",['id'=>'updateRole']);
     }
 
     ?>
@@ -95,16 +95,120 @@ use app\components\Dictionary;
         ->dropDownList([1 => '正常', 2 => '停用'], ['prompt' => '--状态--'])
         ->label($model->getAttributeLabel('status')); ?>
         <div class="form-group">
-            <label class="col-sm-3 control-label">Email</label>
-            <div class="col-sm-9">
-                <p class="form-control-static">email@example.com</p>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label">Email</label>
+            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('permission'); ?></label>
             <div class="col-sm-8">
-
                 <div class="form-group">
+                    <div>
+                        <b>1</b>
+                    </div>
+                <?php
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('猜想');
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('违法');
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('风格豆腐干方便');
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('的方式方式');
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('豆腐干地方打工的地方官梵蒂冈的个地方');
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('发射点发射点发生');
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('固定格式规范的规定规范的规定的');
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('试试但是犯得上电风扇');
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('分身乏术');
+                echo $form->field($model, 'permission[]', [
+                    'inputOptions' => [
+                        'type' => 'checkbox'
+                    ],
+                    'options' => [
+                        'tag' => false
+                    ],
+                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                ])->label('大幅度的地方不大');
+                ?>
+
+                </div>
+                <div class="form-group">
+                    <div>
+                        <b>111</b>
+                    </div>
                     <label>
                         <input type="checkbox" class="flat-red" checked>
                         Flat green skin checkbox
@@ -134,39 +238,6 @@ use app\components\Dictionary;
                         Flat green skin checkbox checkbox
                     </label>
                 </div>
-                <div class="form-group">
-                    <label>
-                        <input type="checkbox" class="flat-red" checked>
-                        Flat green skin checkbox
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red">
-                        Flat green skin checkbox
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        <span>Flat green skin checkbox</span>
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        Flat green skin checkbox
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        Flat green skin
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        Flat green skin checkbox checkbox
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        Flat green skin checkbox checkbox
-                    </label>
-                </div>
-
-
-
             </div>
         </div>
     <?php echo $form->field($model, 'roleId')->hiddenInput()->label(false); ?>
