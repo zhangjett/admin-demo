@@ -95,14 +95,15 @@ use app\components\Dictionary;
         ->dropDownList([1 => '正常', 2 => '停用'], ['prompt' => '--状态--'])
         ->label($model->getAttributeLabel('status')); ?>
         <div class="form-group">
-            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('permission'); ?></label>
+            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('menu'); ?></label>
             <div class="col-sm-8">
+                <?php ?>
                 <div class="form-group">
                     <div>
                         <b>1</b>
                     </div>
                 <?php
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],
@@ -112,7 +113,7 @@ use app\components\Dictionary;
                     'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
                     'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                 ])->label('猜想');
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],
@@ -122,7 +123,7 @@ use app\components\Dictionary;
                     'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
                     'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                 ])->label('违法');
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],
@@ -132,7 +133,7 @@ use app\components\Dictionary;
                     'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
                     'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                 ])->label('风格豆腐干方便');
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],
@@ -142,7 +143,7 @@ use app\components\Dictionary;
                     'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
                     'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                 ])->label('的方式方式');
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],
@@ -152,7 +153,7 @@ use app\components\Dictionary;
                     'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
                     'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                 ])->label('豆腐干地方打工的地方官梵蒂冈的个地方');
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],
@@ -162,7 +163,7 @@ use app\components\Dictionary;
                     'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
                     'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                 ])->label('发射点发射点发生');
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],
@@ -172,7 +173,7 @@ use app\components\Dictionary;
                     'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
                     'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                 ])->label('固定格式规范的规定规范的规定的');
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],
@@ -182,7 +183,7 @@ use app\components\Dictionary;
                     'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
                     'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                 ])->label('试试但是犯得上电风扇');
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],
@@ -192,7 +193,7 @@ use app\components\Dictionary;
                     'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
                     'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                 ])->label('分身乏术');
-                echo $form->field($model, 'permission[]', [
+                echo $form->field($model, 'menu[]', [
                     'inputOptions' => [
                         'type' => 'checkbox'
                     ],

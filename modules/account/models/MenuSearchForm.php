@@ -8,9 +8,9 @@ use yii\data\Pagination;
 use yii\db\Query;
 
 /**
- * PermissionSearchForm.
+ * MenuSearchForm.
  */
-class PermissionSearchForm extends Model
+class MenuSearchForm extends Model
 {
     public $status;
     public $filter;
@@ -31,7 +31,7 @@ class PermissionSearchForm extends Model
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
         $rows = $query
-            ->select(['item_id AS permissionId', 'auth_item.name', 'description', 'group.name AS groupName', 'status', 'update_time AS updateTime'])
+            ->select(['item_id AS menuId', 'auth_item.name', 'description', 'group.name AS groupName', 'status', 'update_time AS updateTime'])
             ->from('auth_item')
             ->leftJoin('group', 'group.group_id = auth_item.group_id')
             ->where($condition)

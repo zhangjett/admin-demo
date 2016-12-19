@@ -4,14 +4,14 @@ namespace app\modules\account\controllers;
 
 use Yii;
 use app\components\Controller;
-use app\modules\account\models\PermissionForm;
-use app\modules\account\models\PermissionSearchForm;
+use app\modules\account\models\MenuForm;
+use app\modules\account\models\MenuSearchForm;
 use yii\helpers\Json;
 
 /**
- * Permission controller for the `account` module
+ * Menu controller for the `account` module
  */
-class PermissionController extends Controller
+class MenuController extends Controller
 {
     public $cssFile = [
         'icheck/green.css'
@@ -23,17 +23,17 @@ class PermissionController extends Controller
 
     public function actionIndex()
     {
-        $model = new PermissionSearchForm();
+        $model = new MenuSearchForm();
 
         if (Yii::$app->request->isAjax) {
             $model->load(Yii::$app->request->post());
             $result = $model->search();
-            echo $this->renderPartial("__permissionList", ['permissionList' => $result['rows'],'pages' => $result['pages']]);
+            echo $this->renderPartial("__menuList", ['menuList' => $result['rows'],'pages' => $result['pages']]);
             Yii::$app->end();
         } else {
             $model->status = 1;
             $result = $model->search();
-            $content = $this->renderPartial("__permissionList", ['permissionList' => $result['rows'],'pages' => $result['pages']]);
+            $content = $this->renderPartial("__menuList", ['menuList' => $result['rows'],'pages' => $result['pages']]);
         }
 
         return $this->render('index', [
@@ -44,12 +44,12 @@ class PermissionController extends Controller
 
     public function actionCreate()
     {
-        $model = new PermissionForm();
+        $model = new MenuForm();
         $model->setScenario('create');
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->create()) {
-                Yii::$app->session->setFlash('createPermission', 'success');
+                Yii::$app->session->setFlash('createMenu', 'success');
                 return $this->refresh();
             }
         }
@@ -60,13 +60,13 @@ class PermissionController extends Controller
     }
 
     /**
-     * 删除权限
+     * 删除菜单
      * @return string
      */
     public function actionDelete()
     {
-        $model = new PermissionForm();
-        $permissionId = Yii::$app->request->post("permissionId");
+        $model = new MenuForm();
+        $permissionId = Yii::$app->request->post("menuId");
 
         if (is_array($permissionId) && count($permissionId)>0 && $model->delete($permissionId)) {
             return Json::encode(['status'=>'ok','msg'=>'删除成功！']);
@@ -77,12 +77,12 @@ class PermissionController extends Controller
 
     public function actionUpdate()
     {
-        $model = new PermissionForm();
+        $model = new MenuForm();
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->update()) {
-                Yii::$app->session->setFlash('updatePermission','success');
+                Yii::$app->session->setFlash('updateMenu','success');
                 return $this->refresh();
             }
             return $this->render('update', [

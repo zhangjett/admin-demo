@@ -29,8 +29,8 @@ use yii\helpers\Url;
         <thead>
             <tr>
                 <th>#</th>
-                <th>权限名称</th>
-                <th>权限路由</th>
+                <th>名称</th>
+                <th>路由</th>
                 <th>类别</th>
                 <th>修改时间</th>
                 <th>状态</th>
@@ -38,18 +38,18 @@ use yii\helpers\Url;
             </tr>
         </thead>
         <tbody>
-        <?php if (is_array($permissionList) && count($permissionList) > 0) {
-            foreach ($permissionList as $index => $permission) { ; ?>
+        <?php if (is_array($menuList) && count($menuList) > 0) {
+            foreach ($menuList as $index => $menu) { ; ?>
                 <tr>
-                    <td><input type="checkbox" value="<?php echo $permission['permissionId']; ?>"></td>
-                    <td><?php echo $permission['name']; ?></td>
-                    <td><a href="javascript:void(0);"><?php echo $permission['description']; ?></a></td>
-                    <td><?php echo $permission['groupName']; ?></td>
-                    <td><?php echo $permission['updateTime']; ?></td>
-                    <td><span class="label <?php echo (int)$permission['status']==1?'label-success':'label-danger';?>"><?php echo (int)$permission['status']==1?'正常':'停用'; ?></span></td>
+                    <td><input type="checkbox" value="<?php echo $menu['menuId']; ?>"></td>
+                    <td><?php echo $menu['name']; ?></td>
+                    <td><a href="javascript:void(0);"><?php echo $menu['description']; ?></a></td>
+                    <td><?php echo $menu['groupName']; ?></td>
+                    <td><?php echo $menu['updateTime']; ?></td>
+                    <td><span class="label <?php echo (int)$menu['status']==1?'label-success':'label-danger';?>"><?php echo (int)$menu['status']==1?'正常':'停用'; ?></span></td>
                     <td>
-                        <span class="label label-success edit" data="<?php echo $permission['permissionId']; ?>" href="<?php echo Url::to(['//account/permission/update','id'=>$permission['permissionId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-danger delete" data="<?php echo $permission['permissionId']; ?>" href="<?php echo Url::to(['//account/permission/update','id'=>$permission['permissionId']]); ?>"><?php echo $permission['status']==0?"恢复":"停用"?></span>
+                        <span class="label label-success edit" data="<?php echo $menu['menuId']; ?>" href="<?php echo Url::to(['//account/menu/update','id'=>$menu['menuId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-danger delete" data="<?php echo $menu['menuId']; ?>" href="<?php echo Url::to(['//account/menu/update','id'=>$menu['menuId']]); ?>"><?php echo $menu['status']==0?"恢复":"停用"?></span>
                     </td>
                 </tr>
             <?php }

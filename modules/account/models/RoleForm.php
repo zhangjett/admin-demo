@@ -13,7 +13,7 @@ use yii\base\Exception;
 class RoleForm extends Model
 {
     public $roleId;
-    public $permission;
+    public $menu;
     public $name;
     public $group;
     public $status;
@@ -24,7 +24,7 @@ class RoleForm extends Model
             [['roleId'], 'required', 'on' => 'update'],
             [['group', 'name', 'status'], 'required'],
             ['name', 'validateName', 'on' => 'create'],
-            [['permission'], 'safe'],
+            [['menu'], 'safe'],
         ];
     }
 
@@ -46,7 +46,7 @@ class RoleForm extends Model
             'roleId' => '角色ID',
             'name' => '名称',
             'group' => '组别',
-            'permission' => '权限',
+            'menu' => '权限',
             'status' => '状态',
         ];
     }
@@ -71,7 +71,7 @@ class RoleForm extends Model
             ->indexBy('child')
             ->column();
 
-        $this->permission = $rows;
+        $this->menu = $rows;
 
         return true;
     }
@@ -84,26 +84,26 @@ class RoleForm extends Model
         try {
             $columns = [
                 'name' => $this->name,
-                'category' => $this->category,
+                'category' => $this->group,
                 'description' => $this->name,
                 'update_time' => date("Y-m-d H:i:s")
             ];
             $condition = [
-                'id' => $this->id,
+                'id' => $this->roleId,
             ];
             $connection->createCommand()->update('auth_item', $columns, $condition)->execute();
 
-            if(is_array($this->permission) && count($this->permission) > 0){
+            if(is_array($this->menu) && count($this->menu) > 0){
                 $condition = [
-                    'parent' => $this->id,
+                    'parent' => $this->roleId,
                 ];
                 $connection->createCommand()->delete('auth_item_child', $condition)->execute();
 
                 $columns = [];
-                foreach($this->permission as $permission){
+                foreach($this->menu as $menu){
                     $column = [];
-                    $column[] = $this->id;
-                    $column[] = $permission;
+                    $column[] = $this->roleId;
+                    $column[] = $menu;
                     $columns[] = $column;
                 }
 
@@ -128,18 +128,18 @@ class RoleForm extends Model
                 'name' => $this->name,
                 'type' => 1,
                 'description' => $this->name,
-                'category' => $this->category,
+                'category' => $this->group,
                 'create_time' => $date,
                 'update_time' => $date,
             ];
             $connection->createCommand()->insert('auth_item', $columns)->execute();
 
-            if(is_array($this->permission) && count($this->permission) > 0){
+            if(is_array($this->menu) && count($this->menu) > 0){
                 $columns = [];
-                foreach($this->permission as $permission){
+                foreach($this->menu as $menu){
                     $column = [];
                     $column[] = $this->id;
-                    $column[] = $permission;
+                    $column[] = $menu;
                     $columns[] = $column;
                 }
                 $connection->createCommand()->batchInsert('auth_item_child', ['parent','child'], $columns)->execute();

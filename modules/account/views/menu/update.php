@@ -31,11 +31,11 @@ use app\components\Dictionary;
         </div>
     <?php }; ?>
     <?php
-    if (Yii::$app->session->getFlash('createPermission') == 'success'){
-        echo Html::hiddenInput("createOperator","success",['id'=>'createPermission']);
+    if (Yii::$app->session->getFlash('createMenu') == 'success'){
+        echo Html::hiddenInput("createMenu","success",['id'=>'createMenu']);
     }
-    if (Yii::$app->session->getFlash('updatePermission') == 'success'){
-        echo Html::hiddenInput("updateOperator","success",['id'=>'updatePermission']);
+    if (Yii::$app->session->getFlash('updateMenu') == 'success'){
+        echo Html::hiddenInput("updateMenu","success",['id'=>'updateMenu']);
     }
 
     ?>
@@ -94,7 +94,7 @@ use app\components\Dictionary;
         ])
         ->dropDownList([1 => '正常', 2 => '停用'], ['prompt' => '--状态--'])
         ->label($model->getAttributeLabel('status')); ?>
-    <?php echo $form->field($model, 'permissionId')->hiddenInput()->label(false); ?>
+    <?php echo $form->field($model, 'menuId')->hiddenInput()->label(false); ?>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
@@ -107,16 +107,16 @@ use app\components\Dictionary;
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
-        if(($('#createPermission').length > 0) && ($('#createPermission').val() == 'success')){
+        if(($('#createMenu').length > 0) && ($('#createMenu').val() == 'success')){
             setTimeout(function(){layer.msg('新建成功了呦', {icon: 6});}, 1000);
         }
-        if(($('#updatePermission').length > 0) && ($('#updatePermission').val() == 'success')){
+        if(($('#updateMenu').length > 0) && ($('#updateMenu').val() == 'success')){
             setTimeout(function(){layer.msg('修改成功了呦', {icon: 6});}, 1000);
         }
-        $("#permissionform-module").on("change", function(){
+        $("#menuform-module").on("change", function(){
             if($(this).val() != "") {
-                $.each($("#permissionform-controller").find("optgroup"), function () {
-                    if ($(this).attr('label') == $("#permissionform-module").val()) {
+                $.each($("#menuform-controller").find("optgroup"), function () {
+                    if ($(this).attr('label') == $("#menuform-module").val()) {
                         $(this).css('display', 'inline');
                         return true;
                     }
@@ -125,10 +125,10 @@ use app\components\Dictionary;
             }
         });
 
-        $("#permissionform-controller").on("change", function(){
+        $("#menuform-controller").on("change", function(){
             if($(this).val() != "") {
-                $.each($("#permissionform-action").find("optgroup"), function () {
-                    if ($(this).attr('label') == ($("#permissionform-module").val()+'-'+$("#permissionform-controller").val())) {
+                $.each($("#menuform-action").find("optgroup"), function () {
+                    if ($(this).attr('label') == ($("#menuform-module").val()+'-'+$("#menuform-controller").val())) {
                         $(this).css('display', 'inline');
                         return true;
                     }
