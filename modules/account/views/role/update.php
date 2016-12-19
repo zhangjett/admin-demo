@@ -54,37 +54,16 @@ use app\components\Dictionary;
             ],
         ]
     )->label($model->getAttributeLabel('name')); ?>
-<!--    --><?php //echo $form
-//        ->field($model,'module', [
-//            'horizontalCssClasses' => [
-//                'wrapper' => 'col-sm-3',
-//            ]
-//        ])
-//        ->dropDownList($app->getAppModule(), ['prompt' => '---module---'])
-//        ->label($model->getAttributeLabel('module')); ?>
-<!--    --><?php //echo $form
-//        ->field($model,'controller', [
-//            'horizontalCssClasses' => [
-//                'wrapper' => 'col-sm-3',
-//            ]
-//        ])
-//        ->dropDownList($app->getAppModuleController(), ['prompt' => '---controller---'])
-//        ->label($model->getAttributeLabel('controller')); ?>
-<!--    --><?php //echo $form
-//        ->field($model,'action', [
-//            'horizontalCssClasses' => [
-//                'wrapper' => 'col-sm-3',
-//            ]
-//        ])
-//        ->dropDownList($app->getAppModuleControllerAction(), ['prompt' => '---action---'])
-//        ->label($model->getAttributeLabel('action')); ?>
+    <?php
+    $dictionary = new Dictionary();
+    ?>
     <?php echo $form
         ->field($model,'group', [
             'horizontalCssClasses' => [
                 'wrapper' => 'col-sm-2',
             ]
         ])
-        ->dropDownList($dictionary->getGroup(), ['prompt' => '--分组--'])
+        ->dropDownList($dictionary->getGroup(2), ['prompt' => '--分组--'])
         ->label($model->getAttributeLabel('group')); ?>
     <?php echo $form
         ->field($model,'status', [
@@ -97,148 +76,30 @@ use app\components\Dictionary;
         <div class="form-group">
             <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('menu'); ?></label>
             <div class="col-sm-8">
-                <?php ?>
-                <div class="form-group">
-                    <div>
-                        <b>1</b>
-                    </div>
-                <?php
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('猜想');
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('违法');
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('风格豆腐干方便');
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('的方式方式');
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('豆腐干地方打工的地方官梵蒂冈的个地方');
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('发射点发射点发生');
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('固定格式规范的规定规范的规定的');
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('试试但是犯得上电风扇');
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('分身乏术');
-                echo $form->field($model, 'menu[]', [
-                    'inputOptions' => [
-                        'type' => 'checkbox'
-                    ],
-                    'options' => [
-                        'tag' => false
-                    ],
-                    'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                    'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                ])->label('大幅度的地方不大');
-                ?>
-
-                </div>
-                <div class="form-group">
-                    <div>
-                        <b>111</b>
-                    </div>
-                    <label>
-                        <input type="checkbox" class="flat-red" checked>
-                        Flat green skin checkbox
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red">
-                        Flat green skin checkbox
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        Flat green skin checkbox
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        Flat green skin checkbox
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        Flat green skin
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        Flat green skin checkbox checkbox
-                    </label>
-                    <label>
-                        <input type="checkbox" class="flat-red" disabled>
-                        Flat green skin checkbox checkbox
-                    </label>
-                </div>
+                <?php if (($groupList = $dictionary->getGroup(1)) > 0) {
+                    foreach ($groupList as $groupIndex => $group) {?>
+                        <div class="form-group">
+                            <div>
+                                <b><?php echo $group; ?></b>
+                            </div>
+                            <?php if (count($menuList = $dictionary->getMenuByGroup($groupIndex)) > 0) {
+                                foreach ($menuList as $menuIndex => $menu) {
+                                    echo $form->field($model, 'menu[]', [
+                                        'inputOptions' => [
+                                            'type' => 'checkbox',
+                                            'value' => $menuIndex,
+                                            'checked' => in_array($menuIndex, $model->menu)?'checked':false
+                                        ],
+                                        'options' => [
+                                            'tag' => false
+                                        ],
+                                        'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                                        'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                                    ])->label($menu);
+                                }
+                            } ?>
+                        </div>
+                    <?php }}?>
             </div>
         </div>
     <?php echo $form->field($model, 'roleId')->hiddenInput()->label(false); ?>
@@ -260,29 +121,6 @@ use app\components\Dictionary;
         if(($('#updateRole').length > 0) && ($('#updateRole').val() == 'success')){
             setTimeout(function(){layer.msg('修改成功了呦', {icon: 6});}, 1000);
         }
-        $("#permissionform-module").on("change", function(){
-            if($(this).val() != "") {
-                $.each($("#permissionform-controller").find("optgroup"), function () {
-                    if ($(this).attr('label') == $("#permissionform-module").val()) {
-                        $(this).css('display', 'inline');
-                        return true;
-                    }
-                    $(this).css('display', 'none');
-                });
-            }
-        });
-
-        $("#permissionform-controller").on("change", function(){
-            if($(this).val() != "") {
-                $.each($("#permissionform-action").find("optgroup"), function () {
-                    if ($(this).attr('label') == ($("#permissionform-module").val()+'-'+$("#permissionform-controller").val())) {
-                        $(this).css('display', 'inline');
-                        return true;
-                    }
-                    $(this).css('display', 'none');
-                });
-            }
-        });
     });
     <?php
     $this->endBlock();

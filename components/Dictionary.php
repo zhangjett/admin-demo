@@ -25,9 +25,20 @@ class Dictionary extends Object
         return $rows;
     }
 
-    public function getAllPermission()
+    /**
+     * 获取菜单
+     * @param $groupId
+     * @return array
+     */
+    public function getMenuByGroup($groupId)
     {
-        $rows = [];
+        $rows = (new Query())
+            ->select(['name'])
+            ->from('auth_item')
+            ->where('group_id = :group_id')
+            ->addParams([':group_id' => $groupId])
+            ->indexBy('item_id')
+            ->column();
 
         return $rows;
     }

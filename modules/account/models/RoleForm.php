@@ -55,7 +55,7 @@ class RoleForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['item_id', 'name', 'group_id'])
+            ->select(['item_id', 'name', 'group_id', 'status'])
             ->from('auth_item')
             ->where(['item_id' => $id])
             ->one();
@@ -63,6 +63,7 @@ class RoleForm extends Model
         $this->roleId = $row['item_id'];
         $this->group = $row['group_id'];
         $this->name = $row['name'];
+        $this->status = $row['status'];
 
         $rows = $query
             ->select(['child'])
@@ -81,15 +82,17 @@ class RoleForm extends Model
 
         $connection = Yii::$app->db;
         $transaction = $connection->beginTransaction();
+
         try {
             $columns = [
                 'name' => $this->name,
-                'category' => $this->group,
+                'group_id' => $this->group,
                 'description' => $this->name,
+                'status' => $this->status,
                 'update_time' => date("Y-m-d H:i:s")
             ];
             $condition = [
-                'id' => $this->roleId,
+                'item_id' => $this->roleId,
             ];
             $connection->createCommand()->update('auth_item', $columns, $condition)->execute();
 

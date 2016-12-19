@@ -49,7 +49,7 @@ class RoleController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->create()) {
-                Yii::$app->session->setFlash('createPermission', 'success');
+                Yii::$app->session->setFlash('createRole', 'success');
                 return $this->refresh();
             }
         }
@@ -66,7 +66,7 @@ class RoleController extends Controller
     public function actionDelete()
     {
         $model = new RoleForm();
-        $permissionId = Yii::$app->request->post("permissionId");
+        $permissionId = Yii::$app->request->post("roleId");
 
         if (is_array($permissionId) && count($permissionId)>0 && $model->delete($permissionId)) {
             return Json::encode(['status'=>'ok','msg'=>'删除成功！']);
@@ -82,7 +82,7 @@ class RoleController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->update()) {
-                Yii::$app->session->setFlash('updatePermission','success');
+                Yii::$app->session->setFlash('updateRole','success');
                 return $this->refresh();
             }
             return $this->render('update', [
