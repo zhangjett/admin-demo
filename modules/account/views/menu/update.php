@@ -107,6 +107,12 @@ use app\components\Dictionary;
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        //遍历左菜单,增加active
+        $("ul.sidebar-menu a").each(function(index,value){
+            if($(this).attr("href")=='<?php echo Url::to(['//account/menu/index']); ?>'){
+                $(this).closest("li").addClass("active").closest("ul").css("display","block").closest("li").addClass("active");
+            }
+        });
         if(($('#createMenu').length > 0) && ($('#createMenu').val() == 'success')){
             setTimeout(function(){layer.msg('新建成功了呦', {icon: 6});}, 1000);
         }

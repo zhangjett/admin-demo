@@ -312,6 +312,17 @@ AppAsset::addScript($this, Yii::$app->controller->getJsFile());
                             ],
                         ],
                         [
+                            'label' => '系统',
+                            'icon' => 'fa fa-dashboard',
+                            'url' => '#',
+                            'options' => ['class' => 'treeview'],
+                            'items' => [
+                                ['label' => ' 后台用户', 'icon' => 'fa fa-circle-o', 'url' => ['//account/operator/index'],],
+                                ['label' => ' 角色', 'icon' => 'fa fa-circle-o', 'url' => ['//account/role/index'],],
+                                ['label' => ' 菜单', 'icon' => 'fa fa-circle-o', 'url' => ['//account/menu/index'],],
+                            ],
+                        ],
+                        [
                             'label' => 'Layout Options',
                             'icon' => 'fa fa-files-o',
                             'url' => '#',

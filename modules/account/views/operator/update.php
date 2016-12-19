@@ -1,6 +1,7 @@
 <?php
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use yii\helpers\Url;
 ?>
 <div class="box box-solid">
     <div class="box-header with-border">
@@ -126,7 +127,12 @@ use yii\helpers\Html;
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
-        console.log($('label.radio-inline').contents());
+        //遍历左菜单,增加active
+        $("ul.sidebar-menu a").each(function(index,value){
+            if($(this).attr("href")=='<?php echo Url::to(['//account/operator/index']); ?>'){
+                $(this).closest("li").addClass("active").closest("ul").css("display","block").closest("li").addClass("active");
+            }
+        });
     });
     <?php
     $this->endBlock();

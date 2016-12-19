@@ -115,6 +115,12 @@ use app\components\Dictionary;
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        //遍历左菜单,增加active
+        $("ul.sidebar-menu a").each(function(index,value){
+            if($(this).attr("href")=='<?php echo Url::to(['//account/role/index']); ?>'){
+                $(this).closest("li").addClass("active").closest("ul").css("display","block").closest("li").addClass("active");
+            }
+        });
         if(($('#createRole').length > 0) && ($('#createRole').val() == 'success')){
             setTimeout(function(){layer.msg('新建成功了呦', {icon: 6});}, 1000);
         }
