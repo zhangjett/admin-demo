@@ -8,9 +8,9 @@ use yii\data\Pagination;
 use yii\db\Query;
 
 /**
- * MenuSearchForm.
+ * DictionaryItemSearchForm.
  */
-class MenuSearchForm extends Model
+class DictionaryItemSearchForm extends Model
 {
     public $status;
     public $filter;
@@ -18,22 +18,19 @@ class MenuSearchForm extends Model
 
     public function search()
     {
-
         $condition = [];
-        $condition['auth_item.type'] = 2;
 
         $query = new Query();
         $count = $query
-            ->from('auth_item')
+            ->from('dictionary_item')
             ->where($condition)
             ->count();
 
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
         $rows = $query
-            ->select(['item_id AS menuId', 'auth_item.name', 'description', 'group.name AS groupName', 'status', 'update_time AS updateTime'])
-            ->from('auth_item')
-            ->leftJoin('group', 'group.group_id = auth_item.group_id')
+            ->select(['id', 'item_id AS itemId', 'name', 'create_time AS createTime'])
+            ->from('dictionary_item')
             ->where($condition)
             ->offset($pages->offset)
             ->limit($pages->limit)
