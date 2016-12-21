@@ -12,42 +12,17 @@ use yii\base\Exception;
  */
 class DictionaryTypeForm extends Model
 {
-    public $menuId;
+    public $typeId;
     public $name;
-    public $group;
-    public $module;
-    public $controller;
-    public $action;
-    public $status;
+    public $createTime;
 
     public function rules()
     {
         return [
-            [['menuId'], 'required', 'on' => 'update'],
-            [['name', 'group', 'module', 'controller', 'action', 'status'], 'required'],
-            ['action', 'validateName', 'on' => 'create'],
+            [['typeId', 'name'], 'required', 'on' => 'update']
         ];
     }
 
-    /**
-     * 验证权限名称是否重复
-     * @param $attribute
-     * @param $params
-     */
-    public function validateName($attribute, $params)
-    {
-        $description = $this->module."/".$this->controller."/".$this->action;
-
-        $query = new Query();
-        $count = $query
-            ->from('auth_item')
-            ->where(['description' => $description, 'type' => 2])
-            ->count();
-
-        if ($count > 0) {
-            $this->addError($attribute, '该权限已经存在！');
-        }
-    }
 
     public function attributeLabels()
     {
@@ -71,17 +46,13 @@ class DictionaryTypeForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['item_id AS menu_id', 'name', 'description', 'group_id', 'status'])
-            ->from('auth_item')
-            ->where(['item_id' => $id])
+            ->select(['type_id', 'name'])
+            ->from('dictionary_type')
+            ->where(['type_id' => $id])
             ->one();
 
-        list($this->module, $this->controller, $this->action) = explode("/",$row['description']);
-
-        $this->menuId = $row['menu_id'];
+        $this->typeId = $row['type_id'];
         $this->name = $row['name'];
-        $this->group = $row['group_id'];
-        $this->status = $row['status'];
 
         return true;
     }
@@ -93,21 +64,18 @@ class DictionaryTypeForm extends Model
      */
     public function update()
     {
-        $description = $this->module."/".$this->controller."/".$this->action;
 
         $connection = Yii::$app->db;
         $transaction = $connection->beginTransaction();
         try {
             $columns = [
                 'name' => $this->name,
-                'group_id' => (int)$this->group,
-                'description' => $description,
                 'update_time' => date("Y-m-d H:i:s")
             ];
             $condition = [
-                'item_id' => $this->menuId,
+                'type_id' => $this->typeId,
             ];
-            $connection->createCommand()->update('auth_item', $columns, $condition)->execute();
+            $connection->createCommand()->update('dictionary_type', $columns, $condition)->execute();
             $transaction->commit();
             return true;
         } catch(Exception $e) {

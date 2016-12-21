@@ -37,26 +37,27 @@ class DictionaryController extends Controller
         }
 
         return $this->render('index', [
-            "content" => $content,
-            'model' => $model
+            "content" => $content
         ]);
     }
 
     public function actionCreate()
     {
-        $model = new MenuForm();
+        $model = new DictionaryTypeForm();
         $model->setScenario('create');
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->create()) {
                 Yii::$app->session->setFlash('createMenu', 'success');
-                return $this->refresh();
+                echo $this->renderPartial("update", ['model' => $model]);
+                Yii::$app->end();
             }
         }
 
-        return $this->render('update', [
-            "model" => $model,
-        ]);
+        echo $this->renderPartial("update", ['model' => $model]);
+        Yii::$app->end();
+
+        return 0;
     }
 
     /**
@@ -65,7 +66,7 @@ class DictionaryController extends Controller
      */
     public function actionDelete()
     {
-        $model = new MenuForm();
+        $model = new DictionaryTypeForm();
         $permissionId = Yii::$app->request->post("menuId");
 
         if (is_array($permissionId) && count($permissionId)>0 && $model->delete($permissionId)) {
@@ -75,25 +76,26 @@ class DictionaryController extends Controller
         return Json::encode(['status'=>'error','msg'=>'删除失败！']);
     }
 
-    public function actionUpdate()
+    public function actionUpdate($id)
     {
-        $model = new MenuForm();
+        $model = new DictionaryTypeForm();
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->update()) {
-                Yii::$app->session->setFlash('updateMenu','success');
-                return $this->refresh();
+                Yii::$app->session->setFlash('updateDictionaryType','success');
+                echo $this->renderPartial("update", ['model' => $model]);
+                Yii::$app->end();
             }
-            return $this->render('update', [
-                "model" => $model,
-            ]);
+            echo $this->renderPartial("update", ['model' => $model]);
+            Yii::$app->end();
         }
 
-        $model->get(Yii::$app->request->get("id"));
+        $model->get($id);
 
-        return $this->render('update', [
-            "model" => $model,
-        ]);
+        echo $this->renderPartial("update", ['model' => $model]);
+        Yii::$app->end();
+
+        return 0;
     }
 }

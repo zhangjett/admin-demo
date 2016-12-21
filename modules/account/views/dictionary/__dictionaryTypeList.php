@@ -31,9 +31,7 @@ use yii\helpers\Url;
                 <th>#</th>
                 <th>名称</th>
                 <th>类型名称</th>
-                <th>类型名称</th>
                 <th>修改时间</th>
-                <th>状态</th>
                 <th>操作</th>
             </tr>
         </thead>
@@ -44,13 +42,10 @@ use yii\helpers\Url;
                     <td><input type="checkbox" value="<?php echo $dictionaryType['typeId']; ?>"></td>
                     <td><?php echo $dictionaryType['typeId']; ?></td>
                     <td><a href="javascript:void(0);"><?php echo $dictionaryType['name']; ?></a></td>
-                    <td><?php echo $dictionaryType['typeId']; ?></td>
                     <td><?php echo $dictionaryType['createTime']; ?></td>
-                    <td><span class="label <?php echo (int)$dictionaryType['status']==1?'label-success':'label-danger';?>"><?php echo (int)$dictionaryType['status']==1?'正常':'停用'; ?></span></td>
                     <td>
                         <span class="label label-success edit" data="<?php echo $dictionaryType['typeId']; ?>" href="<?php echo Url::to(['//account/dictionary-item/index','id'=>$dictionaryType['typeId']]); ?>">字典内容</span>&nbsp;
-                        <span class="label label-success edit" data="<?php echo $dictionaryType['typeId']; ?>" href="<?php echo Url::to(['//account/menu/update','id'=>$dictionaryType['typeId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-danger delete" data="<?php echo $dictionaryType['typeId']; ?>" href="<?php echo Url::to(['//account/menu/update','id'=>$dictionaryType['typeId']]); ?>"><?php echo $dictionaryType['status']==0?"恢复":"停用"?></span>
+                        <span class="label label-success edit" data="<?php echo $dictionaryType['typeId']; ?>" href="<?php echo Url::to(['//account/dictionary/update','id'=>$dictionaryType['typeId']]); ?>" data-toggle="modal" data-target="#updateDictionaryModal">编辑</span>
                     </td>
                 </tr>
             <?php }
