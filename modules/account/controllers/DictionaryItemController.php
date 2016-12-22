@@ -49,14 +49,16 @@ class DictionaryItemController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->create()) {
-                Yii::$app->session->setFlash('createMenu', 'success');
-                return $this->refresh();
+                Yii::$app->session->setFlash('createDictionaryItem', 'success');
+                echo $this->renderPartial("update", ['model' => $model]);
+                Yii::$app->end();
             }
         }
 
-        return $this->render('update', [
-            "model" => $model,
-        ]);
+        echo $this->renderPartial("update", ['model' => $model]);
+        Yii::$app->end();
+
+        return 0;
     }
 
     /**

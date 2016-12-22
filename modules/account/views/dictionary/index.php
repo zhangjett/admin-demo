@@ -1,6 +1,5 @@
 <?php
 use yii\helpers\Url;
-use yii\bootstrap\ActiveForm;
 ?>
 <div class="row">
     <!-- /.col -->
@@ -34,18 +33,19 @@ use yii\bootstrap\ActiveForm;
     $(function(){
         $("#updateDictionaryModal").on("hidden.bs.modal", function() {
             $(this).removeData("bs.modal");
+            $('div.mailbox-controls button.refresh').trigger('click');
         });
         $(document).on("click","table tr td span.item",function(){
             window.open($(this).attr("href"));
         });
-        $('.box-body').on("click",".mailbox-controls button.add",function(){
+        $(document).on("click",".mailbox-controls button.add",function(){
             var remoteUrl = '<?php echo Url::to(['//account/dictionary/create']); ?>';
             $('#updateDictionaryModal').modal({
                 remote: remoteUrl
             });
         });
         //翻页
-        $('.box-body').on("click",".pull-right .btn-group button",function(){
+        $(document).on("click",".pull-right .btn-group button",function(){
             tool.ajax({
                 url:$(this).attr("href"),
                 data:$('#searchForm').serialize(),
@@ -57,7 +57,7 @@ use yii\bootstrap\ActiveForm;
             });
         });
         //刷新
-        $('.box-body').on("click",".mailbox-controls button.refresh",function(){
+        $(document).on("click",".mailbox-controls button.refresh",function(){
             tool.ajax({
                 url:$(this).attr("href"),
                 data:$('#searchForm').serialize(),

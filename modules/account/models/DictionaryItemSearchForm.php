@@ -12,6 +12,7 @@ use yii\db\Query;
  */
 class DictionaryItemSearchForm extends Model
 {
+    public $typeId = 1;
     public $status;
     public $filter;
     public $pageSize = 5;

@@ -99,56 +99,15 @@ class DictionaryItemForm extends Model
         try {
             $date = date("Y-m-d H:i:s");
             $columns = [
+                'code' => $this->code,
                 'name' => $this->name,
-                'type' => 2,
-                'description' => $this->module."/".$this->controller."/".$this->action,
-                'category' => $this->group,
-                'created_at' => $date,
-                'updated_at' => $date,
+                'type_id' => $this->typeId,
+                'create_time' => $date,
+                'update_time' => $date,
             ];
-            $connection->createCommand()->insert('auth_item', $columns)->execute();
+            $connection->createCommand()->insert('dictionary_item', $columns)->execute();
             $transaction->commit();
 
-            return true;
-        } catch(Exception $e) {
-            $transaction->rollBack();
-            return false;
-        }
-    }
-
-    /**
-     * 删除菜单
-     * @param $menuIdList
-     * @return bool
-     * @throws yii\db\Exception
-     */
-    public function delete($menuIdList)
-    {
-        $connection = Yii::$app->db;
-        $transaction = $connection->beginTransaction();
-
-        try {
-            $command = $connection->createCommand('DELETE FROM auth_item WHERE id=:id');
-            $command->bindParam(':id', $id);
-
-            if(is_array($menuIdList) && count($menuIdList) > 0){
-                foreach($menuIdList as $menuId){
-                    $id = $menuId;
-                    $command->execute();
-                }
-            }
-
-            $command = $connection->createCommand('DELETE FROM auth_item_child WHERE child=:child');
-            $command->bindParam(':child', $child);
-
-            if(is_array($menuIdList) && count($menuIdList) > 0){
-                foreach($menuIdList as $menuId){
-                    $child = $menuId;
-                    $command->execute();
-                }
-            }
-
-            $transaction->commit();
             return true;
         } catch(Exception $e) {
             $transaction->rollBack();

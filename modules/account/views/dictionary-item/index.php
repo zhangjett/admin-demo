@@ -8,6 +8,19 @@ use yii\bootstrap\ActiveForm;
         <div class="box box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">Inbox</h3>
+                <div class="box-tools pull-right">
+                    <?php $form = ActiveForm::begin([
+                        'id' => 'searchForm',
+                        'enableClientValidation' => true,
+                        'options' => [
+                            'method' => 'post',
+                            'role' => "form"
+                        ],
+                        'layout' => 'inline',
+                    ]); ?>
+                    <?php echo $form->field($model, 'typeId')->hiddenInput()->label(false); ?>
+                    <?php ActiveForm::end(); ?>
+                </div>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding list-box">
@@ -33,13 +46,16 @@ use yii\bootstrap\ActiveForm;
     $(function(){
         $("#updateDictionaryItemModal").on("hidden.bs.modal", function() {
             $(this).removeData("bs.modal");
+            $('div.mailbox-controls button.refresh').trigger('click');
         });
-        $('.box-body').on("click",".mailbox-controls button.add",function(){
-            var url = '<?php echo Url::to(['//account/menu/create']); ?>';
-            window.open(url);
+        $(document).on("click",".mailbox-controls button.add",function(){
+            var remoteUrl = '<?php echo Url::to(['//account/dictionary-item/create']); ?>';
+            $('#updateDictionaryItemModal').modal({
+                remote: remoteUrl
+            });
         });
         //翻页
-        $('.box-body').on("click",".pull-right .btn-group button",function(){
+        $(document).on("click",".pull-right .btn-group button",function(){
             tool.ajax({
                 url:$(this).attr("href"),
                 data:$('#searchForm').serialize(),
@@ -51,7 +67,7 @@ use yii\bootstrap\ActiveForm;
             });
         });
         //刷新
-        $('.box-body').on("click",".mailbox-controls button.refresh",function(){
+        $(document).on("click",".mailbox-controls button.refresh",function(){
             tool.ajax({
                 url:$(this).attr("href"),
                 data:$('#searchForm').serialize(),
@@ -64,6 +80,7 @@ use yii\bootstrap\ActiveForm;
         });
         //编辑
         $(document).on('submit','#updateDictionaryItem',function(e){
+            $('input[name="DictionaryItemForm[typeId]"]').val($('input[name="DictionaryItemSearchForm[typeId]"]').val());
             tool.ajax({
                 url:$(this).attr('action'),
                 data:$(this).serialize(),

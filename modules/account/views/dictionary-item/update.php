@@ -32,6 +32,7 @@ $this->title = $model->typeId?'编辑字典类型':'新建字典类型';
                 修改字典成功！
             </div>
         <?php } ?>
+        <?php echo $form->field($model, 'itemId')->hiddenInput()->label(false); ?>
         <?php echo $form
             ->field($model, 'code', [
                     'horizontalCssClasses' => [
@@ -54,7 +55,7 @@ $this->title = $model->typeId?'编辑字典类型':'新建字典类型';
                     ],
                 ]
             )->label($model->getAttributeLabel('name')); ?>
-        <?php echo $form->field($model, 'itemId')->hiddenInput()->label(false); ?>
+        <?php echo $form->field($model, 'typeId')->hiddenInput()->label(false); ?>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
