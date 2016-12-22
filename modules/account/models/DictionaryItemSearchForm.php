@@ -29,7 +29,7 @@ class DictionaryItemSearchForm extends Model
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
         $rows = $query
-            ->select(['id', 'item_id AS itemId', 'name', 'create_time AS createTime'])
+            ->select(['item_id AS itemId', 'code', 'name','create_time AS createTime'])
             ->from('dictionary_item')
             ->where($condition)
             ->offset($pages->offset)

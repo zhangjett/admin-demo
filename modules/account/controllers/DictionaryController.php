@@ -7,7 +7,7 @@ use app\components\Controller;
 use app\modules\account\models\DictionaryTypeForm;
 use app\modules\account\models\DictionaryTypeSearchForm;
 use yii\helpers\Json;
-
+use yii\filters\AccessControl;
 /**
  * Dictionary controller for the `account` module
  */
@@ -48,7 +48,7 @@ class DictionaryController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->create()) {
-                Yii::$app->session->setFlash('createMenu', 'success');
+                Yii::$app->session->setFlash('createDictionaryType', 'success');
                 echo $this->renderPartial("update", ['model' => $model]);
                 Yii::$app->end();
             }

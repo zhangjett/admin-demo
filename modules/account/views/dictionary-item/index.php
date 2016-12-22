@@ -7,31 +7,7 @@ use yii\bootstrap\ActiveForm;
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-header with-border">
-                <?php $form = ActiveForm::begin([
-                    'id' => 'searchForm',
-                    'enableClientValidation' => true,
-                    'options' => [
-                        'method' => 'post',
-                        'role' => "form"
-                    ],
-                    'layout' => 'inline',
-                ]); ?>
-                <?php echo $form
-                    ->field($model,'status', [])
-                    ->dropDownList(['1' => '正常', '2' => '删除'], ['prompt' => '选择状态'])
-                    ->label($model->getAttributeLabel('status'));
-                ?>
-                &nbsp;&nbsp;
-                <?php echo $form
-                    ->field($model,'filter',[
-                            'inputOptions' => [
-                                'placeholder' =>'search...',
-                            ],
-                            'inputTemplate' => '<div class="has-feedback">{input}<span class="glyphicon glyphicon-search form-control-feedback"></span></div>'
-                        ]
-                    )
-                    ->label($model->getAttributeLabel('filter')); ?>
-                <?php ActiveForm::end(); ?>
+                <h3 class="box-title">Inbox</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding list-box">
@@ -46,9 +22,18 @@ use yii\bootstrap\ActiveForm;
     </div>
     <!-- /.col -->
 </div>
+<div class="modal fade" id="updateDictionaryItemModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        $("#updateDictionaryItemModal").on("hidden.bs.modal", function() {
+            $(this).removeData("bs.modal");
+        });
         $('.box-body').on("click",".mailbox-controls button.add",function(){
             var url = '<?php echo Url::to(['//account/menu/create']); ?>';
             window.open(url);
@@ -78,8 +63,16 @@ use yii\bootstrap\ActiveForm;
             });
         });
         //编辑
-        $('.box-body').on("click","table tr td span.edit",function(){
-            window.open($(this).attr("href"));
+        $(document).on('submit','#updateDictionaryItem',function(e){
+            tool.ajax({
+                url:$(this).attr('action'),
+                data:$(this).serialize(),
+                dataType:'html',
+                success:function(response){
+                    $('#updateDictionaryItemModal').find("div.modal-content").html(response);
+                }
+            });
+            e.preventDefault();
         });
     });
     <?php

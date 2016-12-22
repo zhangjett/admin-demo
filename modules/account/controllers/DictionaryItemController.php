@@ -75,25 +75,26 @@ class DictionaryItemController extends Controller
         return Json::encode(['status'=>'error','msg'=>'删除失败！']);
     }
 
-    public function actionUpdate()
+    public function actionUpdate($id)
     {
         $model = new DictionaryItemForm();
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->update()) {
-                Yii::$app->session->setFlash('updateMenu','success');
-                return $this->refresh();
+                Yii::$app->session->setFlash('updateDictionaryItem','success');
+                echo $this->renderPartial("update", ['model' => $model]);
+                Yii::$app->end();
             }
-            return $this->render('update', [
-                "model" => $model,
-            ]);
+            echo $this->renderPartial("update", ['model' => $model]);
+            Yii::$app->end();
         }
 
-        $model->get(Yii::$app->request->get("id"));
+        $model->get($id);
 
-        return $this->render('update', [
-            "model" => $model,
-        ]);
+        echo $this->renderPartial("update", ['model' => $model]);
+        Yii::$app->end();
+
+        return 0;
     }
 }

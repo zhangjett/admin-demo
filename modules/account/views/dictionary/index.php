@@ -4,7 +4,7 @@ use yii\bootstrap\ActiveForm;
 ?>
 <div class="row">
     <!-- /.col -->
-    <div class="col-md-9">
+    <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">Inbox</h3>
@@ -34,6 +34,9 @@ use yii\bootstrap\ActiveForm;
     $(function(){
         $("#updateDictionaryModal").on("hidden.bs.modal", function() {
             $(this).removeData("bs.modal");
+        });
+        $(document).on("click","table tr td span.item",function(){
+            window.open($(this).attr("href"));
         });
         $('.box-body').on("click",".mailbox-controls button.add",function(){
             var remoteUrl = '<?php echo Url::to(['//account/dictionary/create']); ?>';

@@ -14,11 +14,13 @@ class DictionaryTypeForm extends Model
 {
     public $typeId;
     public $name;
+    public $updateTime;
     public $createTime;
 
     public function rules()
     {
         return [
+            [['name'], 'required', 'on' => 'create'],
             [['typeId', 'name'], 'required', 'on' => 'update']
         ];
     }
@@ -27,13 +29,10 @@ class DictionaryTypeForm extends Model
     public function attributeLabels()
     {
         return [
-            'permissionId' => '权限ID',
+            'typeId' => '类型ID',
             'name' => '名称',
-            'group' => '组别',
-            'module' => 'module',
-            'controller' => 'controller',
-            'action' => 'action',
-            'status' => '状态',
+            'updateTime' => '修改时间',
+            'createTime' => '创建时间',
         ];
     }
 
@@ -98,13 +97,10 @@ class DictionaryTypeForm extends Model
             $date = date("Y-m-d H:i:s");
             $columns = [
                 'name' => $this->name,
-                'type' => 2,
-                'description' => $this->module."/".$this->controller."/".$this->action,
-                'category' => $this->group,
-                'created_at' => $date,
-                'updated_at' => $date,
+                'create_time' => $date,
+                'update_time' => $date,
             ];
-            $connection->createCommand()->insert('auth_item', $columns)->execute();
+            $connection->createCommand()->insert('dictionary_type', $columns)->execute();
             $transaction->commit();
 
             return true;

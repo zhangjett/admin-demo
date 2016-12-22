@@ -24,10 +24,12 @@ $this->title = $model->typeId?'编辑字典类型':'新建字典类型';
     <?php }; ?>
     <?php if (Yii::$app->session->getFlash('createDictionaryType') == 'success'){ ?>
         <div class="alert alert-success alert-dismissible">
+            创建字典类型成功！
         </div>
     <?php } ?>
     <?php if (Yii::$app->session->getFlash('updateDictionaryType') == 'success'){ ?>
         <div class="alert alert-success alert-dismissible">
+            修改字典类型成功！
         </div>
     <?php } ?>
     <?php echo $form

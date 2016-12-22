@@ -29,7 +29,7 @@ use yii\helpers\Url;
         <thead>
             <tr>
                 <th>#</th>
-                <th>字典ID</th>
+                <th>字典CODE</th>
                 <th>字典名称</th>
                 <th>修改时间</th>
                 <th>操作</th>
@@ -39,12 +39,12 @@ use yii\helpers\Url;
         <?php if (is_array($dictionaryItemList) && count($dictionaryItemList) > 0) {
             foreach ($dictionaryItemList as $index => $dictionaryItem) { ; ?>
                 <tr>
-                    <td><input type="checkbox" value="<?php echo $dictionaryItem['id']; ?>"></td>
-                    <td><?php echo $dictionaryItem['itemId']; ?></td>
+                    <td><input type="checkbox" value="<?php echo $dictionaryItem['itemId']; ?>"></td>
+                    <td><?php echo $dictionaryItem['code']; ?></td>
                     <td><a href="javascript:void(0);"><?php echo $dictionaryItem['name']; ?></a></td>
                     <td><?php echo $dictionaryItem['createTime']; ?></td>
                     <td>
-                        <span class="label label-success edit" data="<?php echo $dictionaryItem['id']; ?>" href="<?php echo Url::to(['//account/menu/update','id'=>$dictionaryItem['id']]); ?>">编辑</span>
+                        <span class="label label-success edit" href="<?php echo Url::to(['//account/dictionary-item/update','id'=>$dictionaryItem['itemId']]); ?>"  data-toggle="modal" data-target="#updateDictionaryItemModal">编辑</span>
                     </td>
                 </tr>
             <?php }
