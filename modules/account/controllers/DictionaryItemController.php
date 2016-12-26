@@ -21,17 +21,18 @@ class DictionaryItemController extends Controller
         'icheck/icheck.min.js'
     ];
 
-    public function actionIndex()
+    public function actionIndex($typeId = null)
     {
         $model = new DictionaryItemSearchForm();
 
         if (Yii::$app->request->isAjax) {
             $model->load(Yii::$app->request->post());
+            $model->typeId = $typeId;
             $result = $model->search();
             echo $this->renderPartial("__dictionaryItemList", ['dictionaryItemList' => $result['rows'],'pages' => $result['pages']]);
             Yii::$app->end();
         } else {
-            $model->status = 1;
+            $model->typeId = $typeId;
             $result = $model->search();
             $content = $this->renderPartial("__dictionaryItemList", ['dictionaryItemList' => $result['rows'],'pages' => $result['pages']]);
         }
@@ -61,21 +62,6 @@ class DictionaryItemController extends Controller
         return 0;
     }
 
-    /**
-     * 删除菜单
-     * @return string
-     */
-    public function actionDelete()
-    {
-        $model = new DictionaryItemForm();
-        $permissionId = Yii::$app->request->post("menuId");
-
-        if (is_array($permissionId) && count($permissionId)>0 && $model->delete($permissionId)) {
-            return Json::encode(['status'=>'ok','msg'=>'删除成功！']);
-        }
-
-        return Json::encode(['status'=>'error','msg'=>'删除失败！']);
-    }
 
     public function actionUpdate($id)
     {

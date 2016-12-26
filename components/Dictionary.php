@@ -12,14 +12,14 @@ class Dictionary extends Object
      * @param int $type
      * @return array
      */
-    public function getGroup($type = 1)
+    public function getDictionaryItemByType($type = 1)
     {
         $rows = (new Query())
             ->select(['name'])
-            ->from('group')
-            ->where('type = :type')
-            ->addParams([':type' => $type])
-            ->indexBy('group_id')
+            ->from('dictionary_item')
+            ->where('type_id = :type_id')
+            ->addParams([':type_id' => $type])
+            ->indexBy('code')
             ->column();
 
         return $rows;
@@ -27,16 +27,18 @@ class Dictionary extends Object
 
     /**
      * 获取菜单
-     * @param $groupId
+     * @param $group
+     * @param $type
      * @return array
      */
-    public function getMenuByGroup($groupId)
+    public function getAuthItemByGroup($group, $type = 1)
     {
         $rows = (new Query())
             ->select(['name'])
             ->from('auth_item')
-            ->where('group_id = :group_id')
-            ->addParams([':group_id' => $groupId])
+            ->where('item_group = :group')
+            ->andWhere('type = :type')
+            ->addParams([':group' => $group, ':type' => $type])
             ->indexBy('item_id')
             ->column();
 

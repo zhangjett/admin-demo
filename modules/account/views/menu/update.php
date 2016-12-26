@@ -25,76 +25,76 @@ use app\components\Dictionary;
     ]); ?>
     <!-- /.box-header -->
     <div class="box-body">
-    <?php if(count($model->getFirstErrors()) > 0){ ?>
-        <div class="alert alert-danger alert-dismissible">
-            <?php echo $form->errorSummary($model); ?>
-        </div>
-    <?php }; ?>
-    <?php
-    if (Yii::$app->session->getFlash('createMenu') == 'success'){
-        echo Html::hiddenInput("createMenu","success",['id'=>'createMenu']);
-    }
-    if (Yii::$app->session->getFlash('updateMenu') == 'success'){
-        echo Html::hiddenInput("updateMenu","success",['id'=>'updateMenu']);
-    }
-
-    ?>
-    <?php
+        <?php
         $app = new App();
         $dictionary = new Dictionary();
-    ?>
-    <?php echo $form
-        ->field($model,'name',[
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-3',
-            ],
-            'inputOptions' => [
-                'type' => 'text',
-                'placeholder' =>'',
-            ],
-        ]
-    )->label($model->getAttributeLabel('name')); ?>
-    <?php echo $form
-        ->field($model,'module', [
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-3',
+        ?>
+        <?php if(count($model->getFirstErrors()) > 0){ ?>
+            <div class="alert alert-danger alert-dismissible">
+                <?php echo $form->errorSummary($model); ?>
+            </div>
+        <?php }; ?>
+        <?php
+        if (Yii::$app->session->getFlash('createMenu') == 'success'){
+            echo Html::hiddenInput("createMenu","success",['id'=>'createMenu']);
+        }
+        if (Yii::$app->session->getFlash('updateMenu') == 'success'){
+            echo Html::hiddenInput("updateMenu","success",['id'=>'updateMenu']);
+        }
+
+        ?>
+        <?php echo $form
+            ->field($model,'name',[
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-3',
+                ],
+                'inputOptions' => [
+                    'type' => 'text',
+                    'placeholder' =>'',
+                ],
             ]
-        ])
-        ->dropDownList($app->getAppModule(), ['prompt' => '--module--'])
-        ->label($model->getAttributeLabel('module')); ?>
-    <?php echo $form
-        ->field($model,'controller', [
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-3',
-            ]
-        ])
-        ->dropDownList($app->getAppModuleController(), ['prompt' => '--controller--'])
-        ->label($model->getAttributeLabel('controller')); ?>
-    <?php echo $form
-        ->field($model,'action', [
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-3',
-            ]
-        ])
-        ->dropDownList($app->getAppModuleControllerAction(), ['prompt' => '--action--'])
-        ->label($model->getAttributeLabel('action')); ?>
-    <?php echo $form
-        ->field($model,'group', [
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-2',
-            ]
-        ])
-        ->dropDownList($dictionary->getGroup(), ['prompt' => '--分组--'])
-        ->label($model->getAttributeLabel('group')); ?>
-    <?php echo $form
-        ->field($model,'status', [
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-2',
-            ]
-        ])
-        ->dropDownList([1 => '正常', 2 => '停用'], ['prompt' => '--状态--'])
-        ->label($model->getAttributeLabel('status')); ?>
-    <?php echo $form->field($model, 'menuId')->hiddenInput()->label(false); ?>
+        )->label($model->getAttributeLabel('name')); ?>
+        <?php echo $form
+            ->field($model,'module', [
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-3',
+                ]
+            ])
+            ->dropDownList($app->getAppModule(), ['prompt' => '--module--'])
+            ->label($model->getAttributeLabel('module')); ?>
+        <?php echo $form
+            ->field($model,'controller', [
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-3',
+                ]
+            ])
+            ->dropDownList($app->getAppModuleController(), ['prompt' => '--controller--'])
+            ->label($model->getAttributeLabel('controller')); ?>
+        <?php echo $form
+            ->field($model,'action', [
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-3',
+                ]
+            ])
+            ->dropDownList($app->getAppModuleControllerAction(), ['prompt' => '--action--'])
+            ->label($model->getAttributeLabel('action')); ?>
+        <?php echo $form
+            ->field($model,'group', [
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-2',
+                ]
+            ])
+            ->dropDownList($dictionary->getDictionaryItemByType(10), ['prompt' => '--分组--'])
+            ->label($model->getAttributeLabel('group')); ?>
+        <?php echo $form
+            ->field($model,'status', [
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-2',
+                ]
+            ])
+            ->dropDownList($dictionary->getDictionaryItemByType(2), ['prompt' => '--状态--'])
+            ->label($model->getAttributeLabel('status')); ?>
+        <?php echo $form->field($model, 'menuId')->hiddenInput()->label(false); ?>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">

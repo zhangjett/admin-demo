@@ -57,4 +57,26 @@ class OperatorController extends Controller
             "model" => $model,
         ]);
     }
+
+    public function actionUpdate()
+    {
+        $model = new OperatorForm();
+        $model->setScenario('update');
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate() && $model->update()) {
+                Yii::$app->session->setFlash('updateOperator','success');
+                return $this->refresh();
+            }
+            return $this->render('update', [
+                "model" => $model,
+            ]);
+        }
+
+        $model->get(Yii::$app->request->get("id"));
+
+        return $this->render('update', [
+            "model" => $model,
+        ]);
+    }
 }

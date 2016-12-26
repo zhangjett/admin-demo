@@ -2,8 +2,18 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
+use app\components\Dictionary;
 ?>
 <div class="box box-solid">
+    <?php $form = ActiveForm::begin([
+        'id' => 'updateForm',
+        'enableClientValidation'=>true,
+        'options' => [
+            'method' => 'post',
+            'role'=>"form"
+        ],
+        'layout' => 'horizontal',
+    ]); ?>
     <div class="box-header with-border">
         <h3 class="box-title">Select2</h3>
 
@@ -14,119 +24,125 @@ use yii\helpers\Url;
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <?php $form = ActiveForm::begin([
-            'id' => 'updateForm',
-            'enableClientValidation'=>true,
-            'options' => [
-                'method' => 'post',
-                'role'=>"form"
-            ],
-            'layout' => 'horizontal',
-        ]); ?>
-        <div class="row">
-            <div class="col-md-6">
-                <?php if(count($model->getFirstErrors())>0){ ?>
-                    <div class="alert alert-danger alert-dismissible">
-                        <?php echo $form->errorSummary($model); ?>
-                    </div>
-                <?php }; ?>
-                <?php
-                if (Yii::$app->session->getFlash('updateOperator') == 'success'){
-                    echo Html::hiddenInput("updateOperator","success",['id'=>'updateOperator']);
-                }
-                if (Yii::$app->session->getFlash('createOperator') == 'success'){
-                    echo Html::hiddenInput("createOperator","success",['id'=>'createOperator']);
-                }
-                ?>
-                <?php echo $form
-                    ->field($model,'login',[
-                        'inputOptions' => [
-                            'type' => 'text',
-                            'placeholder' =>'',
-                        ],
-                    ]
-                )->label($model->getAttributeLabel('login')); ?>
-                <?php echo $form
-                    ->field($model,'password',[
-                        'inputOptions' => [
-                            'type' => 'password',
-                            'placeholder' =>'',
-                        ],
-                    ]
-                )->label($model->getAttributeLabel('password')); ?>
-                <?php echo $form
-                    ->field($model,'name',[
-                        'inputOptions' => [
-                            'type' => 'text',
-                            'placeholder' => '',
-                        ],
-                    ]
-                )->label($model->getAttributeLabel('name')); ?>
-                <?php echo $form
-                    ->field($model,'email',[
-                        'inputOptions' => [
-                            'type' => 'text',
-                            'placeholder' => '',
-                        ],
-                    ]
-                )->label($model->getAttributeLabel('email')); ?>
-                <?php echo $form
-                    ->field($model, 'gender')
-                    ->inline()
-                    ->radioList(
-                        ['1' => '男', '2' => '女', '0' => '保密']
-                    )
-                    ->label($model->getAttributeLabel('gender')); ?>
-                <?php echo $form
-                    ->field($model,'status', [
-                        'horizontalCssClasses' => [
-                            'wrapper' => 'col-sm-3',
-                        ]
-                    ])
-                    ->dropDownList([0 => '停用', 1 => '正常'], ['prompt' => '状态'])
-                    ->label($model->getAttributeLabel('status')); ?>
+        <?php $dictionary = new Dictionary()?>
+        <?php if(count($model->getFirstErrors())>0){ ?>
+            <div class="alert alert-danger alert-dismissible">
+                <?php echo $form->errorSummary($model); ?>
             </div>
-            <!-- /.col -->
-            <div class="col-md-6">
-                <div class="form-group">
-                    <label>Multiple</label>
-                    <select class="form-control" multiple="">
-                        <option>Alabama</option>
-                        <option>Alaska</option>
-                        <option>California</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                    </select>
-                </div>
-                <!-- /.form-group -->
-                <div class="form-group">
-                    <label>Disabled Result</label>
-                    <select class="form-control">
-                        <option selected="selected">Alabama</option>
-                        <option>Alaska</option>
-                        <option disabled="disabled">California (disabled)</option>
-                        <option>Delaware</option>
-                        <option>Tennessee</option>
-                        <option>Texas</option>
-                        <option>Washington</option>
-                    </select>
-                </div>
+        <?php }; ?>
+        <?php
+        if (Yii::$app->session->getFlash('updateOperator') == 'success'){
+            echo Html::hiddenInput("updateOperator", "success", ['id'=>'updateOperator']);
+        }
+        if (Yii::$app->session->getFlash('createOperator') == 'success'){
+            echo Html::hiddenInput("createOperator", "success", ['id'=>'createOperator']);
+        }
+        ?>
+        <?php echo $form
+            ->field($model, 'login', [
+                    'horizontalCssClasses' => [
+                        'wrapper' => 'col-sm-3',
+                    ],
+                    'inputOptions' => [
+                        'type' => 'text',
+                        'placeholder' =>'',
+                    ],
+            ]
+        )->label($model->getAttributeLabel('login')); ?>
+        <?php echo $form
+            ->field($model, 'password', [
+                    'horizontalCssClasses' => [
+                        'wrapper' => 'col-sm-3',
+                    ],
+                    'inputOptions' => [
+                        'type' => 'password',
+                        'placeholder' =>'',
+                    ],
+            ]
+        )->label($model->getAttributeLabel('password')); ?>
+        <?php echo $form
+            ->field($model, 'name', [
+                    'horizontalCssClasses' => [
+                        'wrapper' => 'col-sm-3',
+                    ],
+                    'inputOptions' => [
+                        'type' => 'text',
+                        'placeholder' => '',
+                    ],
+            ]
+        )->label($model->getAttributeLabel('name')); ?>
+        <?php echo $form
+            ->field($model, 'email', [
+                    'horizontalCssClasses' => [
+                        'wrapper' => 'col-sm-3',
+                    ],
+                    'inputOptions' => [
+                        'type' => 'text',
+                        'placeholder' => '',
+                    ],
+            ]
+        )->label($model->getAttributeLabel('email')); ?>
+        <?php echo $form
+            ->field($model, 'gender')
+            ->inline()
+            ->radioList(
+                ['1' => '男', '2' => '女', '0' => '保密']
+            )
+            ->label($model->getAttributeLabel('gender')); ?>
+        <?php echo $form
+            ->field($model, 'status', [
+                    'horizontalCssClasses' => [
+                        'wrapper' => 'col-sm-2',
+                    ]
+            ])
+            ->dropDownList([0 => '停用', 1 => '正常'], ['prompt' => '状态'])
+            ->label($model->getAttributeLabel('status')); ?>
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('role'); ?></label>
+            <div class="col-sm-8">
+                <?php if (($groupList = $dictionary->getDictionaryItemByType(4)) > 0) {
+                    foreach ($groupList as $groupIndex => $group) {?>
+                        <div class="form-group">
+                            <div>
+                                <b><?php echo $group; ?></b>
+                            </div>
+                            <?php if (count($roleList = $dictionary->getAuthItemByGroup($groupIndex, 1)) > 0) {
+                                foreach ($roleList as $roleIndex => $role) {
+                                    echo $form->field($model, 'role[]', [
+                                        'inputOptions' => [
+                                            'type' => 'checkbox',
+                                            'value' => $roleIndex,
+                                            'checked' => in_array($roleIndex, $model->role)?'checked':false
+                                        ],
+                                        'options' => [
+                                            'tag' => false
+                                        ],
+                                        'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+                                        'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                                    ])->label($role);
+                                }
+                            } ?>
+                        </div>
+                    <?php }}?>
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
-        <?php ActiveForm::end(); ?>
+        <?php echo $form->field($model, 'operatorId')->hiddenInput()->label(false); ?>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-        <button type="submit" class="btn btn-success pull-right">提交</button>
+        <?php echo Html::submitButton('提交', ['class' => 'btn btn-success pull-right']); ?>
     </div>
+    <?php ActiveForm::end(); ?>
 </div>
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        if($('#createOperator').val() == 'success'){
+            setTimeout(function(){layer.msg('新建成功了呦', {icon: 6});}, 1000);
+        }
+        if($('#updateOperator').val() == 'success'){
+            setTimeout(function(){layer.msg('修改成功了呦', {icon: 6});}, 1000);
+        }
         //遍历左菜单,增加active
         $("ul.sidebar-menu a").each(function(index,value){
             if($(this).attr("href")=='<?php echo Url::to(['//account/operator/index']); ?>'){

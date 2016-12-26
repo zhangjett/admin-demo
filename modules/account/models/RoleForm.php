@@ -55,13 +55,13 @@ class RoleForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['item_id', 'name', 'group_id', 'status'])
+            ->select(['item_id', 'name', 'item_group', 'status'])
             ->from('auth_item')
             ->where(['item_id' => $id])
             ->one();
 
         $this->roleId = $row['item_id'];
-        $this->group = $row['group_id'];
+        $this->group = $row['item_group'];
         $this->name = $row['name'];
         $this->status = $row['status'];
 
@@ -86,10 +86,9 @@ class RoleForm extends Model
         try {
             $columns = [
                 'name' => $this->name,
-                'group_id' => $this->group,
+                'item_group' => $this->group,
                 'description' => $this->name,
-                'status' => $this->status,
-                'update_time' => date("Y-m-d H:i:s")
+                'status' => $this->status
             ];
             $condition = [
                 'item_id' => $this->roleId,

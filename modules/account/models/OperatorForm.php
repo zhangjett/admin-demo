@@ -21,14 +21,14 @@ class OperatorForm extends Model
     public $gender;
     public $createTime;
     public $updateTime;
-    public $roles;
+    public $role;
 
     public function rules()
     {
         return [
-            [['id'], 'required', 'on' => 'update'],
-            [['login', 'password', 'name' ,'status'], 'validateLogin', 'on' => 'create'],
-            [['login', 'name', 'phone', 'email', 'qq', 'tel','gender', 'role'], 'safe'],
+            [['operatorId', 'login', 'name', 'gender' ,'status'], 'required', 'on' => 'update'],
+            [['login', 'password', 'name', 'gender' ,'status'], 'validateLogin', 'on' => 'create'],
+            [['email', 'role'], 'safe'],
         ];
     }
 
@@ -69,9 +69,9 @@ class OperatorForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['operator_id', 'login', 'name', 'email', 'status', 'create_time', 'update_time'])
+            ->select(['operator_id', 'login', 'name', 'email', 'status'])
             ->from('operator')
-            ->where(['id'=>$id])
+            ->where(['operator_id'=>$id])
             ->one();
 
         $this->operatorId = $row['operator_id'];
@@ -79,8 +79,6 @@ class OperatorForm extends Model
         $this->name = $row['name'];
         $this->email = $row['email'];
         $this->status = $row['status'];
-        $this->createTime = $row['create_time'];
-        $this->updateTime = $row['update_time'];
 
         $rows = $query
             ->select(['item_id'])
@@ -89,7 +87,7 @@ class OperatorForm extends Model
             ->indexBy('item_id')
             ->column();
 
-        $this->roles = $rows;
+        $this->role = $rows;
         return true;
     }
 
@@ -107,8 +105,7 @@ class OperatorForm extends Model
                 'login' => $this->login,
                 'name' => $this->name,
                 'email' => $this->email,
-                'status' => $this->status,
-                'update_time' => date("Y-m-d H:i:s")
+                'status' => $this->status
             ];
 
             ($this->password != null ) && ($columns['password'] = Yii::$app->getSecurity()->generatePasswordHash($this->password));
@@ -123,10 +120,10 @@ class OperatorForm extends Model
             ];
             $connection->createCommand()->delete('auth_assignment', $condition)->execute();
 
-            if(is_array($this->roles) && count($this->roles)>0){
+            if(is_array($this->role) && count($this->role)>0){
                 $columns = [];
                 $date=date("Y-m-d H:i:s");
-                foreach($this->roles as $role){
+                foreach($this->role as $role){
                     $column = [];
                     $column[] = $this->operatorId;
                     $column[] = $role;

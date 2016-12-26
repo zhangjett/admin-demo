@@ -31,9 +31,10 @@ class MenuSearchForm extends Model
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
         $rows = $query
-            ->select(['item_id AS menuId', 'auth_item.name', 'description', 'group.name AS groupName', 'status', 'update_time AS updateTime'])
+            ->select(['auth_item.item_id AS menuId', 'auth_item.name', 'description', 'dictionary_item.name AS groupName'
+                , 'auth_item.status', 'auth_item.update_time AS updateTime'])
             ->from('auth_item')
-            ->leftJoin('group', 'group.group_id = auth_item.group_id')
+            ->leftJoin('dictionary_item', 'dictionary_item.type_id = 3 AND dictionary_item.code = auth_item.item_group')
             ->where($condition)
             ->offset($pages->offset)
             ->limit($pages->limit)

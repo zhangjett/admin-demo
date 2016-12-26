@@ -12,14 +12,18 @@ use yii\db\Query;
  */
 class DictionaryItemSearchForm extends Model
 {
-    public $typeId = 1;
+    public $typeId;
     public $status;
-    public $filter;
     public $pageSize = 5;
 
     public function search()
     {
-        $condition = [];
+
+        $condition = ['and'];
+
+        if($this->typeId != null){
+            $condition[] = 'type_id = '.(int)$this->typeId;
+        }
 
         $query = new Query();
         $count = $query

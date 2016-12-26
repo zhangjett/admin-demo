@@ -72,6 +72,7 @@ class DictionaryItemForm extends Model
         $transaction = $connection->beginTransaction();
         try {
             $columns = [
+                'code' => $this->code,
                 'name' => $this->name,
             ];
             $condition = [

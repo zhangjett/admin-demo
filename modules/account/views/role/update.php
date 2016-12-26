@@ -63,7 +63,7 @@ use app\components\Dictionary;
                 'wrapper' => 'col-sm-2',
             ]
         ])
-        ->dropDownList($dictionary->getGroup(2), ['prompt' => '--分组--'])
+        ->dropDownList($dictionary->getDictionaryItemByType(4), ['prompt' => '--分组--'])
         ->label($model->getAttributeLabel('group')); ?>
     <?php echo $form
         ->field($model,'status', [
@@ -76,13 +76,13 @@ use app\components\Dictionary;
         <div class="form-group">
             <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('menu'); ?></label>
             <div class="col-sm-8">
-                <?php if (($groupList = $dictionary->getGroup(1)) > 0) {
+                <?php if (($groupList = $dictionary->getDictionaryItemByType(3)) > 0) {
                     foreach ($groupList as $groupIndex => $group) {?>
                         <div class="form-group">
                             <div>
                                 <b><?php echo $group; ?></b>
                             </div>
-                            <?php if (count($menuList = $dictionary->getMenuByGroup($groupIndex)) > 0) {
+                            <?php if (count($menuList = $dictionary->getAuthItemByGroup($groupIndex, 1)) > 0) {
                                 foreach ($menuList as $menuIndex => $menu) {
                                     echo $form->field($model, 'menu[]', [
                                         'inputOptions' => [

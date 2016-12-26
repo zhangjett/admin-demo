@@ -71,7 +71,7 @@ class MenuForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['item_id AS menu_id', 'name', 'description', 'group_id', 'status'])
+            ->select(['item_id AS menu_id', 'name', 'description', 'item_group', 'status'])
             ->from('auth_item')
             ->where(['item_id' => $id])
             ->one();
@@ -80,7 +80,7 @@ class MenuForm extends Model
 
         $this->menuId = $row['menu_id'];
         $this->name = $row['name'];
-        $this->group = $row['group_id'];
+        $this->group = $row['item_group'];
         $this->status = $row['status'];
 
         return true;
@@ -100,9 +100,8 @@ class MenuForm extends Model
         try {
             $columns = [
                 'name' => $this->name,
-                'group_id' => (int)$this->group,
-                'description' => $description,
-                'update_time' => date("Y-m-d H:i:s")
+                'group' => (int)$this->group,
+                'description' => $description
             ];
             $condition = [
                 'item_id' => $this->menuId,

@@ -71,7 +71,7 @@ use yii\bootstrap\ActiveForm;
             });
         });
         //刷新
-        $('.box-body').on("click",".mailbox-controls button.refresh",function(){
+        $(document).on("click",".mailbox-controls button.refresh",function(){
             tool.ajax({
                 url:$(this).attr("href"),
                 data:$('#searchForm').serialize(),
@@ -81,6 +81,9 @@ use yii\bootstrap\ActiveForm;
                     $(document).trigger('icheck');
                 }
             });
+        });
+        $(document).on("click","table tr td span.edit",function(){
+            window.open($(this).attr("href"));
         });
     });
     <?php

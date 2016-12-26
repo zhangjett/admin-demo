@@ -44,6 +44,11 @@ use yii\bootstrap\ActiveForm;
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        $("ul.sidebar-menu a").each(function(index,value){
+            if($(this).attr("href")=='<?php echo Url::to(['//account/dictionary/index']); ?>'){
+                $(this).closest("li").addClass("active").closest("ul").css("display","block").closest("li").addClass("active");
+            }
+        });
         $("#updateDictionaryItemModal").on("hidden.bs.modal", function() {
             $(this).removeData("bs.modal");
             $('div.mailbox-controls button.refresh').trigger('click');

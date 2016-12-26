@@ -44,7 +44,7 @@ use yii\helpers\Url;
                     <td><a href="javascript:void(0);"><?php echo $dictionaryType['name']; ?></a></td>
                     <td><?php echo $dictionaryType['createTime']; ?></td>
                     <td>
-                        <span class="label label-success item" href="<?php echo Url::to(['//account/dictionary-item/index','id'=>$dictionaryType['typeId']]); ?>">字典内容</span>&nbsp;
+                        <span class="label label-success item" href="<?php echo Url::to(['//account/dictionary-item/index','typeId'=>$dictionaryType['typeId']]); ?>">字典内容</span>&nbsp;
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/dictionary/update','id'=>$dictionaryType['typeId']]); ?>" data-toggle="modal" data-target="#updateDictionaryModal">编辑</span>
                     </td>
                 </tr>
