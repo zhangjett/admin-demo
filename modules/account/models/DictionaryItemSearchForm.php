@@ -25,16 +25,15 @@ class DictionaryItemSearchForm extends Model
             $condition[] = 'type_id = '.(int)$this->typeId;
         }
 
-        $query = new Query();
-        $count = $query
+        $count = (new Query())
             ->from('dictionary_item')
             ->where($condition)
             ->count();
 
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
-        $rows = $query
-            ->select(['item_id AS itemId', 'code', 'name','create_time AS createTime'])
+        $rows = (new Query())
+            ->select(['item_id AS itemId', 'value', 'name', 'update_time AS updateTime'])
             ->from('dictionary_item')
             ->where($condition)
             ->offset($pages->offset)

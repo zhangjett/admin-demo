@@ -20,15 +20,14 @@ class DictionaryTypeSearchForm extends Model
     {
         $condition = [];
 
-        $query = new Query();
-        $count = $query
+        $count = (new Query())
             ->from('dictionary_type')
             ->where($condition)
             ->count();
 
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
-        $rows = $query
+        $rows = (new Query())
             ->select(['type_id AS typeId', 'code', 'name', 'update_time AS updateTime'])
             ->from('dictionary_type')
             ->where($condition)

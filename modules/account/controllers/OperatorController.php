@@ -6,6 +6,7 @@ use Yii;
 use app\components\Controller;
 use app\modules\account\models\OperatorForm;
 use app\modules\account\models\OperatorSearchForm;
+use yii\filters\AccessControl;
 
 /**
  * Operator controller for the `account` module
@@ -19,6 +20,22 @@ class OperatorController extends Controller
     public $jsFile = [
         'icheck/icheck.min.js'
     ];
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'create', 'update'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => [Yii::$app->controller->action->uniqueId],
+                    ]
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {

@@ -34,7 +34,7 @@ $this->title = $model->typeId?'编辑字典类型':'新建字典类型';
         <?php } ?>
         <?php echo $form->field($model, 'itemId')->hiddenInput()->label(false); ?>
         <?php echo $form
-            ->field($model, 'code', [
+            ->field($model, 'value', [
                     'horizontalCssClasses' => [
                         'wrapper' => 'col-sm-3',
                     ],
@@ -43,7 +43,7 @@ $this->title = $model->typeId?'编辑字典类型':'新建字典类型';
                         'placeholder' =>'',
                     ],
                 ]
-            )->label($model->getAttributeLabel('code')); ?>
+            )->label($model->getAttributeLabel('value')); ?>
         <?php echo $form
             ->field($model, 'name', [
                     'horizontalCssClasses' => [

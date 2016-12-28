@@ -14,7 +14,7 @@ class DictionaryItemForm extends Model
 {
     public $itemId;
     public $typeId;
-    public $code;
+    public $value;
     public $name;
     public $updateTime;
     public $createTime;
@@ -22,8 +22,8 @@ class DictionaryItemForm extends Model
     public function rules()
     {
         return [
-            [['typeId', 'code', 'name'], 'required', 'on' => 'create'],
-            [['itemId', 'code', 'name'], 'required', 'on' => 'update'],
+            [['typeId', 'value', 'name'], 'required', 'on' => 'create'],
+            [['itemId', 'value', 'name'], 'required', 'on' => 'update'],
         ];
     }
 
@@ -32,8 +32,8 @@ class DictionaryItemForm extends Model
     {
         return [
             'typeId' => '类型ID',
-            'code' => '名称CODE',
-            'name' => '名称',
+            'value' => '字典值',
+            'name' => '字典名称',
             'updateTime' => '修改时间',
             'createTime' => '创建时间',
         ];
@@ -48,14 +48,14 @@ class DictionaryItemForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['item_id', 'type_id', 'code', 'name'])
+            ->select(['item_id', 'type_id', 'value', 'name'])
             ->from('dictionary_item')
             ->where(['item_id' => $id])
             ->one();
 
         $this->itemId = $row['item_id'];
         $this->typeId = $row['type_id'];
-        $this->code = $row['code'];
+        $this->value = $row['value'];
         $this->name = $row['name'];
 
         return true;
@@ -72,7 +72,7 @@ class DictionaryItemForm extends Model
         $transaction = $connection->beginTransaction();
         try {
             $columns = [
-                'code' => $this->code,
+                'value' => $this->value,
                 'name' => $this->name,
             ];
             $condition = [
@@ -100,7 +100,7 @@ class DictionaryItemForm extends Model
         try {
             $date = date("Y-m-d H:i:s");
             $columns = [
-                'code' => $this->code,
+                'value' => $this->value,
                 'name' => $this->name,
                 'type_id' => $this->typeId,
                 'create_time' => $date,

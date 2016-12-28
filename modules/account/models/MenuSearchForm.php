@@ -25,15 +25,14 @@ class MenuSearchForm extends Model
         $condition = [];
         $condition['auth_item.type'] = 2;
 
-        $query = new Query();
-        $count = $query
+        $count = (new Query())
             ->from('auth_item')
             ->where($condition)
             ->count();
 
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
-        $rows = $query
+        $rows = (new Query())
             ->select(['auth_item.item_id AS menuId', 'auth_item.name', 'description', 'dictionary_item.name AS groupName'
                 , 'auth_item.status', 'auth_item.update_time AS updateTime'])
             ->from('auth_item')

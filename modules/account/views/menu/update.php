@@ -45,7 +45,7 @@ use app\components\Dictionary;
 
         ?>
         <?php echo $form
-            ->field($model,'name',[
+            ->field($model, 'name',[
                 'horizontalCssClasses' => [
                     'wrapper' => 'col-sm-3',
                 ],
@@ -56,7 +56,7 @@ use app\components\Dictionary;
             ]
         )->label($model->getAttributeLabel('name')); ?>
         <?php echo $form
-            ->field($model,'module', [
+            ->field($model, 'module', [
                 'horizontalCssClasses' => [
                     'wrapper' => 'col-sm-3',
                 ]
@@ -64,7 +64,7 @@ use app\components\Dictionary;
             ->dropDownList($app->getAppModule(), ['prompt' => '--module--'])
             ->label($model->getAttributeLabel('module')); ?>
         <?php echo $form
-            ->field($model,'controller', [
+            ->field($model, 'controller', [
                 'horizontalCssClasses' => [
                     'wrapper' => 'col-sm-3',
                 ]
@@ -80,15 +80,15 @@ use app\components\Dictionary;
             ->dropDownList($app->getAppModuleControllerAction(), ['prompt' => '--action--'])
             ->label($model->getAttributeLabel('action')); ?>
         <?php echo $form
-            ->field($model,'group', [
+            ->field($model, 'itemGroup', [
                 'horizontalCssClasses' => [
                     'wrapper' => 'col-sm-2',
                 ]
             ])
             ->dropDownList(Dictionary::getDictionaryItemByType($menuTypeId), ['prompt' => '--分组--'])
-            ->label($model->getAttributeLabel('group')); ?>
+            ->label($model->getAttributeLabel('itemGroup')); ?>
         <?php echo $form
-            ->field($model,'status', [
+            ->field($model, 'status', [
                 'horizontalCssClasses' => [
                     'wrapper' => 'col-sm-2',
                 ]

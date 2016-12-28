@@ -29,7 +29,7 @@ use yii\helpers\Url;
         <thead>
             <tr>
                 <th>#</th>
-                <th>字典CODE</th>
+                <th>字典值</th>
                 <th>字典名称</th>
                 <th>修改时间</th>
                 <th>操作</th>
@@ -40,9 +40,9 @@ use yii\helpers\Url;
             foreach ($dictionaryItemList as $index => $dictionaryItem) { ; ?>
                 <tr>
                     <td><input type="checkbox" value="<?php echo $dictionaryItem['itemId']; ?>"></td>
-                    <td><?php echo $dictionaryItem['code']; ?></td>
+                    <td><?php echo $dictionaryItem['value']; ?></td>
                     <td><a href="javascript:void(0);"><?php echo $dictionaryItem['name']; ?></a></td>
-                    <td><?php echo $dictionaryItem['createTime']; ?></td>
+                    <td><?php echo $dictionaryItem['updateTime']; ?></td>
                     <td>
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/dictionary-item/update','id'=>$dictionaryItem['itemId']]); ?>"  data-toggle="modal" data-target="#updateDictionaryItemModal">编辑</span>
                     </td>

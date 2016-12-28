@@ -14,7 +14,7 @@ class MenuForm extends Model
 {
     public $menuId;
     public $name;
-    public $group;
+    public $itemGroup;
     public $module;
     public $controller;
     public $action;
@@ -24,7 +24,7 @@ class MenuForm extends Model
     {
         return [
             [['menuId'], 'required', 'on' => 'update'],
-            [['name', 'group', 'module', 'controller', 'action', 'status'], 'required'],
+            [['name', 'itemGroup', 'module', 'controller', 'action', 'status'], 'required'],
             ['action', 'validateName', 'on' => 'create'],
         ];
     }
@@ -54,7 +54,7 @@ class MenuForm extends Model
         return [
             'permissionId' => '权限ID',
             'name' => '名称',
-            'group' => '组别',
+            'itemGroup' => '分组',
             'module' => 'module',
             'controller' => 'controller',
             'action' => 'action',
@@ -80,7 +80,7 @@ class MenuForm extends Model
 
         $this->menuId = $row['menu_id'];
         $this->name = $row['name'];
-        $this->group = $row['item_group'];
+        $this->itemGroup = $row['item_group'];
         $this->status = $row['status'];
 
         return true;
@@ -97,16 +97,18 @@ class MenuForm extends Model
 
         $connection = Yii::$app->db;
         $transaction = $connection->beginTransaction();
+
         try {
             $columns = [
                 'name' => $this->name,
-                'group' => (int)$this->group,
+                'item_group' => (int)$this->itemGroup,
                 'description' => $description
             ];
             $condition = [
                 'item_id' => $this->menuId,
             ];
             $connection->createCommand()->update('auth_item', $columns, $condition)->execute();
+
             $transaction->commit();
             return true;
         } catch(Exception $e) {

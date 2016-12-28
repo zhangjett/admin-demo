@@ -56,7 +56,8 @@ class OperatorForm extends Model
             'status' => '状态',
             'gender' => '性别',
             'createTime' => '创建时间',
-            'updateTime' => '修改时间'
+            'updateTime' => '修改时间',
+            'role' => '角色'
         ];
     }
 

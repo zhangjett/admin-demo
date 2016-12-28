@@ -54,15 +54,14 @@ class OperatorSearchForm extends Model
             $condition[] = ['or', ['like', 'login', $this->filter], ['like', 'name', $this->filter]];
         }
 
-        $query = new Query();
-        $count = $query
+        $count = (new Query())
             ->from('operator')
             ->where($condition)
             ->count();
 
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
-        $rows = $query
+        $rows = (new Query())
             ->select(['operator_id AS operatorId', 'login', 'name', 'email', 'status', 'create_time AS createTime', 'update_time AS updateTime'])
             ->from('operator')
             ->where($condition)
