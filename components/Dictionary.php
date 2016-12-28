@@ -12,17 +12,29 @@ class Dictionary extends Object
      * @param int $type
      * @return array
      */
-    public function getDictionaryItemByType($type = 1)
+    public static function getDictionaryItemByType($type = 1)
     {
         $rows = (new Query())
             ->select(['name'])
             ->from('dictionary_item')
             ->where('type_id = :type_id')
             ->addParams([':type_id' => $type])
-            ->indexBy('code')
+            ->indexBy('value')
             ->column();
 
         return $rows;
+    }
+
+    public static function getDictionaryTypeIdByCode($code = '')
+    {
+        $id = (new Query())
+            ->select(['type_id AS typeId'])
+            ->from('dictionary_type')
+            ->where('code = :code')
+            ->addParams([':code' => $code])
+            ->scalar();
+
+        return $id;
     }
 
     /**
@@ -31,7 +43,7 @@ class Dictionary extends Object
      * @param $type
      * @return array
      */
-    public function getAuthItemByGroup($group, $type = 1)
+    public static function getAuthItemByGroup($group, $type = 1)
     {
         $rows = (new Query())
             ->select(['name'])

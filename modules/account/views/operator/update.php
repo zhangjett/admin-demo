@@ -24,7 +24,11 @@ use app\components\Dictionary;
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        <?php $dictionary = new Dictionary()?>
+        <?php
+        $genderTypeId = Dictionary::getDictionaryTypeIdByCode('gender');
+        $statusTypeId = Dictionary::getDictionaryTypeIdByCode('status');
+        $roleTypeId = Dictionary::getDictionaryTypeIdByCode('role');
+        ?>
         <?php if(count($model->getFirstErrors())>0){ ?>
             <div class="alert alert-danger alert-dismissible">
                 <?php echo $form->errorSummary($model); ?>
@@ -86,7 +90,7 @@ use app\components\Dictionary;
             ->field($model, 'gender')
             ->inline()
             ->radioList(
-                ['1' => '男', '2' => '女', '0' => '保密']
+                Dictionary::getDictionaryItemByType($genderTypeId)
             )
             ->label($model->getAttributeLabel('gender')); ?>
         <?php echo $form
@@ -95,18 +99,18 @@ use app\components\Dictionary;
                         'wrapper' => 'col-sm-2',
                     ]
             ])
-            ->dropDownList([0 => '停用', 1 => '正常'], ['prompt' => '状态'])
+            ->dropDownList(Dictionary::getDictionaryItemByType($statusTypeId), ['prompt' => '状态'])
             ->label($model->getAttributeLabel('status')); ?>
         <div class="form-group">
             <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('role'); ?></label>
             <div class="col-sm-8">
-                <?php if (($groupList = $dictionary->getDictionaryItemByType(4)) > 0) {
+                <?php if (($groupList = Dictionary::getDictionaryItemByType($roleTypeId)) > 0) {
                     foreach ($groupList as $groupIndex => $group) {?>
                         <div class="form-group">
                             <div>
                                 <b><?php echo $group; ?></b>
                             </div>
-                            <?php if (count($roleList = $dictionary->getAuthItemByGroup($groupIndex, 1)) > 0) {
+                            <?php if (count($roleList = Dictionary::getAuthItemByGroup($groupIndex, 1)) > 0) {
                                 foreach ($roleList as $roleIndex => $role) {
                                     echo $form->field($model, 'role[]', [
                                         'inputOptions' => [

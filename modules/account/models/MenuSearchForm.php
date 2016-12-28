@@ -6,6 +6,7 @@ use yii;
 use yii\base\Model;
 use yii\data\Pagination;
 use yii\db\Query;
+use app\components\Dictionary;
 
 /**
  * MenuSearchForm.
@@ -18,6 +19,8 @@ class MenuSearchForm extends Model
 
     public function search()
     {
+
+        $menuTypeId = Dictionary::getDictionaryTypeIdByCode('menu');
 
         $condition = [];
         $condition['auth_item.type'] = 2;
@@ -34,7 +37,7 @@ class MenuSearchForm extends Model
             ->select(['auth_item.item_id AS menuId', 'auth_item.name', 'description', 'dictionary_item.name AS groupName'
                 , 'auth_item.status', 'auth_item.update_time AS updateTime'])
             ->from('auth_item')
-            ->leftJoin('dictionary_item', 'dictionary_item.type_id = 3 AND dictionary_item.code = auth_item.item_group')
+            ->leftJoin('dictionary_item', 'dictionary_item.type_id = '.$menuTypeId.' AND dictionary_item.value = auth_item.item_group')
             ->where($condition)
             ->offset($pages->offset)
             ->limit($pages->limit)

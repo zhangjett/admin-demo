@@ -55,7 +55,9 @@ use app\components\Dictionary;
         ]
     )->label($model->getAttributeLabel('name')); ?>
     <?php
-    $dictionary = new Dictionary();
+    $statusTypeId = Dictionary::getDictionaryTypeIdByCode('status');
+    $roleTypeId = Dictionary::getDictionaryTypeIdByCode('role');
+    $menuTypeId = Dictionary::getDictionaryTypeIdByCode('menu');
     ?>
     <?php echo $form
         ->field($model,'group', [
@@ -63,7 +65,7 @@ use app\components\Dictionary;
                 'wrapper' => 'col-sm-2',
             ]
         ])
-        ->dropDownList($dictionary->getDictionaryItemByType(4), ['prompt' => '--分组--'])
+        ->dropDownList(Dictionary::getDictionaryItemByType($roleTypeId), ['prompt' => '--分组--'])
         ->label($model->getAttributeLabel('group')); ?>
     <?php echo $form
         ->field($model,'status', [
@@ -71,18 +73,18 @@ use app\components\Dictionary;
                 'wrapper' => 'col-sm-2',
             ]
         ])
-        ->dropDownList([1 => '正常', 2 => '停用'], ['prompt' => '--状态--'])
+        ->dropDownList(Dictionary::getDictionaryItemByType($statusTypeId), ['prompt' => '--状态--'])
         ->label($model->getAttributeLabel('status')); ?>
         <div class="form-group">
             <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('menu'); ?></label>
             <div class="col-sm-8">
-                <?php if (($groupList = $dictionary->getDictionaryItemByType(3)) > 0) {
+                <?php if (($groupList = Dictionary::getDictionaryItemByType($menuTypeId)) > 0) {
                     foreach ($groupList as $groupIndex => $group) {?>
                         <div class="form-group">
                             <div>
                                 <b><?php echo $group; ?></b>
                             </div>
-                            <?php if (count($menuList = $dictionary->getAuthItemByGroup($groupIndex, 1)) > 0) {
+                            <?php if (count($menuList = Dictionary::getAuthItemByGroup($groupIndex, 2)) > 0) {
                                 foreach ($menuList as $menuIndex => $menu) {
                                     echo $form->field($model, 'menu[]', [
                                         'inputOptions' => [

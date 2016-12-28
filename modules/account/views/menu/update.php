@@ -26,8 +26,9 @@ use app\components\Dictionary;
     <!-- /.box-header -->
     <div class="box-body">
         <?php
+        $menuTypeId = Dictionary::getDictionaryTypeIdByCode('menu');
+        $statusTypeId = Dictionary::getDictionaryTypeIdByCode('status');
         $app = new App();
-        $dictionary = new Dictionary();
         ?>
         <?php if(count($model->getFirstErrors()) > 0){ ?>
             <div class="alert alert-danger alert-dismissible">
@@ -84,7 +85,7 @@ use app\components\Dictionary;
                     'wrapper' => 'col-sm-2',
                 ]
             ])
-            ->dropDownList($dictionary->getDictionaryItemByType(10), ['prompt' => '--分组--'])
+            ->dropDownList(Dictionary::getDictionaryItemByType($menuTypeId), ['prompt' => '--分组--'])
             ->label($model->getAttributeLabel('group')); ?>
         <?php echo $form
             ->field($model,'status', [
@@ -92,7 +93,7 @@ use app\components\Dictionary;
                     'wrapper' => 'col-sm-2',
                 ]
             ])
-            ->dropDownList($dictionary->getDictionaryItemByType(2), ['prompt' => '--状态--'])
+            ->dropDownList(Dictionary::getDictionaryItemByType($statusTypeId), ['prompt' => '--状态--'])
             ->label($model->getAttributeLabel('status')); ?>
         <?php echo $form->field($model, 'menuId')->hiddenInput()->label(false); ?>
     </div>

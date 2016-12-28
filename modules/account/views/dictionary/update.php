@@ -33,6 +33,17 @@ $this->title = $model->typeId?'编辑字典类型':'新建字典类型';
         </div>
     <?php } ?>
     <?php echo $form
+        ->field($model,'code',[
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-3',
+                ],
+                'inputOptions' => [
+                    'type' => 'text',
+                    'placeholder' =>'',
+                ],
+            ]
+        )->label($model->getAttributeLabel('code')); ?>
+    <?php echo $form
         ->field($model,'name',[
                 'horizontalCssClasses' => [
                     'wrapper' => 'col-sm-3',

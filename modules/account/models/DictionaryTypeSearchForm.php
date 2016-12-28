@@ -29,7 +29,7 @@ class DictionaryTypeSearchForm extends Model
         $pages = new Pagination(['totalCount' => $count, 'pageSize' => $this->pageSize]);
 
         $rows = $query
-            ->select(['type_id AS typeId', 'name', 'create_time AS createTime'])
+            ->select(['type_id AS typeId', 'code', 'name', 'update_time AS updateTime'])
             ->from('dictionary_type')
             ->where($condition)
             ->offset($pages->offset)

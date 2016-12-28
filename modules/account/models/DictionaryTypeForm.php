@@ -13,6 +13,7 @@ use yii\base\Exception;
 class DictionaryTypeForm extends Model
 {
     public $typeId;
+    public $code;
     public $name;
     public $updateTime;
     public $createTime;
@@ -20,8 +21,8 @@ class DictionaryTypeForm extends Model
     public function rules()
     {
         return [
-            [['name'], 'required', 'on' => 'create'],
-            [['typeId', 'name'], 'required', 'on' => 'update']
+            [['code', 'name'], 'required', 'on' => 'create'],
+            [['typeId', 'code', 'name'], 'required', 'on' => 'update']
         ];
     }
 
@@ -30,7 +31,8 @@ class DictionaryTypeForm extends Model
     {
         return [
             'typeId' => '类型ID',
-            'name' => '名称',
+            'code' => '类型编码',
+            'name' => '类型名称',
             'updateTime' => '修改时间',
             'createTime' => '创建时间',
         ];
@@ -45,12 +47,13 @@ class DictionaryTypeForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['type_id', 'name'])
+            ->select(['type_id', 'code', 'name'])
             ->from('dictionary_type')
             ->where(['type_id' => $id])
             ->one();
 
         $this->typeId = $row['type_id'];
+        $this->code = $row['code'];
         $this->name = $row['name'];
 
         return true;
@@ -68,6 +71,7 @@ class DictionaryTypeForm extends Model
         $transaction = $connection->beginTransaction();
         try {
             $columns = [
+                'code' => $this->code,
                 'name' => $this->name,
                 'update_time' => date("Y-m-d H:i:s")
             ];
@@ -96,53 +100,13 @@ class DictionaryTypeForm extends Model
         try {
             $date = date("Y-m-d H:i:s");
             $columns = [
+                'code' => $this->code,
                 'name' => $this->name,
-                'create_time' => $date,
-                'update_time' => $date,
+                'create_time' => $date
             ];
             $connection->createCommand()->insert('dictionary_type', $columns)->execute();
             $transaction->commit();
 
-            return true;
-        } catch(Exception $e) {
-            $transaction->rollBack();
-            return false;
-        }
-    }
-
-    /**
-     * 删除菜单
-     * @param $menuIdList
-     * @return bool
-     * @throws yii\db\Exception
-     */
-    public function delete($menuIdList)
-    {
-        $connection = Yii::$app->db;
-        $transaction = $connection->beginTransaction();
-
-        try {
-            $command = $connection->createCommand('DELETE FROM auth_item WHERE id=:id');
-            $command->bindParam(':id', $id);
-
-            if(is_array($menuIdList) && count($menuIdList) > 0){
-                foreach($menuIdList as $menuId){
-                    $id = $menuId;
-                    $command->execute();
-                }
-            }
-
-            $command = $connection->createCommand('DELETE FROM auth_item_child WHERE child=:child');
-            $command->bindParam(':child', $child);
-
-            if(is_array($menuIdList) && count($menuIdList) > 0){
-                foreach($menuIdList as $menuId){
-                    $child = $menuId;
-                    $command->execute();
-                }
-            }
-
-            $transaction->commit();
             return true;
         } catch(Exception $e) {
             $transaction->rollBack();

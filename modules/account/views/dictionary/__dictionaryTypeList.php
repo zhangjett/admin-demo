@@ -30,6 +30,7 @@ use yii\helpers\Url;
             <tr>
                 <th>#</th>
                 <th>ID</th>
+                <th>类型编码</th>
                 <th>类型名称</th>
                 <th>修改时间</th>
                 <th>操作</th>
@@ -41,8 +42,9 @@ use yii\helpers\Url;
                 <tr>
                     <td><input type="checkbox" value="<?php echo $dictionaryType['typeId']; ?>"></td>
                     <td><?php echo $dictionaryType['typeId']; ?></td>
+                    <td><?php echo $dictionaryType['code']; ?></td>
                     <td><a href="javascript:void(0);"><?php echo $dictionaryType['name']; ?></a></td>
-                    <td><?php echo $dictionaryType['createTime']; ?></td>
+                    <td><?php echo $dictionaryType['updateTime']; ?></td>
                     <td>
                         <span class="label label-success item" href="<?php echo Url::to(['//account/dictionary-item/index','typeId'=>$dictionaryType['typeId']]); ?>">字典内容</span>&nbsp;
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/dictionary/update','id'=>$dictionaryType['typeId']]); ?>" data-toggle="modal" data-target="#updateDictionaryModal">编辑</span>
