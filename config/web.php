@@ -28,10 +28,10 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-            'accessChecker' => function(){
-                return new app\components\CheckAccess();
-            }
+            'enableAutoLogin' => true
+        ],
+        'authManager' => [
+            'class' => 'app\components\CheckAccess',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
