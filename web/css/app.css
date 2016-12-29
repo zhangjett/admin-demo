@@ -10,9 +10,8 @@
     height: 90px;
     width: 90px;
 }
-
-/*解决上下不居中*/
-label.radio-inline > div{
-    height: 24px;
+.icheckbox_flat-green,
+.iradio_flat-green {
+    height: 24px !important;
 }
 

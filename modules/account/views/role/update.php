@@ -39,10 +39,6 @@ use app\components\Dictionary;
     }
 
     ?>
-    <?php
-        $app = new App();
-        $dictionary = new Dictionary();
-    ?>
     <?php echo $form
         ->field($model,'name',[
             'horizontalCssClasses' => [
