@@ -1,14 +1,10 @@
 $(function () {
     $(document).on('icheck', function(){
-        $('.mailbox-messages input[type="checkbox"]').iCheck({
+        $('input[type="checkbox"]').iCheck({
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'
         });
-        $('form input[type="checkbox"]').iCheck({
-            checkboxClass: 'icheckbox_flat-green',
-            radioClass: 'iradio_flat-green'
-        });
-        $('.box-body input[type="radio"]').iCheck({
+        $('input[type="radio"]').iCheck({
             checkboxClass: 'icheckbox_flat-green',
             radioClass: 'iradio_flat-green'
         });
