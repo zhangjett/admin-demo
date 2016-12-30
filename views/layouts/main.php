@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use app\assets\AppAsset;
 use app\components\NavMenu;
 
@@ -15,7 +16,7 @@ AppAsset::addScript($this, Yii::$app->controller->getJsFile());
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 2 | Dashboard</title>
+    <title><?= Html::encode($this->title) ?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <?= Html::csrfMetaTags() ?>
@@ -247,7 +248,7 @@ AppAsset::addScript($this, Yii::$app->controller->getJsFile());
                             <svg class="icon user-image" aria-hidden="true">
                                 <use xlink:href="#icon-dao"></use>
                             </svg>
-                            <span class="hidden-xs">Alexander Pierce</span>
+                            <span class="hidden-xs"><?= Yii::$app->user->identity->getAuthKey() ?></span>
                         </a>
                         <ul class="dropdown-menu">
                             <!-- User image -->
@@ -279,10 +280,10 @@ AppAsset::addScript($this, Yii::$app->controller->getJsFile());
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
+                                    <a href="#" class="btn btn-default btn-flat">个人中心</a>
                                 </div>
                                 <div class="pull-right">
-                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                    <a href="<?php echo Url::to(['//account/home/logout'])?>" class="btn btn-default btn-flat">退出</a>
                                 </div>
                             </li>
                         </ul>

@@ -7,6 +7,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'zh-CN',
+    'homeUrl' => ['//site/error'],
     'modules' => [
         'account' => [
             'class' => 'app\modules\account\Module',
@@ -28,7 +29,8 @@ $config = [
         ],
         'user' => [
             'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true
+            'enableAutoLogin' => true,
+            'loginUrl' => ['//account/home/login'],
         ],
         'authManager' => [
             'class' => 'app\components\CheckAccess',

@@ -21,21 +21,22 @@ class OperatorController extends Controller
         'icheck/icheck.min.js'
     ];
 
-//    public function behaviors()
-//    {
-//        return [
-//            'access' => [
-//                'class' => AccessControl::className(),
-//                'only' => ['index', 'create', 'update'],
-//                'rules' => [
-//                    [
-//                        'allow' => true,
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'create', 'update'],
+                'rules' => [
+                    [
+                        'allow' => true,
 //                        'roles' => [Yii::$app->controller->action->uniqueId],
-//                    ]
-//                ],
-//            ],
-//        ];
-//    }
+                        'roles' => ['@'],
+                    ]
+                ],
+            ],
+        ];
+    }
 
     public function actionIndex()
     {
