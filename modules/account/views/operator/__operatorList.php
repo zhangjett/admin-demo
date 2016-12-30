@@ -42,7 +42,7 @@ use yii\helpers\Url;
             foreach ($operatorList as $index => $operator) { ; ?>
                 <tr>
                     <td><input type="checkbox" value="<?php echo $operator['operatorId']; ?>"></td>
-                    <td><a href="javascript:void(0);"><?php echo $operator['login']; ?></a></td>
+                    <td><a href="javascript:void(0);"><?php echo $operator['username']; ?></a></td>
                     <td><?php echo $operator['name']; ?></td>
                     <td><?php echo $operator['email']; ?></td>
                     <td><?php echo $operator['updateTime']; ?></td>

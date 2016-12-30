@@ -46,10 +46,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     <div class="checkbox icheck">
                         <?= $form->field($model, 'rememberMe',[
                             'options' => [
-                                'tag' => false
+                                'tag' => false,
                             ],
                             'checkboxTemplate' => "{beginLabel}\n{input}\n{labelTitle}\n{endLabel}\n{error}\n{hint}",
-                        ])->checkbox()->label($model->getAttributeLabel('rememberMe')); ?>
+                        ])->checkbox(['uncheck' => null])->label($model->getAttributeLabel('rememberMe')); ?>
                     </div>
                 </div>
                 <!-- /.col -->

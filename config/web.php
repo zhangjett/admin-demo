@@ -7,7 +7,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'language' => 'zh-CN',
-    'homeUrl' => ['//site/error'],
+    'homeUrl' => ['//account/operator/index'],
     'modules' => [
         'account' => [
             'class' => 'app\modules\account\Module',
@@ -28,7 +28,7 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\modules\account\models\User',
             'enableAutoLogin' => true,
             'loginUrl' => ['//account/home/login'],
         ],
@@ -50,7 +50,7 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning'],
+                    'levels' => ['info',  'error', 'warning'],
                 ],
             ],
         ],

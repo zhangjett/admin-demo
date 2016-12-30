@@ -248,8 +248,11 @@ AppAsset::addScript($this, Yii::$app->controller->getJsFile());
                             <svg class="icon user-image" aria-hidden="true">
                                 <use xlink:href="#icon-dao"></use>
                             </svg>
-                            <span class="hidden-xs"><?= Yii::$app->user->identity->getAuthKey() ?></span>
+                            <span class="hidden-xs">
+                                <?= Yii::$app->user->identity->name ?>
+                            </span>
                         </a>
+
                         <ul class="dropdown-menu">
                             <!-- User image -->
                             <li class="user-header">

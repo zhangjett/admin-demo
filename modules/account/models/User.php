@@ -2,11 +2,15 @@
 
 namespace app\modules\account\models;
 
+use Yii;
+use yii\db\Query;
+
 class User extends \yii\base\Object implements \yii\web\IdentityInterface
 {
     public $id;
     public $username;
     public $password;
+    public $name;
     public $authKey;
     public $accessToken;
 
@@ -33,7 +37,18 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
+        $row = (new Query())
+            ->select(['operator_id AS id', 'username', 'password', 'name'])
+            ->from('operator')
+            ->where('operator_id = :operator_id')
+            ->addParams([':operator_id' => $id])
+            ->one();
+
+        if ($row != false) {
+            return new static($row);
+        }
+
+        return null;
     }
 
     /**
@@ -58,10 +73,15 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public static function findByUsername($username)
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
+        $row = (new Query())
+            ->select(['operator_id AS id', 'username', 'password', 'name'])
+            ->from('operator')
+            ->where('username = :username')
+            ->addParams([':username' => $username])
+            ->one();
+
+        if ($row != false) {
+            return new static($row);
         }
 
         return null;
@@ -99,6 +119,6 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
      */
     public function validatePassword($password)
     {
-        return $this->password === $password;
+        return Yii::$app->getSecurity()->validatePassword($password, $this->password);
     }
 }
