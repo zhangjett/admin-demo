@@ -30,8 +30,8 @@ class OperatorController extends Controller
                 'rules' => [
                     [
                         'allow' => true,
-                        'roles' => [Yii::$app->controller->action->uniqueId],
-//                        'roles' => ['@'],
+//                        'roles' => [Yii::$app->controller->action->uniqueId],
+                        'roles' => ['@'],
                     ]
                 ],
             ],

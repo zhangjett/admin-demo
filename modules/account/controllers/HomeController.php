@@ -11,13 +11,6 @@ use yii\db\Query;
 
 class HomeController extends Controller
 {
-    public $cssFile = [
-        'icheck/green.css'
-    ];
-
-    public $jsFile = [
-        'icheck/icheck.min.js'
-    ];
     /**
      * Login action.
      *
