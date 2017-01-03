@@ -12,7 +12,8 @@ use yii\helpers\Url;
             <tr>
                 <th>#</th>
                 <th>角色名称</th>
-                <th>权限路由</th>
+                <th>描述</th>
+                <th>规则</th>
                 <th>修改时间</th>
                 <th>操作</th>
             </tr>
@@ -22,9 +23,10 @@ use yii\helpers\Url;
             foreach (array_values($roleList) as $index => $role) { ; ?>
                 <tr>
                     <td><?php echo ++$index; ?></td>
-                    <td><?php echo $role->name; ?></td>
-                    <td><a href="javascript:void(0);"><?php echo $role->name ?></a></td>
-                    <td><?php echo $role->name; ?></td>
+                    <td><a href="javascript:void(0);"><?php echo $role->name; ?></a></td>
+                    <td><?php echo $role->description; ?></td>
+                    <td><?php echo $role->ruleName; ?></td>
+                    <td><?php echo date("Y-m-d H:i:s", $role->updatedAt); ?></td>
                     <td>
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/role/update','id'=>$role->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="label label-danger delete" href="<?php echo Url::to(['//account/role/update','id'=>$role->name]); ?>"><?php echo $role->name==0?"恢复":"停用"?></span>

@@ -21,6 +21,10 @@ class RoleController extends Controller
         'icheck/icheck.min.js'
     ];
 
+    /**
+     * 角色列表
+     * @return string
+     */
     public function actionIndex()
     {
         $auth = Yii::$app->authManager;

@@ -20,7 +20,20 @@ $config = [
                 ],
             ],
         ],
-        'db' => $db,
+        'authManager' => [
+            'class' => 'app\components\rbac\DbManager',
+            'itemTable' => 'item',
+            'itemChildTable' => 'item_child',
+            'assignmentTable' => 'assignment',
+            'ruleTable' => 'rule',
+        ],
+        'db' => [
+            'class' => 'yii\db\Connection',
+            'dsn' => 'mysql:host=localhost;dbname=demo',
+            'username' => 'root',
+            'password' => '',
+            'charset' => 'utf8',
+        ],
     ],
     'params' => $params,
     /*

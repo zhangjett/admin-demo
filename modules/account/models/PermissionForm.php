@@ -24,6 +24,7 @@ class PermissionForm extends Model
         return [
             [['name', 'description'], 'required', 'on' => 'create'],
             [['name', 'description'], 'required', 'on' => 'update'],
+            ['ruleName', 'default', 'value' => ''],
             ['name', 'validateName', 'on' => 'create'],
         ];
     }
@@ -51,7 +52,7 @@ class PermissionForm extends Model
             'name' => '名称',
             'type' => '类型',
             'description' => '描述',
-            'ruleName' => '规则名称',
+            'ruleName' => '规则',
             'data' => '数据',
             'createdAt' => '创建时间',
             'updatedAt' => '修改时间'
@@ -66,10 +67,11 @@ class PermissionForm extends Model
     {
         $auth = Yii::$app->authManager;
 
-        $createPost = $auth->createPermission($this->name);
-        $createPost->description = $this->description;
+        $permission = $auth->createPermission($this->name);
+        $permission->description = $this->description;
+        $permission->ruleName = $this->ruleName;
 
-        return $auth->add($createPost);
+        return $auth->add($permission);
 
     }
 

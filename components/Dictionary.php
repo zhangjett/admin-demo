@@ -56,4 +56,16 @@ class Dictionary extends Object
 
         return $rows;
     }
+
+    public static function getRules()
+    {
+        $auth = Yii::$app->authManager;
+
+        $rows = [];
+        foreach ($auth->getRules() as $index => $rule) {
+            $rows[$index] = $index;
+        }
+
+        return $rows;
+    }
 }

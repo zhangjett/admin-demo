@@ -11,9 +11,9 @@ use yii\helpers\Url;
         <thead>
             <tr>
                 <th>#</th>
-                <th>名称</th>
-                <th>路由</th>
-                <th>类别</th>
+                <th>权限名称</th>
+                <th>描述</th>
+                <th>规则</th>
                 <th>修改时间</th>
                 <th>操作</th>
             </tr>
@@ -23,10 +23,10 @@ use yii\helpers\Url;
             foreach (array_values($permissionList) as $index => $permission) { ; ?>
                 <tr>
                     <td><?php echo ++$index; ?></td>
-                    <td><?php echo $permission->name; ?></td>
-                    <td><a href="javascript:void(0);"><?php echo $permission->description; ?></a></td>
-                    <td><?php echo $permission->name; ?></td>
-                    <td><?php echo $permission->name; ?></td>
+                    <td><a href="javascript:void(0);"><?php echo $permission->name; ?></a></td>
+                    <td><?php echo $permission->description; ?></td>
+                    <td><?php echo $permission->ruleName; ?></td>
+                    <td><?php echo date("Y-m-d H:i:s", $permission->updatedAt); ?></td>
                     <td>
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/permission/update','name'=>$permission->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="label label-danger delete" href="<?php echo Url::to(['//account/permission/update','name'=>$permission->name]); ?>"><?php echo $permission->name==0?"恢复":"停用"?></span>

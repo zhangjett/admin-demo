@@ -25,11 +25,6 @@ use app\components\Dictionary;
     ]); ?>
     <!-- /.box-header -->
     <div class="box-body">
-        <?php
-        $menuTypeId = Dictionary::getDictionaryTypeIdByCode('menu');
-        $statusTypeId = Dictionary::getDictionaryTypeIdByCode('status');
-        $app = new App();
-        ?>
         <?php if(count($model->getFirstErrors()) > 0){ ?>
             <div class="alert alert-danger alert-dismissible">
                 <?php echo $form->errorSummary($model); ?>
@@ -42,7 +37,6 @@ use app\components\Dictionary;
         if (Yii::$app->session->getFlash('updatePermission') == 'success'){
             echo Html::hiddenInput("updatePermission", "success");
         }
-
         ?>
         <?php echo $form
             ->field($model, 'name', [
@@ -66,22 +60,14 @@ use app\components\Dictionary;
                     ],
                 ]
             )->label($model->getAttributeLabel('description')); ?>
-<!--        --><?php //echo $form
-//            ->field($model, 'itemGroup', [
-//                'horizontalCssClasses' => [
-//                    'wrapper' => 'col-sm-2',
-//                ]
-//            ])
-//            ->dropDownList(Dictionary::getDictionaryItemByType($menuTypeId), ['prompt' => '--分组--'])
-////            ->label($model->getAttributeLabel('itemGroup')); ?>
-<!--        --><?php //echo $form
-//            ->field($model, 'status', [
-//                'horizontalCssClasses' => [
-//                    'wrapper' => 'col-sm-2',
-//                ]
-//            ])
-//            ->dropDownList(Dictionary::getDictionaryItemByType($statusTypeId), ['prompt' => '--状态--'])
-//            ->label($model->getAttributeLabel('status')); ?>
+        <?php echo $form
+            ->field($model, 'ruleName', [
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-2',
+                ]
+            ])
+            ->dropDownList(Dictionary::getRules(), ['prompt' => '--规则--'])
+            ->label($model->getAttributeLabel('ruleName')); ?>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
@@ -106,29 +92,6 @@ use app\components\Dictionary;
         if($('input[name="updatePermission"]').val() == 'success'){
             setTimeout(function(){layer.msg('修改成功了呦', {icon: 6});}, 1000);
         }
-        $("#menuform-module").on("change", function(){
-            if($(this).val() != "") {
-                $.each($("#menuform-controller").find("optgroup"), function () {
-                    if ($(this).attr('label') == $("#menuform-module").val()) {
-                        $(this).css('display', 'inline');
-                        return true;
-                    }
-                    $(this).css('display', 'none');
-                });
-            }
-        });
-
-        $("#menuform-controller").on("change", function(){
-            if($(this).val() != "") {
-                $.each($("#menuform-action").find("optgroup"), function () {
-                    if ($(this).attr('label') == ($("#menuform-module").val()+'-'+$("#menuform-controller").val())) {
-                        $(this).css('display', 'inline');
-                        return true;
-                    }
-                    $(this).css('display', 'none');
-                });
-            }
-        });
     });
     <?php
     $this->endBlock();
