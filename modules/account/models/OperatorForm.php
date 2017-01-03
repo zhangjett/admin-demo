@@ -13,7 +13,7 @@ use yii\base\Exception;
 class OperatorForm extends Model
 {
     public $operatorId;
-    public $login;
+    public $username;
     public $password;
     public $name;
     public $email;
@@ -26,8 +26,8 @@ class OperatorForm extends Model
     public function rules()
     {
         return [
-            [['operatorId', 'login', 'name', 'gender' ,'status'], 'required', 'on' => 'update'],
-            [['login', 'password', 'name', 'gender' ,'status'], 'validateLogin', 'on' => 'create'],
+            [['operatorId', 'username', 'name', 'gender' ,'status'], 'required', 'on' => 'update'],
+            [['username', 'password', 'name', 'gender' ,'status'], 'validateLogin', 'on' => 'create'],
             [['email', 'role'], 'safe'],
         ];
     }
@@ -37,7 +37,7 @@ class OperatorForm extends Model
         $query = new Query();
         $count = $query
             ->from('operator')
-            ->where(['login'=>$this->login])
+            ->where(['username'=>$this->username])
             ->count();
 
         if ($count > 0) {
@@ -49,7 +49,7 @@ class OperatorForm extends Model
     {
         return [
             'operatorId' => '用户ID',
-            'login' => '账号',
+            'username' => '账号',
             'password' => '密码',
             'name' => '姓名',
             'email' => '电子邮箱',
@@ -70,13 +70,13 @@ class OperatorForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['operator_id', 'login', 'name', 'email', 'status'])
+            ->select(['operator_id', 'username', 'name', 'email', 'status'])
             ->from('operator')
             ->where(['operator_id'=>$id])
             ->one();
 
         $this->operatorId = $row['operator_id'];
-        $this->login = $row['login'];
+        $this->username = $row['username'];
         $this->name = $row['name'];
         $this->email = $row['email'];
         $this->status = $row['status'];

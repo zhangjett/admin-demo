@@ -43,7 +43,7 @@ use app\components\Dictionary;
         }
         ?>
         <?php echo $form
-            ->field($model, 'login', [
+            ->field($model, 'username', [
                     'horizontalCssClasses' => [
                         'wrapper' => 'col-sm-3',
                     ],
@@ -52,7 +52,7 @@ use app\components\Dictionary;
                         'placeholder' =>'',
                     ],
             ]
-        )->label($model->getAttributeLabel('login')); ?>
+        )->label($model->getAttributeLabel('username')); ?>
         <?php echo $form
             ->field($model, 'password', [
                     'horizontalCssClasses' => [

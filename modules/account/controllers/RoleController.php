@@ -23,22 +23,12 @@ class RoleController extends Controller
 
     public function actionIndex()
     {
-        $model = new RoleSearchForm();
+        $auth = Yii::$app->authManager;
 
-        if (Yii::$app->request->isAjax) {
-            $model->load(Yii::$app->request->post());
-            $result = $model->search();
-            echo $this->renderPartial("__roleList", ['roleList' => $result['rows'],'pages' => $result['pages']]);
-            Yii::$app->end();
-        } else {
-            $model->status = 1;
-            $result = $model->search();
-            $content = $this->renderPartial("__roleList", ['roleList' => $result['rows'],'pages' => $result['pages']]);
-        }
+        $content = $this->renderPartial("__roleList", ['roleList' => $auth->getRoles()]);
 
         return $this->render('index', [
-            "content" => $content,
-            'model' => $model
+            'content' => $content
         ]);
     }
 

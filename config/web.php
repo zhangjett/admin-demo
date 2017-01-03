@@ -33,7 +33,11 @@ $config = [
             'loginUrl' => ['//account/home/login'],
         ],
         'authManager' => [
-            'class' => 'app\components\CheckAccess',
+            'class' => 'app\components\rbac\DbManager',
+            'itemTable' => 'item',
+            'itemChildTable' => 'item_child',
+            'assignmentTable' => 'assignment',
+            'ruleTable' => 'rule',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

@@ -26,20 +26,8 @@ use yii\bootstrap\ActiveForm;
     <?php $this->beginBlock('JS_END');?>
     $(function(){
         $('.box-body').on("click",".mailbox-controls button.add",function(){
-            var url = '<?php echo Url::to(['//account/menu/create']); ?>';
+            var url = '<?php echo Url::to(['//account/permission/create']); ?>';
             window.open(url);
-        });
-        //翻页
-        $('.box-body').on("click",".pull-right .btn-group button",function(){
-            tool.ajax({
-                url:$(this).attr("href"),
-                data:$('#searchForm').serialize(),
-                dataType:'html',
-                success:function(response){
-                    $(".list-box").html(response);
-                    $(document).trigger('icheck');
-                }
-            });
         });
         //刷新
         $('.box-body').on("click",".mailbox-controls button.refresh",function(){

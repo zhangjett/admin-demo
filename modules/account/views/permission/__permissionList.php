@@ -11,23 +11,25 @@ use yii\helpers\Url;
         <thead>
             <tr>
                 <th>#</th>
-                <th>角色名称</th>
-                <th>权限路由</th>
+                <th>名称</th>
+                <th>路由</th>
+                <th>类别</th>
                 <th>修改时间</th>
                 <th>操作</th>
             </tr>
         </thead>
         <tbody>
-        <?php if (count($roleList) > 0) {
-            foreach (array_values($roleList) as $index => $role) { ; ?>
+        <?php if (count($permissionList) > 0) {
+            foreach (array_values($permissionList) as $index => $permission) { ; ?>
                 <tr>
                     <td><?php echo ++$index; ?></td>
-                    <td><?php echo $role->name; ?></td>
-                    <td><a href="javascript:void(0);"><?php echo $role->name ?></a></td>
-                    <td><?php echo $role->name; ?></td>
+                    <td><?php echo $permission->name; ?></td>
+                    <td><a href="javascript:void(0);"><?php echo $permission->description; ?></a></td>
+                    <td><?php echo $permission->name; ?></td>
+                    <td><?php echo $permission->name; ?></td>
                     <td>
-                        <span class="label label-success edit" href="<?php echo Url::to(['//account/role/update','id'=>$role->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-danger delete" href="<?php echo Url::to(['//account/role/update','id'=>$role->name]); ?>"><?php echo $role->name==0?"恢复":"停用"?></span>
+                        <span class="label label-success edit" href="<?php echo Url::to(['//account/menu/update','id'=>$permission->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-danger delete" href="<?php echo Url::to(['//account/menu/update','id'=>$permission->name]); ?>"><?php echo $permission->name==0?"恢复":"停用"?></span>
                     </td>
                 </tr>
             <?php }
