@@ -72,4 +72,25 @@ class PermissionForm extends Model
         return $auth->add($createPost);
 
     }
+
+    /**
+     * 获取权限详情
+     * @param $name
+     * @return bool
+     */
+    public function get($name)
+    {
+        $query = new Query();
+        $row = $query
+            ->select(['name', 'description', 'rule_name'])
+            ->from('item')
+            ->where(['name'=>$name])
+            ->one();
+
+        $this->name = $row['name'];
+        $this->description = $row['description'];
+        $this->ruleName = $row['rule_name'];
+
+        return true;
+    }
 }

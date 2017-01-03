@@ -23,18 +23,6 @@ class PermissionController extends Controller
 
     public function actionIndex()
     {
-//        $auth = Yii::$app->authManager;
-//// 添加规则
-//        $rule = new \app\components\rbac\AuthorRule();
-//        $auth->add($rule);
-//
-//// 添加 "updateOwnPost" 权限并与规则关联
-//        $updateOwnPost = $auth->createPermission('updateOwnPost');
-//        $updateOwnPost->description = 'Update own post';
-//        $updateOwnPost->ruleName = $rule->name;
-//        var_dump($auth->add($updateOwnPost));
-
-
         $auth = Yii::$app->authManager;
 
         $content = $this->renderPartial("__permissionList", ['permissionList' => $auth->getPermissions()]);
@@ -64,5 +52,27 @@ class PermissionController extends Controller
             "model" => $model,
         ]);
 
+    }
+
+    public function actionUpdate($name)
+    {
+        $model = new PermissionForm();
+        $model->setScenario('update');
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate() && $model->update()) {
+                Yii::$app->session->setFlash('updateOperator','success');
+                return $this->refresh();
+            }
+            return $this->render('update', [
+                "model" => $model,
+            ]);
+        }
+
+        $model->get($name);
+
+        return $this->render('update', [
+            "model" => $model,
+        ]);
     }
 }

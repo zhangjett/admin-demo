@@ -28,8 +28,8 @@ use yii\helpers\Url;
                     <td><?php echo $permission->name; ?></td>
                     <td><?php echo $permission->name; ?></td>
                     <td>
-                        <span class="label label-success edit" href="<?php echo Url::to(['//account/menu/update','id'=>$permission->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-danger delete" href="<?php echo Url::to(['//account/menu/update','id'=>$permission->name]); ?>"><?php echo $permission->name==0?"恢复":"停用"?></span>
+                        <span class="label label-success edit" href="<?php echo Url::to(['//account/permission/update','name'=>$permission->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-danger delete" href="<?php echo Url::to(['//account/permission/update','name'=>$permission->name]); ?>"><?php echo $permission->name==0?"恢复":"停用"?></span>
                     </td>
                 </tr>
             <?php }
