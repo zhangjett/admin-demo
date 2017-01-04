@@ -34,7 +34,11 @@ use yii\bootstrap\ActiveForm;
             window.location.reload();
         });
         //编辑
-        $('.box-body').on("click","table tr td span.edit",function(){
+        $(document).on("click","table tr td span.edit",function(){
+            window.open($(this).attr("href"));
+        });
+        //删除
+        $(document).on("click","table tr td span.delete",function(){
             window.open($(this).attr("href"));
         });
     });

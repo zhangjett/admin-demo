@@ -1,8 +1,18 @@
 <?php
+
+/* @var $model app\modules\account\models\PermissionForm */
+
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\components\Dictionary;
+
+if (Yii::$app->session->getFlash('createPermission') == 'success') {
+    echo Html::hiddenInput("createPermission", "success");
+}
+if (Yii::$app->session->getFlash('updatePermission') == 'success') {
+    echo Html::hiddenInput("updatePermission", "success");
+}
 ?>
 <div class="box box-solid">
     <div class="box-header with-border">
@@ -24,19 +34,11 @@ use app\components\Dictionary;
     ]); ?>
     <!-- /.box-header -->
     <div class="box-body">
-        <?php if(count($model->getFirstErrors()) > 0){ ?>
+        <?php if(count($model->getFirstErrors()) > 0) { ?>
             <div class="alert alert-danger alert-dismissible">
                 <?php echo $form->errorSummary($model); ?>
             </div>
         <?php }; ?>
-        <?php
-        if (Yii::$app->session->getFlash('createPermission') == 'success'){
-            echo Html::hiddenInput("createPermission", "success");
-        }
-        if (Yii::$app->session->getFlash('updatePermission') == 'success'){
-            echo Html::hiddenInput("updatePermission", "success");
-        }
-        ?>
         <?php echo $form
             ->field($model, 'name', [
                 'horizontalCssClasses' => [
@@ -67,6 +69,30 @@ use app\components\Dictionary;
             ])
             ->dropDownList(Dictionary::getRules(), ['prompt' => '--规则--'])
             ->label($model->getAttributeLabel('ruleName')); ?>
+            <div class="form-group">
+                <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('menu'); ?></label>
+                <div class="col-sm-8">
+                    <div class="form-group">
+                        <?php foreach (Yii::$app->authManager->getPermissions() as $index => $permission) {
+                            if ($model->name == $index) {
+                                continue;
+                            }
+                            echo $form->field($model, 'permission[]', [
+                                'inputOptions' => [
+                                    'type' => 'checkbox',
+                                    'value' => $index,
+                                    'checked' => 1?'checked':false
+                                ],
+                                'options' => [
+                                    'tag' => false
+                                ],
+                                'labelOptions' => ['class' => false],
+                                'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                            ])->label($permission->description);
+                        } ?>
+                    </div>
+                </div>
+            </div>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">

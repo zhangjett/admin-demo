@@ -1,6 +1,10 @@
 <?php
-use app\components\LinkPager;
 use yii\helpers\Url;
+use yii\helpers\Html;
+
+if (Yii::$app->session->getFlash('deletePermission') == 'success') {
+    echo Html::hiddenInput("deletePermission", "success");
+}
 ?>
 <div class="mailbox-controls">
     <button type="button" class="btn btn-default btn-sm refresh"><i class="fa fa-refresh"></i></button>
@@ -29,7 +33,7 @@ use yii\helpers\Url;
                     <td><?php echo date("Y-m-d H:i:s", $permission->updatedAt); ?></td>
                     <td>
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/permission/update','name'=>$permission->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-danger delete" href="<?php echo Url::to(['//account/permission/update','name'=>$permission->name]); ?>"><?php echo $permission->name==0?"恢复":"停用"?></span>
+                        <span class="label label-danger delete" href="<?php echo Url::to(['//account/permission/delete','name'=>$permission->name]); ?>">删除</span>
                     </td>
                 </tr>
             <?php }
@@ -42,3 +46,15 @@ use yii\helpers\Url;
     <button type="button" class="btn btn-default btn-sm refresh"><i class="fa fa-refresh"></i></button>
     <button type="button" class="btn btn-default btn-sm add"><i class="fa fa-plus"></i></button>
 </div>
+<script>
+    <?php $this->beginBlock('LIST_JS_END');?>
+    $(function(){
+        if($('input[name="deletePermission"]').val() == 'success'){
+            setTimeout(function(){layer.msg('删除成功了呦', {icon: 6});}, 1000);
+        }
+    });
+    <?php
+    $this->endBlock();
+    $this->registerJs($this->blocks['LIST_JS_END'],\yii\web\view::POS_END);
+    ?>
+</script>

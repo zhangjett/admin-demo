@@ -5,8 +5,6 @@ namespace app\modules\account\controllers;
 use Yii;
 use app\components\Controller;
 use app\modules\account\models\PermissionForm;
-use app\modules\account\models\MenuSearchForm;
-use yii\helpers\Json;
 
 /**
  * Permission controller for the `account` module
@@ -55,7 +53,7 @@ class PermissionController extends Controller
     }
 
     /**
-     *
+     * 修改权限
      * @param $name
      * @return string|\yii\web\Response
      */
@@ -66,7 +64,7 @@ class PermissionController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
             if ($model->validate() && $model->update($name)) {
-                Yii::$app->session->setFlash('updatePermission','success');
+                Yii::$app->session->setFlash('updatePermission', 'success');
                 return $this->redirect(['//account/permission/update', 'name' => $model->name]);
             }
             return $this->render('update', [
@@ -79,5 +77,21 @@ class PermissionController extends Controller
         return $this->render('update', [
             "model" => $model,
         ]);
+    }
+
+    /**
+     * 删除权限
+     * @param $name
+     * @return string|\yii\web\Response
+     */
+    public function actionDelete($name)
+    {
+        $model = new PermissionForm();
+
+        if ($model->validate() && $model->delete($name)) {
+            Yii::$app->session->setFlash('deletePermission', 'success');
+        }
+
+        return $this->redirect(['//account/permission/index']);
     }
 }

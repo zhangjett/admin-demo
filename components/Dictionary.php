@@ -57,6 +57,27 @@ class Dictionary extends Object
         return $rows;
     }
 
+    /**
+     * 获取权限列表
+     * @return array
+     */
+    public static function getPermissions()
+    {
+        $auth = Yii::$app->authManager;
+
+        $rows = [];
+        foreach ($auth->getPermissions() as $index => $permission) {
+            $rows[$index] = $permission->description;
+        }
+
+        var_dump($rows);exit();
+
+        return $rows;
+    }
+    /**
+     * 获取规则列表
+     * @return array
+     */
     public static function getRules()
     {
         $auth = Yii::$app->authManager;

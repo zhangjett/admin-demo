@@ -20,6 +20,8 @@ class PermissionForm extends Model
     public $createdAt;
     public $updatedAt;
 
+    public $permission;
+
     public function rules()
     {
         return [
@@ -83,16 +85,12 @@ class PermissionForm extends Model
      */
     public function get($name)
     {
-        $query = new Query();
-        $row = $query
-            ->select(['name', 'description', 'rule_name'])
-            ->from('item')
-            ->where(['name'=>$name])
-            ->one();
+        $auth = Yii::$app->authManager;
 
-        $this->name = $row['name'];
-        $this->description = $row['description'];
-        $this->ruleName = $row['rule_name'];
+        $permission = $auth->getPermission($name);
+        $this->name = $permission->name;
+        $this->description = $permission->description;
+        $this->ruleName = $permission->ruleName;
 
         return true;
     }
@@ -112,6 +110,22 @@ class PermissionForm extends Model
         $permission->ruleName = $this->ruleName;
 
         return $auth->update($name, $permission);
+
+    }
+
+    /**
+     * 删除权限
+     * @param $name
+     * @return bool
+     */
+    public function delete($name)
+    {
+        $auth = Yii::$app->authManager;
+
+        $permission = new Permission();
+        $permission->name = $name;
+
+        return $auth->remove($permission);
 
     }
 }
