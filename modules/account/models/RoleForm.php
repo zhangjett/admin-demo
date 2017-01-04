@@ -5,9 +5,9 @@ namespace app\modules\account\models;
 use Yii;
 use yii\base\Model;
 use yii\db\Query;
-use yii\base\Exception;
 use yii\rbac\Item;
 use yii\rbac\Role;
+use yii\rbac\Permission;
 
 /**
  * RoleForm.
@@ -21,6 +21,9 @@ class RoleForm extends Model
     public $data;
     public $createdAt;
     public $updatedAt;
+
+    public $childRole;
+    public $childPermission;
 
     public function rules()
     {
@@ -93,75 +96,57 @@ class RoleForm extends Model
         $role->description = $this->description;
         $role->ruleName = $this->ruleName;
 
-        return $auth->update($name, $role);
+        return $auth->update($name, $role)&&$auth->removeChildren($role)
+            &&$this->batchAddChildPermission($role, $this->childPermission)
+            &&$this->batchAddChildRole($role, $this->childRole);
 
     }
 
-    public function create()
+    /**
+     * 批量添加子权限
+     * @param $parent
+     * @param $childPermission
+     * @return bool
+     */
+    public function batchAddChildPermission($parent, $childPermission)
     {
-        $connection = Yii::$app->db;
-        $transaction = $connection->beginTransaction();
-        try {
-            $date = date("Y-m-d H:i:s");
-            $columns = [
-                'name' => $this->name,
-                'type' => 1,
-                'description' => $this->name,
-                'category' => $this->group,
-                'create_time' => $date,
-                'update_time' => $date,
-            ];
-            $connection->createCommand()->insert('auth_item', $columns)->execute();
+        $auth = Yii::$app->authManager;
 
-            if(is_array($this->menu) && count($this->menu) > 0){
-                $columns = [];
-                foreach($this->menu as $menu){
-                    $column = [];
-                    $column[] = $this->id;
-                    $column[] = $menu;
-                    $columns[] = $column;
-                }
-                $connection->createCommand()->batchInsert('auth_item_child', ['parent','child'], $columns)->execute();
-            }
-
-            $transaction->commit();
+        if ($childPermission == null) {
             return true;
-        } catch(Exception $e) {
-            $transaction->rollBack();
-            return false;
         }
+
+        foreach ($childPermission as $permission) {
+            $child = new Permission();
+            $child->name = $permission;
+
+            $auth->addChild($parent, $child);
+        }
+
+        return true;
     }
 
-    public function delete($roleIdList)
+    /**
+     * 批量添加子角色
+     * @param $parent
+     * @param $childRole
+     * @return bool
+     */
+    public function batchAddChildRole($parent, $childRole)
     {
-        $connection = Yii::$app->db;
-        $transaction = $connection->beginTransaction();
-        try {
-            $command = $connection->createCommand('DELETE FROM auth_item WHERE id=:id');
-            $command->bindParam(':id', $id);
+        $auth = Yii::$app->authManager;
 
-            if(is_array($roleIdList) && count($roleIdList) > 0){
-                foreach($roleIdList as $roleId){
-                    $id = $roleId;
-                    $command->execute();
-                }
-            }
-
-            $command = $connection->createCommand('DELETE FROM auth_item_child WHERE parent=:parent');
-            $command->bindParam(':parent', $parent);
-
-            if(is_array($roleIdList) && count($roleIdList) > 0){
-                foreach($roleIdList as $roleId){
-                    $parent = $roleId;
-                    $command->execute();
-                }
-            }
-
-            $transaction->commit();
+        if ($childRole == null) {
             return true;
-        } catch(Exception $e) {
-            $transaction->rollBack();
-            return false;
         }
+
+        foreach ($childRole as $role) {
+            $child = new Role();
+            $child->name = $role;
+
+            $auth->addChild($parent, $child);
+        }
+
+        return true;
     }
 }

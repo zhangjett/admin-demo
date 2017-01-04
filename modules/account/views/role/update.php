@@ -1,8 +1,10 @@
 <?php
+
+/* @var $model app\modules\account\models\RoleForm */
+
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\components\App;
 use app\components\Dictionary;
 ?>
 <div class="box box-solid">
@@ -73,35 +75,56 @@ use app\components\Dictionary;
             ])
             ->dropDownList(Dictionary::getRules(), ['prompt' => '--规则--'])
             ->label($model->getAttributeLabel('ruleName')); ?>
-<!--        <div class="form-group">-->
-<!--            <label class="col-sm-3 control-label">--><?php //echo $model->getAttributeLabel('menu'); ?><!--</label>-->
-<!--            <div class="col-sm-8">-->
-<!--                --><?php //if (($groupList = Dictionary::getDictionaryItemByType($menuTypeId)) > 0) {
-//                    foreach ($groupList as $groupIndex => $group) {?>
-<!--                        <div class="form-group">-->
-<!--                            <div>-->
-<!--                                <b>--><?php //echo $group; ?><!--</b>-->
-<!--                            </div>-->
-<!--                            --><?php //if (count($menuList = Dictionary::getAuthItemByGroup($groupIndex, 2)) > 0) {
-//                                foreach ($menuList as $menuIndex => $menu) {
-//                                    echo $form->field($model, 'menu[]', [
-//                                        'inputOptions' => [
-//                                            'type' => 'checkbox',
-//                                            'value' => $menuIndex,
-//                                            'checked' => in_array($menuIndex, $model->menu)?'checked':false
-//                                        ],
-//                                        'options' => [
-//                                            'tag' => false
-//                                        ],
-//                                        'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-//                                        'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-//                                    ])->label($menu);
-//                                }
-//                            } ?>
-<!--                        </div>-->
-<!--                    --><?php //}}?>
-<!--            </div>-->
-<!--        </div>-->
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('childPermission'); ?></label>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <?php foreach (Yii::$app->authManager->getPermissions() as $index => $permission) {
+                        if ($model->name == $index) {
+                            continue;
+                        }
+
+                        echo $form->field($model, 'childPermission[]', [
+                            'inputOptions' => [
+                                'type' => 'checkbox',
+                                'value' => $index,
+                                'checked' => isset($model->childPermission[$index])?'checked':false
+                            ],
+                            'options' => [
+                                'tag' => false
+                            ],
+                            'labelOptions' => ['class' => false],
+                            'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                        ])->label($permission->description);
+                    } ?>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('childRole'); ?></label>
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <?php foreach (Yii::$app->authManager->getRoles() as $index => $role) {
+                        if ($model->name == $index) {
+                            continue;
+                        }
+
+                        echo $form->field($model, 'childRole[]', [
+                            'inputOptions' => [
+                                'type' => 'checkbox',
+                                'value' => $index,
+                                'checked' => isset($model->childRole[$index])?'checked':false
+                            ],
+                            'options' => [
+                                'tag' => false
+                            ],
+                            'labelOptions' => ['class' => false],
+                            'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                        ])->label($role->description);
+                    } ?>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">

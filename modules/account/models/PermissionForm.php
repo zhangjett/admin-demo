@@ -20,7 +20,7 @@ class PermissionForm extends Model
     public $createdAt;
     public $updatedAt;
 
-    public $permission;
+    public $childPermission;
 
     public function rules()
     {
@@ -29,6 +29,7 @@ class PermissionForm extends Model
             [['name', 'description'], 'required', 'on' => 'update'],
             ['ruleName', 'default', 'value' => null],
             ['name', 'validateName', 'on' => 'create'],
+            ['childPermission', 'safe'],
         ];
     }
 
@@ -58,7 +59,8 @@ class PermissionForm extends Model
             'ruleName' => '规则',
             'data' => '数据',
             'createdAt' => '创建时间',
-            'updatedAt' => '修改时间'
+            'updatedAt' => '修改时间',
+            'childPermission' => '子权限'
         ];
     }
 
@@ -92,6 +94,8 @@ class PermissionForm extends Model
         $this->description = $permission->description;
         $this->ruleName = $permission->ruleName;
 
+        $this->childPermission = $auth->getChildren($name);
+
         return true;
     }
 
@@ -102,6 +106,7 @@ class PermissionForm extends Model
      */
     public function update($name)
     {
+
         $auth = Yii::$app->authManager;
 
         $permission = new Permission();
@@ -109,7 +114,7 @@ class PermissionForm extends Model
         $permission->description = $this->description;
         $permission->ruleName = $this->ruleName;
 
-        return $auth->update($name, $permission);
+        return $auth->update($name, $permission)&&$this->batchAddChild($permission, $this->childPermission);
 
     }
 
@@ -127,5 +132,31 @@ class PermissionForm extends Model
 
         return $auth->remove($permission);
 
+    }
+
+    /**
+     * 批量添加子权限
+     * @param $parent
+     * @param $childPermission
+     * @return bool
+     */
+    public function batchAddChild($parent, $childPermission)
+    {
+        $auth = Yii::$app->authManager;
+
+        $auth->removeChildren($parent);
+
+        if ($childPermission == null) {
+            return true;
+        }
+
+        foreach ($childPermission as $permission) {
+            $child = new Permission();
+            $child->name = $permission;
+
+            $auth->addChild($parent, $child);
+        }
+
+        return true;
     }
 }
