@@ -2,122 +2,99 @@
 
 namespace app\modules\account\models;
 
-use yii;
+use Yii;
 use yii\base\Model;
 use yii\db\Query;
 use yii\base\Exception;
+use yii\rbac\Item;
+use yii\rbac\Role;
 
 /**
  * RoleForm.
  */
 class RoleForm extends Model
 {
-    public $roleId;
-    public $menu;
     public $name;
-    public $group;
-    public $status;
+    public $type = Item::TYPE_ROLE;
+    public $description;
+    public $ruleName;
+    public $data;
+    public $createdAt;
+    public $updatedAt;
 
     public function rules()
     {
         return [
-            [['roleId'], 'required', 'on' => 'update'],
-            [['group', 'name', 'status'], 'required'],
+            [['name', 'description'], 'required', 'on' => 'create'],
+            [['name', 'description'], 'required', 'on' => 'update'],
+            ['ruleName', 'default', 'value' => null],
             ['name', 'validateName', 'on' => 'create'],
-            [['menu'], 'safe'],
         ];
     }
 
+    /**
+     * 验证角色名称是否重复
+     * @param $attribute
+     * @param $params
+     */
     public function validateName($attribute, $params)
     {
         $count = (new Query())
-            ->from('auth_item')
-            ->where(['name' => $this->name, 'type' => 1])
+            ->from('item')
+            ->where(['name' => $this->$attribute])
             ->count();
 
         if ($count > 0) {
-            $this->addError($attribute, '该角色已经存在！');
+            $this->addError($attribute, '该该角色已经存在了，请修改！');
         }
     }
 
     public function attributeLabels()
     {
         return [
-            'roleId' => '角色ID',
             'name' => '名称',
-            'group' => '组别',
-            'menu' => '权限',
-            'status' => '状态',
+            'type' => '类型',
+            'description' => '描述',
+            'ruleName' => '规则',
+            'data' => '数据',
+            'createdAt' => '创建时间',
+            'updatedAt' => '修改时间'
         ];
     }
 
-    public function get($id)
+    /**
+     * 获取角色详情
+     * @param $name
+     * @return bool
+     */
+    public function get($name)
     {
-        $query = new Query();
-        $row = $query
-            ->select(['item_id', 'name', 'item_group', 'status'])
-            ->from('auth_item')
-            ->where(['item_id' => $id])
-            ->one();
+        $auth = Yii::$app->authManager;
 
-        $this->roleId = $row['item_id'];
-        $this->group = $row['item_group'];
-        $this->name = $row['name'];
-        $this->status = $row['status'];
-
-        $rows = $query
-            ->select(['child'])
-            ->from('auth_item_child')
-            ->where(['parent' => $this->roleId])
-            ->indexBy('child')
-            ->column();
-
-        $this->menu = $rows;
+        $role = $auth->getRole($name);
+        $this->name = $role->name;
+        $this->description = $role->description;
+        $this->ruleName = $role->ruleName;
 
         return true;
     }
 
-    public function update()
+    /**
+     * 修改角色
+     * @param $name
+     * @return bool
+     */
+    public function update($name)
     {
+        $auth = Yii::$app->authManager;
 
-        $connection = Yii::$app->db;
-        $transaction = $connection->beginTransaction();
+        $role = new Role();
+        $role->name = $this->name;
+        $role->description = $this->description;
+        $role->ruleName = $this->ruleName;
 
-        try {
-            $columns = [
-                'name' => $this->name,
-                'item_group' => $this->group,
-                'description' => $this->name,
-                'status' => $this->status
-            ];
-            $condition = [
-                'item_id' => $this->roleId,
-            ];
-            $connection->createCommand()->update('auth_item', $columns, $condition)->execute();
+        return $auth->update($name, $role);
 
-            if(is_array($this->menu) && count($this->menu) > 0){
-                $condition = [
-                    'parent' => $this->roleId,
-                ];
-                $connection->createCommand()->delete('auth_item_child', $condition)->execute();
-
-                $columns = [];
-                foreach($this->menu as $menu){
-                    $column = [];
-                    $column[] = $this->roleId;
-                    $column[] = $menu;
-                    $columns[] = $column;
-                }
-
-                $connection->createCommand()->batchInsert('auth_item_child', ['parent','child'], $columns)->execute();
-            }
-
-            $transaction->commit();
-            return true;
-        } catch(Exception $e) {
-            $transaction->rollBack();
-            return false;
-        }
     }
 
     public function create()

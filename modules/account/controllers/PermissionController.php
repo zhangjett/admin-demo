@@ -54,15 +54,20 @@ class PermissionController extends Controller
 
     }
 
+    /**
+     *
+     * @param $name
+     * @return string|\yii\web\Response
+     */
     public function actionUpdate($name)
     {
         $model = new PermissionForm();
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate() && $model->update()) {
-                Yii::$app->session->setFlash('updateOperator','success');
-                return $this->refresh();
+            if ($model->validate() && $model->update($name)) {
+                Yii::$app->session->setFlash('updatePermission','success');
+                return $this->redirect(['//account/permission/update', 'name' => $model->name]);
             }
             return $this->render('update', [
                 "model" => $model,

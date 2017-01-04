@@ -25,21 +25,13 @@ use yii\bootstrap\ActiveForm;
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
-        $('.box-body').on("click",".mailbox-controls button.add",function(){
+        $(document).on("click",".mailbox-controls button.add",function(){
             var url = '<?php echo Url::to(['//account/permission/create']); ?>';
             window.open(url);
         });
         //刷新
-        $('.box-body').on("click",".mailbox-controls button.refresh",function(){
-            tool.ajax({
-                url:$(this).attr("href"),
-                data:$('#searchForm').serialize(),
-                dataType:'html',
-                success:function(response){
-                    $(".list-box").html(response);
-                    $(document).trigger('icheck');
-                }
-            });
+        $(document).on("click",".mailbox-controls button.refresh",function(){
+            window.location.reload();
         });
         //编辑
         $('.box-body').on("click","table tr td span.edit",function(){

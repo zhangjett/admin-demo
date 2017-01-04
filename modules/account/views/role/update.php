@@ -25,82 +25,83 @@ use app\components\Dictionary;
     ]); ?>
     <!-- /.box-header -->
     <div class="box-body">
-    <?php if(count($model->getFirstErrors()) > 0){ ?>
-        <div class="alert alert-danger alert-dismissible">
-            <?php echo $form->errorSummary($model); ?>
-        </div>
-    <?php }; ?>
-    <?php
-    if (Yii::$app->session->getFlash('createRole') == 'success'){
-        echo Html::hiddenInput("createOperator","success",['id'=>'createRole']);
-    }
-    if (Yii::$app->session->getFlash('updateRole') == 'success'){
-        echo Html::hiddenInput("updateOperator","success",['id'=>'updateRole']);
-    }
-
-    ?>
-    <?php echo $form
-        ->field($model,'name',[
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-3',
-            ],
-            'inputOptions' => [
-                'type' => 'text',
-                'placeholder' =>'',
-            ],
-        ]
-    )->label($model->getAttributeLabel('name')); ?>
-    <?php
-    $statusTypeId = Dictionary::getDictionaryTypeIdByCode('status');
-    $roleTypeId = Dictionary::getDictionaryTypeIdByCode('role');
-    $menuTypeId = Dictionary::getDictionaryTypeIdByCode('menu');
-    ?>
-    <?php echo $form
-        ->field($model,'group', [
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-2',
-            ]
-        ])
-        ->dropDownList(Dictionary::getDictionaryItemByType($roleTypeId), ['prompt' => '--分组--'])
-        ->label($model->getAttributeLabel('group')); ?>
-    <?php echo $form
-        ->field($model,'status', [
-            'horizontalCssClasses' => [
-                'wrapper' => 'col-sm-2',
-            ]
-        ])
-        ->dropDownList(Dictionary::getDictionaryItemByType($statusTypeId), ['prompt' => '--状态--'])
-        ->label($model->getAttributeLabel('status')); ?>
-        <div class="form-group">
-            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('menu'); ?></label>
-            <div class="col-sm-8">
-                <?php if (($groupList = Dictionary::getDictionaryItemByType($menuTypeId)) > 0) {
-                    foreach ($groupList as $groupIndex => $group) {?>
-                        <div class="form-group">
-                            <div>
-                                <b><?php echo $group; ?></b>
-                            </div>
-                            <?php if (count($menuList = Dictionary::getAuthItemByGroup($groupIndex, 2)) > 0) {
-                                foreach ($menuList as $menuIndex => $menu) {
-                                    echo $form->field($model, 'menu[]', [
-                                        'inputOptions' => [
-                                            'type' => 'checkbox',
-                                            'value' => $menuIndex,
-                                            'checked' => in_array($menuIndex, $model->menu)?'checked':false
-                                        ],
-                                        'options' => [
-                                            'tag' => false
-                                        ],
-                                        'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                                        'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                                    ])->label($menu);
-                                }
-                            } ?>
-                        </div>
-                    <?php }}?>
+        <?php if(count($model->getFirstErrors()) > 0){ ?>
+            <div class="alert alert-danger alert-dismissible">
+                <?php echo $form->errorSummary($model); ?>
             </div>
-        </div>
-    <?php echo $form->field($model, 'roleId')->hiddenInput()->label(false); ?>
+        <?php }; ?>
+        <?php
+        if (Yii::$app->session->getFlash('createRole') == 'success'){
+            echo Html::hiddenInput("createOperator","success",['id'=>'createRole']);
+        }
+        if (Yii::$app->session->getFlash('updateRole') == 'success'){
+            echo Html::hiddenInput("updateOperator","success",['id'=>'updateRole']);
+        }
+        ?>
+        <?php echo $form
+            ->field($model, 'name', [
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-3',
+                ],
+                'inputOptions' => [
+                    'type' => 'text',
+                    'placeholder' =>'',
+                ],
+            ]
+        )->label($model->getAttributeLabel('name')); ?>
+        <?php
+        $statusTypeId = Dictionary::getDictionaryTypeIdByCode('status');
+        $roleTypeId = Dictionary::getDictionaryTypeIdByCode('role');
+        $menuTypeId = Dictionary::getDictionaryTypeIdByCode('menu');
+        ?>
+        <?php echo $form
+            ->field($model, 'description', [
+                    'horizontalCssClasses' => [
+                        'wrapper' => 'col-sm-3',
+                    ],
+                    'inputOptions' => [
+                        'type' => 'text',
+                        'placeholder' =>'',
+                    ],
+                ]
+            )->label($model->getAttributeLabel('description')); ?>
+        <?php echo $form
+            ->field($model, 'ruleName', [
+                'horizontalCssClasses' => [
+                    'wrapper' => 'col-sm-2',
+                ]
+            ])
+            ->dropDownList(Dictionary::getRules(), ['prompt' => '--规则--'])
+            ->label($model->getAttributeLabel('ruleName')); ?>
+<!--        <div class="form-group">-->
+<!--            <label class="col-sm-3 control-label">--><?php //echo $model->getAttributeLabel('menu'); ?><!--</label>-->
+<!--            <div class="col-sm-8">-->
+<!--                --><?php //if (($groupList = Dictionary::getDictionaryItemByType($menuTypeId)) > 0) {
+//                    foreach ($groupList as $groupIndex => $group) {?>
+<!--                        <div class="form-group">-->
+<!--                            <div>-->
+<!--                                <b>--><?php //echo $group; ?><!--</b>-->
+<!--                            </div>-->
+<!--                            --><?php //if (count($menuList = Dictionary::getAuthItemByGroup($groupIndex, 2)) > 0) {
+//                                foreach ($menuList as $menuIndex => $menu) {
+//                                    echo $form->field($model, 'menu[]', [
+//                                        'inputOptions' => [
+//                                            'type' => 'checkbox',
+//                                            'value' => $menuIndex,
+//                                            'checked' => in_array($menuIndex, $model->menu)?'checked':false
+//                                        ],
+//                                        'options' => [
+//                                            'tag' => false
+//                                        ],
+//                                        'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
+//                                        'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+//                                    ])->label($menu);
+//                                }
+//                            } ?>
+<!--                        </div>-->
+<!--                    --><?php //}}?>
+<!--            </div>-->
+<!--        </div>-->
     </div>
     <!-- /.box-body -->
     <div class="box-footer">

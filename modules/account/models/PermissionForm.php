@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\db\Query;
 use yii\rbac\Item;
+use yii\rbac\Permission;
 /**
  * PermissionForm
  */
@@ -24,7 +25,7 @@ class PermissionForm extends Model
         return [
             [['name', 'description'], 'required', 'on' => 'create'],
             [['name', 'description'], 'required', 'on' => 'update'],
-            ['ruleName', 'default', 'value' => ''],
+            ['ruleName', 'default', 'value' => null],
             ['name', 'validateName', 'on' => 'create'],
         ];
     }
@@ -38,7 +39,7 @@ class PermissionForm extends Model
     {
         $count = (new Query())
             ->from('item')
-            ->where(['name' => $this->$attribute, 'type' => Item::TYPE_PERMISSION])
+            ->where(['name' => $this->$attribute])
             ->count();
 
         if ($count > 0) {
@@ -94,5 +95,23 @@ class PermissionForm extends Model
         $this->ruleName = $row['rule_name'];
 
         return true;
+    }
+
+    /**
+     * 修改权限
+     * @param $name
+     * @return bool
+     */
+    public function update($name)
+    {
+        $auth = Yii::$app->authManager;
+
+        $permission = new Permission();
+        $permission->name = $this->name;
+        $permission->description = $this->description;
+        $permission->ruleName = $this->ruleName;
+
+        return $auth->update($name, $permission);
+
     }
 }

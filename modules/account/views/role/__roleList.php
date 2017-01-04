@@ -3,7 +3,7 @@ use app\components\LinkPager;
 use yii\helpers\Url;
 ?>
 <div class="mailbox-controls">
-    <button type="button" class="btn btn-default btn-sm refresh" href="<?php echo Url::current(); ?>"><i class="fa fa-refresh"></i></button>
+    <button type="button" class="btn btn-default btn-sm refresh"><i class="fa fa-refresh"></i></button>
     <button type="button" class="btn btn-default btn-sm add"><i class="fa fa-plus"></i></button>
 </div>
 <div class="table-responsive mailbox-messages">
@@ -28,8 +28,8 @@ use yii\helpers\Url;
                     <td><?php echo $role->ruleName; ?></td>
                     <td><?php echo date("Y-m-d H:i:s", $role->updatedAt); ?></td>
                     <td>
-                        <span class="label label-success edit" href="<?php echo Url::to(['//account/role/update','id'=>$role->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-danger delete" href="<?php echo Url::to(['//account/role/update','id'=>$role->name]); ?>"><?php echo $role->name==0?"恢复":"停用"?></span>
+                        <span class="label label-success edit" href="<?php echo Url::to(['//account/role/update','name'=>$role->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-danger delete" href="<?php echo Url::to(['//account/role/update','name'=>$role->name]); ?>"><?php echo $role->name==0?"恢复":"停用"?></span>
                     </td>
                 </tr>
             <?php }
@@ -39,6 +39,6 @@ use yii\helpers\Url;
     <!-- /.table -->
 </div>
 <div class="mailbox-controls">
-    <button type="button" class="btn btn-default btn-sm refresh" href="<?php echo Url::current(); ?>"><i class="fa fa-refresh"></i></button>
+    <button type="button" class="btn btn-default btn-sm refresh"><i class="fa fa-refresh"></i></button>
     <button type="button" class="btn btn-default btn-sm add"><i class="fa fa-plus"></i></button>
 </div>

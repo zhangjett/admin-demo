@@ -3,7 +3,7 @@ use app\components\LinkPager;
 use yii\helpers\Url;
 ?>
 <div class="mailbox-controls">
-    <button type="button" class="btn btn-default btn-sm refresh" href="<?php echo Url::current(); ?>"><i class="fa fa-refresh"></i></button>
+    <button type="button" class="btn btn-default btn-sm refresh"><i class="fa fa-refresh"></i></button>
     <button type="button" class="btn btn-default btn-sm add"><i class="fa fa-plus"></i></button>
 </div>
 <div class="table-responsive mailbox-messages">
@@ -39,6 +39,6 @@ use yii\helpers\Url;
     <!-- /.table -->
 </div>
 <div class="mailbox-controls">
-    <button type="button" class="btn btn-default btn-sm refresh" href="<?php echo Url::current(); ?>"><i class="fa fa-refresh"></i></button>
+    <button type="button" class="btn btn-default btn-sm refresh"><i class="fa fa-refresh"></i></button>
     <button type="button" class="btn btn-default btn-sm add"><i class="fa fa-plus"></i></button>
 </div>

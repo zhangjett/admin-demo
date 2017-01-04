@@ -69,22 +69,27 @@ class RoleController extends Controller
         return Json::encode(['status'=>'error','msg'=>'删除失败！']);
     }
 
-    public function actionUpdate()
+    /**
+     * 修改角色
+     * @param $name
+     * @return string|\yii\web\Response
+     */
+    public function actionUpdate($name)
     {
         $model = new RoleForm();
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate() && $model->update()) {
+            if ($model->validate() && $model->update($name)) {
                 Yii::$app->session->setFlash('updateRole','success');
-                return $this->refresh();
+                return $this->redirect(['//account/role/update', 'name' => $model->name]);
             }
             return $this->render('update', [
                 "model" => $model,
             ]);
         }
 
-        $model->get(Yii::$app->request->get("id"));
+        $model->get($name);
 
         return $this->render('update', [
             "model" => $model,

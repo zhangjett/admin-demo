@@ -2,7 +2,6 @@
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
-use app\components\App;
 use app\components\Dictionary;
 ?>
 <div class="box box-solid">
