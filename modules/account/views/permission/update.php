@@ -108,7 +108,7 @@ if (Yii::$app->session->getFlash('updatePermission') == 'success') {
     $(function(){
         //遍历左菜单,增加active
         $("ul.sidebar-menu a").each(function(index, value){
-            if($(this).attr("href")=='<?php echo Url::to(['//account/menu/index']); ?>'){
+            if($(this).attr("href")=='<?php echo Url::to(['//account/permission/index']); ?>'){
                 $(this).closest("li").addClass("active").closest("ul").css("display","block").closest("li").addClass("active");
             }
         });

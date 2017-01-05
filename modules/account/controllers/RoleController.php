@@ -36,6 +36,10 @@ class RoleController extends Controller
         ]);
     }
 
+    /**
+     * 创建角色
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $model = new RoleForm();
@@ -54,19 +58,19 @@ class RoleController extends Controller
     }
 
     /**
-     * 删除权限
-     * @return string
+     * 删除角色
+     * @param $name
+     * @return string|\yii\web\Response
      */
-    public function actionDelete()
+    public function actionDelete($name)
     {
         $model = new RoleForm();
-        $permissionId = Yii::$app->request->post("roleId");
 
-        if (is_array($permissionId) && count($permissionId)>0 && $model->delete($permissionId)) {
-            return Json::encode(['status'=>'ok','msg'=>'删除成功！']);
+        if ($model->validate() && $model->delete($name)) {
+            Yii::$app->session->setFlash('deleteRole', 'success');
         }
 
-        return Json::encode(['status'=>'error','msg'=>'删除失败！']);
+        return $this->redirect(['//account/role/index']);
     }
 
     /**

@@ -1,4 +1,7 @@
 <?php
+
+/* @var $model app\modules\account\models\OperatorForm */
+
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -104,30 +107,25 @@ use app\components\Dictionary;
         <div class="form-group">
             <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('role'); ?></label>
             <div class="col-sm-8">
-                <?php if (($groupList = Dictionary::getDictionaryItemByType($roleTypeId)) > 0) {
-                    foreach ($groupList as $groupIndex => $group) {?>
-                        <div class="form-group">
-                            <div>
-                                <b><?php echo $group; ?></b>
-                            </div>
-                            <?php if (count($roleList = Dictionary::getAuthItemByGroup($groupIndex, 1)) > 0) {
-                                foreach ($roleList as $roleIndex => $role) {
-                                    echo $form->field($model, 'role[]', [
-                                        'inputOptions' => [
-                                            'type' => 'checkbox',
-                                            'value' => $roleIndex,
-                                            'checked' => in_array($roleIndex, $model->role)?'checked':false
-                                        ],
-                                        'options' => [
-                                            'tag' => false
-                                        ],
-                                        'labelOptions' => ['class' => false, 'style' => 'font-size:12px;'],
-                                        'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                                    ])->label($role);
-                                }
-                            } ?>
-                        </div>
-                    <?php }}?>
+                <div class="form-group">
+                    <?php foreach (Yii::$app->authManager->getRoles() as $index => $role) {
+                        if ($model->name == $index) {
+                            continue;
+                        }
+                        echo $form->field($model, 'role[]', [
+                            'inputOptions' => [
+                                'type' => 'checkbox',
+                                'value' => $index,
+                                'checked' => 1?'checked':false
+                            ],
+                            'options' => [
+                                'tag' => false
+                            ],
+                            'labelOptions' => ['class' => false],
+                            'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
+                        ])->label($role->description);
+                    } ?>
+                </div>
             </div>
         </div>
         <?php echo $form->field($model, 'operatorId')->hiddenInput()->label(false); ?>

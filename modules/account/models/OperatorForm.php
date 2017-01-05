@@ -2,10 +2,11 @@
 
 namespace app\modules\account\models;
 
-use yii;
+use Yii;
 use yii\base\Model;
 use yii\db\Query;
 use yii\base\Exception;
+use yii\rbac\Role;
 
 /**
  * OperatorForm.
@@ -70,7 +71,7 @@ class OperatorForm extends Model
     {
         $query = new Query();
         $row = $query
-            ->select(['operator_id', 'username', 'name', 'email', 'status'])
+            ->select(['operator_id', 'username', 'name', 'email', 'status', 'gender'])
             ->from('operator')
             ->where(['operator_id'=>$id])
             ->one();
@@ -80,7 +81,9 @@ class OperatorForm extends Model
         $this->name = $row['name'];
         $this->email = $row['email'];
         $this->status = $row['status'];
+        $this->gender = $row['gender'];
 
+        $auth = Yii::$app->authManager;
         $rows = $query
             ->select(['item_id'])
             ->from('auth_assignment')
@@ -93,53 +96,59 @@ class OperatorForm extends Model
     }
 
     /**
-     * 修改用户
+     * 修改后台用户
+     * @param $id
      * @return bool
      */
-    public function update()
+    public function update($id)
     {
         $connection = Yii::$app->db;
         $transaction = $connection->beginTransaction();
 
         try {
             $columns = [
-                'login' => $this->login,
+                'username' => $this->username,
                 'name' => $this->name,
                 'email' => $this->email,
-                'status' => $this->status
+                'status' => $this->status,
+                'gender' => $this->gender
             ];
 
             ($this->password != null ) && ($columns['password'] = Yii::$app->getSecurity()->generatePasswordHash($this->password));
 
             $condition = [
-                'operator_id' => $this->operatorId,
+                'operator_id' => $id,
             ];
             $connection->createCommand()->update('operator', $columns, $condition)->execute();
 
-            $condition = [
-                'operator_id' => $this->operatorId,
-            ];
-            $connection->createCommand()->delete('auth_assignment', $condition)->execute();
-
-            if(is_array($this->role) && count($this->role)>0){
-                $columns = [];
-                $date=date("Y-m-d H:i:s");
-                foreach($this->role as $role){
-                    $column = [];
-                    $column[] = $this->operatorId;
-                    $column[] = $role;
-                    $column[] = $date;
-                    $columns[] = $column;
-                }
-                $connection->createCommand()->batchInsert('auth_assignment', ['operator_id','item_id','create_time'], $columns)->execute();
-            }
+//            $condition = [
+//                'operator_id' => $this->operatorId,
+//            ];
+//            $connection->createCommand()->delete('auth_assignment', $condition)->execute();
+//
+//            if(is_array($this->role) && count($this->role)>0){
+//                $columns = [];
+//                $date=date("Y-m-d H:i:s");
+//                foreach($this->role as $role){
+//                    $column = [];
+//                    $column[] = $this->operatorId;
+//                    $column[] = $role;
+//                    $column[] = $date;
+//                    $columns[] = $column;
+//                }
+//                $connection->createCommand()->batchInsert('auth_assignment', ['operator_id','item_id','create_time'], $columns)->execute();
+//            }
 
             $transaction->commit();
-            return true;
+
         } catch(Exception $e) {
             $transaction->rollBack();
-            return false;
+
         }
+
+        $this->batchAssign($this->role, $id);
+
+        return true;
     }
 
     /**
@@ -196,5 +205,29 @@ class OperatorForm extends Model
             $transaction->rollBack();
             return false;
         }
+    }
+
+    /**
+     * 批量分配角色
+     * @param $roleList
+     * @param $userId
+     * @return bool
+     */
+    public function batchAssign($roleList, $userId)
+    {
+        $auth = Yii::$app->authManager;
+
+        if ($roleList == null) {
+            return true;
+        }
+
+        foreach ($roleList as $value) {
+            $role = new Role();
+            $role->name = $value;
+
+            $auth->assign($role, $userId);
+        }
+
+        return true;
     }
 }

@@ -8,6 +8,7 @@ $config = [
     'bootstrap' => ['log'],
     'language' => 'zh-CN',
     'homeUrl' => ['//account/operator/index'],
+    'defaultRoute' => '//account/operator/index',
     'modules' => [
         'account' => [
             'class' => 'app\modules\account\Module',

@@ -26,7 +26,7 @@ use yii\bootstrap\ActiveForm;
     <?php $this->beginBlock('JS_END');?>
     $(function(){
         $(document).on("click",".mailbox-controls button.add",function(){
-            var url = '<?php echo Url::to(['//account/menu/create']); ?>';
+            var url = '<?php echo Url::to(['//account/role/create']); ?>';
             window.open(url);
         });
         //刷新
@@ -35,6 +35,10 @@ use yii\bootstrap\ActiveForm;
         });
         //编辑
         $(document).on("click","table tr td span.edit",function(){
+            window.open($(this).attr("href"));
+        });
+        //删除
+        $(document).on("click","table tr td span.delete",function(){
             window.open($(this).attr("href"));
         });
     });

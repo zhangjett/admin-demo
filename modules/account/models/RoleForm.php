@@ -32,6 +32,7 @@ class RoleForm extends Model
             [['name', 'description'], 'required', 'on' => 'update'],
             ['ruleName', 'default', 'value' => null],
             ['name', 'validateName', 'on' => 'create'],
+            [['childRole', 'childPermission'], 'safe'],
         ];
     }
 
@@ -61,7 +62,9 @@ class RoleForm extends Model
             'ruleName' => '规则',
             'data' => '数据',
             'createdAt' => '创建时间',
-            'updatedAt' => '修改时间'
+            'updatedAt' => '修改时间',
+            'childRole' => '子角色',
+            'childPermission' => '子权限'
         ];
     }
 
@@ -79,7 +82,32 @@ class RoleForm extends Model
         $this->description = $role->description;
         $this->ruleName = $role->ruleName;
 
+        foreach (($items = $auth->getChildren($name)) as $index => $item) {
+            if ($item->type == Item::TYPE_ROLE) {
+                $this->childRole[$index] = $items[$index];
+            } elseif ($item->type == Item::TYPE_PERMISSION) {
+                $this->childPermission[$index] = $items[$index];
+            }
+        }
+
         return true;
+    }
+
+    /**
+     * 添加角色
+     * @return bool
+     */
+    public function create()
+    {
+        $auth = Yii::$app->authManager;
+
+        $role = $auth->createRole($this->name);
+        $role->description = $this->description;
+        $role->ruleName = $this->ruleName;
+
+        return $auth->add($role)&&$this->batchAddChildPermission($role, $this->childPermission)
+            &&$this->batchAddChildRole($role, $this->childRole);
+
     }
 
     /**
@@ -96,9 +124,26 @@ class RoleForm extends Model
         $role->description = $this->description;
         $role->ruleName = $this->ruleName;
 
-        return $auth->update($name, $role)&&$auth->removeChildren($role)
-            &&$this->batchAddChildPermission($role, $this->childPermission)
-            &&$this->batchAddChildRole($role, $this->childRole);
+        $auth->removeChildren($role);
+
+        return $auth->update($name, $role)&&$this->batchAddChildPermission($role, $this->childPermission)
+                    &&$this->batchAddChildRole($role, $this->childRole);
+
+    }
+
+    /**
+     * 删除角色
+     * @param $name
+     * @return bool
+     */
+    public function delete($name)
+    {
+        $auth = Yii::$app->authManager;
+
+        $role = new Role();
+        $role->name = $name;
+
+        return $auth->remove($role);
 
     }
 

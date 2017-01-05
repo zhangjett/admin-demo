@@ -1,7 +1,7 @@
 <?php
 
 use yii\db\Migration;
-use app\components\rbac\AuthorRule;
+use app\components\rbac\OwnerRule;
 
 class m170103_122825_create_rule extends Migration
 {
@@ -9,7 +9,7 @@ class m170103_122825_create_rule extends Migration
     {
         $auth = Yii::$app->authManager;
 
-        $rule = new AuthorRule;
+        $rule = new OwnerRule();
         $auth->add($rule);
 
     }

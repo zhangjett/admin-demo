@@ -76,7 +76,7 @@ class PermissionForm extends Model
         $permission->description = $this->description;
         $permission->ruleName = $this->ruleName;
 
-        return $auth->add($permission);
+        return $auth->add($permission)&&$this->batchAddChild($permission, $this->childPermission);
 
     }
 

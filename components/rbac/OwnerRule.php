@@ -6,9 +6,9 @@ use yii\rbac\Rule;
 /**
  * 检查 authorID 是否和通过参数传进来的 user 参数相符
  */
-class AuthorRule extends Rule
+class OwnerRule extends Rule
 {
-    public $name = 'isAuthor';
+    public $name = 'isOwner';
 
     /**
      * @param string|integer $user 用户 ID.
