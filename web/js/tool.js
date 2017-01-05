@@ -3,15 +3,15 @@
  * @requires /layer/* jquery.js
  * @since 2015-11-18
  */
-var tool ={
+var tool = {
 	ajax : function(option) {
 		if(typeof(option)!= 'object') return;
 		if(option.url==null||option.url==""||typeof(option.url)=="undefined") return;
 
 		var  _option = {},layerId;
-		for(var i in option) {
-			_option[i] = option[i];
-		}
+		// for(var i in option) {
+		// 	_option[i] = option[i];
+		// }
 
 		if(typeof(_option.timeout)=="undefined") _option.timeout = 20000; // 默认超时设置20秒
 		if(typeof(_option.type)=="undefined") _option.type = 'post';// 默认请求方式POST
@@ -27,7 +27,7 @@ var tool ={
 				layerId = layer.msg(_option.shadeText, {
 					icon: 16,
 					time: 0, //不自动关闭
-					shade:_option.opacity,
+					shade:_option.opacity
 				});
 			}
 			if(option.beforeSend && typeof(option.beforeSend) == 'function') option.beforeSend(); // 用户自定义beforeSend
@@ -70,5 +70,5 @@ var tool ={
 			}
 		};
 		$.ajax(_option);
-	},
-}
+	}
+};

@@ -93,4 +93,20 @@ class PermissionController extends Controller
 
         return $this->redirect(['//account/permission/index']);
     }
+
+    /**
+     * 增加子权限
+     * @param $name
+     * @return string|\yii\web\Response
+     */
+    public function actionAddChild($name)
+    {
+        $model = new PermissionForm();
+
+//        if ($model->validate() && $model->delete($name)) {
+//            Yii::$app->session->setFlash('deletePermission', 'success');
+//        }
+
+        return $this->redirect(['//account/permission/index']);
+    }
 }

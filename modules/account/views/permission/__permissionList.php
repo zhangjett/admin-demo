@@ -33,6 +33,7 @@ if (Yii::$app->session->getFlash('deletePermission') == 'success') {
                     <td><?php echo date("Y-m-d H:i:s", $permission->updatedAt); ?></td>
                     <td>
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/permission/update','name'=>$permission->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-success add-child" href="<?php echo Url::to(['//account/permission/add-child','name'=>$permission->name]); ?>">子权限</span>&nbsp;
                         <span class="label label-danger delete" href="<?php echo Url::to(['//account/permission/delete','name'=>$permission->name]); ?>">删除</span>
                     </td>
                 </tr>
@@ -45,6 +46,23 @@ if (Yii::$app->session->getFlash('deletePermission') == 'success') {
 <div class="mailbox-controls">
     <button type="button" class="btn btn-default btn-sm refresh"><i class="fa fa-refresh"></i></button>
     <button type="button" class="btn btn-default btn-sm add"><i class="fa fa-plus"></i></button>
+</div>
+<div class="modal fade" id="addChild" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     <?php $this->beginBlock('LIST_JS_END');?>

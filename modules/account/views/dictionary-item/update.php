@@ -1,6 +1,10 @@
 <?php
+
+/* @var $model app\modules\account\models\DictionaryItemForm */
+
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+
 $this->title = $model->typeId?'编辑字典类型':'新建字典类型';
 ?>
 <?php $form = ActiveForm::begin([
