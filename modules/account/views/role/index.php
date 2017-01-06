@@ -25,6 +25,9 @@ use yii\bootstrap\ActiveForm;
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        $("#addChild").on("hidden.bs.modal", function() {
+            $(this).removeData("bs.modal");
+        });
         $(document).on("click",".mailbox-controls button.add",function(){
             var url = '<?php echo Url::to(['//account/role/create']); ?>';
             window.open(url);
@@ -40,6 +43,19 @@ use yii\bootstrap\ActiveForm;
         //删除
         $(document).on("click","table tr td span.delete",function(){
             window.open($(this).attr("href"));
+        });
+        //添加权限/子角色
+        $(document).on('submit','#updateChildForm',function(e){
+            console.log($(this).attr('action'));
+            tool.ajax({
+                url:$(this).attr('action'),
+                data:$(this).serialize(),
+                dataType:'html',
+                success:function(response){
+                    $('#addChild').find("div.modal-content").html(response);
+                }
+            });
+            e.preventDefault();
         });
     });
     <?php

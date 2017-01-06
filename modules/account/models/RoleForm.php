@@ -22,8 +22,8 @@ class RoleForm extends Model
     public $createdAt;
     public $updatedAt;
 
-    public $childRole;
-    public $childPermission;
+    public $childRole=[];
+    public $childPermission=[];
 
     public function rules()
     {
@@ -105,8 +105,7 @@ class RoleForm extends Model
         $role->description = $this->description;
         $role->ruleName = $this->ruleName;
 
-        return $auth->add($role)&&$this->batchAddChildPermission($role, $this->childPermission)
-            &&$this->batchAddChildRole($role, $this->childRole);
+        return $auth->add($role);
 
     }
 
@@ -124,11 +123,44 @@ class RoleForm extends Model
         $role->description = $this->description;
         $role->ruleName = $this->ruleName;
 
-        $auth->removeChildren($role);
+        return $auth->update($name, $role);
 
-        return $auth->update($name, $role)&&$this->batchAddChildPermission($role, $this->childPermission)
-                    &&$this->batchAddChildRole($role, $this->childRole);
+    }
 
+    /**
+     * 修改权限/子角色
+     * @param $name
+     * @return bool
+     */
+    public function updateChild($name)
+    {
+        $this->name = $name;
+        $auth = Yii::$app->authManager;
+
+        $parent = new Role();
+        $parent->name = $name;
+
+        $auth->removeChildren($parent);
+
+        if ($this->childPermission != null) {
+            foreach ($this->childPermission as $permission) {
+                $child = new Permission();
+                $child->name = $permission;
+
+                $auth->addChild($parent, $child);
+            }
+        }
+
+        if ($this->childRole != null) {
+            foreach ($this->childRole as $role) {
+                $child = new Role();
+                $child->name = $role;
+
+                $auth->addChild($parent, $child);
+            }
+        }
+
+        return true;
     }
 
     /**

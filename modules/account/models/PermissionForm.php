@@ -128,7 +128,6 @@ class PermissionForm extends Model
         $this->name = $name;
         $auth = Yii::$app->authManager;
 
-
         $parent = new Permission();
         $parent->name = $name;
 

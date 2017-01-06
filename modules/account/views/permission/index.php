@@ -31,7 +31,6 @@ use yii\helpers\Url;
         $("#addChild").on("hidden.bs.modal", function() {
             $(this).removeData("bs.modal");
         });
-
         $(document).on("click",".mailbox-controls button.add",function(){
             var url = '<?php echo Url::to(['//account/permission/create']); ?>';
             window.open(url);

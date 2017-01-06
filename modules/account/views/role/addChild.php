@@ -48,7 +48,7 @@ $this->title = '添加权限/子角色';
                             'inputOptions' => [
                                 'type' => 'checkbox',
                                 'value' => $index,
-                                'checked' => isset($model->childPermission[$index])?'checked':false
+                                'checked' => (isset($model->childPermission[$index])||in_array($index, $model->childPermission))?'checked':false
                             ],
                             'options' => [
                                 'tag' => false
@@ -75,7 +75,7 @@ $this->title = '添加权限/子角色';
                             'inputOptions' => [
                                 'type' => 'checkbox',
                                 'value' => $index,
-                                'checked' => isset($model->childRole[$index])?'checked':false
+                                'checked' => (isset($model->childRole[$index])||in_array($index, $model->childRole))?'checked':false
                             ],
                             'options' => [
                                 'tag' => false
