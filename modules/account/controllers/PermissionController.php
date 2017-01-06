@@ -66,6 +66,7 @@ class PermissionController extends Controller
                 Yii::$app->session->setFlash('updatePermission', 'success');
                 return $this->redirect(['//account/permission/update', 'name' => $model->name]);
             }
+
             return $this->render('update', [
                 "model" => $model,
             ]);
@@ -103,10 +104,20 @@ class PermissionController extends Controller
     {
         $model = new PermissionForm();
 
-//        if ($model->validate() && $model->delete($name)) {
-//            Yii::$app->session->setFlash('deletePermission', 'success');
-//        }
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate() && $model->updateChild($name)) {
+                Yii::$app->session->setFlash('updateChild', 'success');
 
-        return $this->redirect(['//account/permission/index']);
+                return $this->renderPartial('addChild', [
+                    "model" => $model,
+                ]);
+            }
+        }
+
+        $model->get($name);
+
+        return $this->renderPartial('addChild', [
+            "model" => $model,
+        ]);
     }
 }

@@ -1,4 +1,8 @@
 <?php
+
+/* @var $model app\modules\account\models\OperatorForm */
+/* @var $content */
+
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 ?>
@@ -17,18 +21,18 @@ use yii\bootstrap\ActiveForm;
                     'layout' => 'inline',
                 ]); ?>
                 <?php echo $form
-                    ->field($model,'status', [])
+                    ->field($model, 'status', [])
                     ->dropDownList(['1' => '正常', '2' => '正常'], ['prompt' => '选择状态'])
                     ->label($model->getAttributeLabel('status'));
                 ?>
                 &nbsp;&nbsp;
                 <?php echo $form
-                    ->field($model,'type', [])
+                    ->field($model, 'type', [])
                     ->dropDownList(['0' => '账号', '1' => '姓名'], ['prompt' => '选择类型'])
                     ->label($model->getAttributeLabel('type'));
                 ?>
                 <?php echo $form
-                    ->field($model,'filter',[
+                    ->field($model, 'filter', [
                             'inputOptions' => [
                                 'placeholder' =>'search...',
                             ],

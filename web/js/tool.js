@@ -9,9 +9,11 @@ var tool = {
 		if(option.url==null||option.url==""||typeof(option.url)=="undefined") return;
 
 		var  _option = {},layerId;
-		// for(var i in option) {
-		// 	_option[i] = option[i];
-		// }
+		for(var i in option) {
+			if (option.hasOwnProperty(i)) {
+                _option[i] = option[i];
+			}
+        }
 
 		if(typeof(_option.timeout)=="undefined") _option.timeout = 20000; // 默认超时设置20秒
 		if(typeof(_option.type)=="undefined") _option.type = 'post';// 默认请求方式POST
@@ -53,14 +55,11 @@ var tool = {
 			if(option.success && typeof(option.success)=='function') {
 				if(_option.dataType == 'json') { // 指明返回数据格式为json
 					if(response && typeof(response) == 'object') {
-						try{
-							if( response == null||response == ""||(typeof(response)=="undefined")){
-								throw '没有数据返回。。。';
-							}
-							option.success(response); // 用户自定义success
-						}catch(err){
-							layer.msg(err, {icon: 5,shade:[0.3,'#000']});
-						}
+                        if (response == null||response == ""||(typeof(response)=="undefined")){
+                            layer.msg('没有数据返回。。。', {icon: 5,shade:[0.3,'#000']});
+							return true;
+                        }
+                        option.success(response);
 					} else {
 						layer.msg("额...出错了！", {icon: 5,shade:[0.3,'#000']});
 					}

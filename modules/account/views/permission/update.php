@@ -69,31 +69,6 @@ if (Yii::$app->session->getFlash('updatePermission') == 'success') {
             ])
             ->dropDownList(Dictionary::getRules(), ['prompt' => '--规则--'])
             ->label($model->getAttributeLabel('ruleName')); ?>
-            <div class="form-group">
-                <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('childPermission'); ?></label>
-                <div class="col-sm-8">
-                    <div class="form-group">
-                        <?php foreach (Yii::$app->authManager->getPermissions() as $index => $permission) {
-                            if ($model->name == $index) {
-                                continue;
-                            }
-
-                            echo $form->field($model, 'childPermission[]', [
-                                'inputOptions' => [
-                                    'type' => 'checkbox',
-                                    'value' => $index,
-                                    'checked' => isset($model->childPermission[$index])?'checked':false
-                                ],
-                                'options' => [
-                                    'tag' => false
-                                ],
-                                'labelOptions' => ['class' => false],
-                                'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                            ])->label($permission->description);
-                        } ?>
-                    </div>
-                </div>
-            </div>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">

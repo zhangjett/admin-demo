@@ -77,7 +77,7 @@ class OperatorController extends Controller
         ]);
     }
 
-    public function actionUpdate($id)
+    public function actionUpdate($name)
     {
         $model = new OperatorForm();
         $model->setScenario('update');
@@ -92,7 +92,7 @@ class OperatorController extends Controller
             ]);
         }
 
-        $model->get($id);
+        $model->get(Yii::$app->request->get("id"));
 
         return $this->render('update', [
             "model" => $model,

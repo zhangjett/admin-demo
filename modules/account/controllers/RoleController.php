@@ -7,6 +7,7 @@ use app\components\Controller;
 use app\modules\account\models\RoleForm;
 use app\modules\account\models\RoleSearchForm;
 use yii\helpers\Json;
+use yii\rbac\Role;
 
 /**
  * Role controller for the `account` module
@@ -96,6 +97,32 @@ class RoleController extends Controller
         $model->get($name);
 
         return $this->render('update', [
+            "model" => $model,
+        ]);
+    }
+
+    /**
+     * 增加子权限/角色
+     * @param $name
+     * @return string|\yii\web\Response
+     */
+    public function actionAddChild($name)
+    {
+        $model = new RoleForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate() && $model->updateChild($name)) {
+                Yii::$app->session->setFlash('updateChild', 'success');
+
+                return $this->renderPartial('addChild', [
+                    "model" => $model,
+                ]);
+            }
+        }
+
+        $model->get($name);
+
+        return $this->renderPartial('addChild', [
             "model" => $model,
         ]);
     }

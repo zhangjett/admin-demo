@@ -76,7 +76,7 @@ class PermissionForm extends Model
         $permission->description = $this->description;
         $permission->ruleName = $this->ruleName;
 
-        return $auth->add($permission)&&$this->batchAddChild($permission, $this->childPermission);
+        return $auth->add($permission);
 
     }
 
@@ -114,8 +114,38 @@ class PermissionForm extends Model
         $permission->description = $this->description;
         $permission->ruleName = $this->ruleName;
 
-        return $auth->update($name, $permission)&&$this->batchAddChild($permission, $this->childPermission);
+        return $auth->update($name, $permission);
 
+    }
+
+    /**
+     * 修改子权限
+     * @param $name
+     * @return bool
+     */
+    public function updateChild($name)
+    {
+        $this->name = $name;
+        $auth = Yii::$app->authManager;
+
+
+        $parent = new Permission();
+        $parent->name = $name;
+
+        $auth->removeChildren($parent);
+
+        if ($this->childPermission == null) {
+            return true;
+        }
+
+        foreach ($this->childPermission as $permission) {
+            $child = new Permission();
+            $child->name = $permission;
+
+            $auth->addChild($parent, $child);
+        }
+
+        return true;
     }
 
     /**
@@ -132,31 +162,5 @@ class PermissionForm extends Model
 
         return $auth->remove($permission);
 
-    }
-
-    /**
-     * 批量添加子权限
-     * @param $parent
-     * @param $childPermission
-     * @return bool
-     */
-    public function batchAddChild($parent, $childPermission)
-    {
-        $auth = Yii::$app->authManager;
-
-        $auth->removeChildren($parent);
-
-        if ($childPermission == null) {
-            return true;
-        }
-
-        foreach ($childPermission as $permission) {
-            $child = new Permission();
-            $child->name = $permission;
-
-            $auth->addChild($parent, $child);
-        }
-
-        return true;
     }
 }
