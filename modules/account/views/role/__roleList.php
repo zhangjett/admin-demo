@@ -35,7 +35,7 @@ if (Yii::$app->session->getFlash('deleteRole') == 'success') {
                     <td><?php echo date("Y-m-d H:i:s", $role->updatedAt); ?></td>
                     <td>
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/role/update', 'name'=>$role->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-success add-child" href="<?php echo Url::to(['//account/role/add-child','name'=>$role->name]); ?>"  data-toggle="modal" data-target="#addChild">权限/子角色</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-success add-child" href="<?php echo Url::to(['//account/role/add-child','name'=>$role->name]); ?>" data-toggle="modal" data-target="#addChild">权限/子角色</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="label label-danger delete" href="<?php echo Url::to(['//account/role/delete', 'name'=>$role->name]); ?>">删除</span>
                     </td>
                 </tr>
@@ -48,10 +48,4 @@ if (Yii::$app->session->getFlash('deleteRole') == 'success') {
 <div class="mailbox-controls">
     <button type="button" class="btn btn-default btn-sm refresh"><i class="fa fa-refresh"></i></button>
     <button type="button" class="btn btn-default btn-sm add"><i class="fa fa-plus"></i></button>
-</div>
-<div class="modal fade" id="addChild" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        </div>
-    </div>
 </div>

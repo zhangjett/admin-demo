@@ -60,6 +60,10 @@ class OperatorController extends Controller
         ]);
     }
 
+    /**
+     * 创建后台用户
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $model = new OperatorForm();
@@ -77,13 +81,18 @@ class OperatorController extends Controller
         ]);
     }
 
-    public function actionUpdate($name)
+    /**
+     * 修改后台用户
+     * @param $id
+     * @return string|\yii\web\Response
+     */
+    public function actionUpdate($id)
     {
         $model = new OperatorForm();
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->validate() && $model->update()) {
+            if ($model->validate() && $model->update($id)) {
                 Yii::$app->session->setFlash('updateOperator','success');
                 return $this->refresh();
             }
@@ -92,9 +101,36 @@ class OperatorController extends Controller
             ]);
         }
 
-        $model->get(Yii::$app->request->get("id"));
+        $model->get($id);
 
         return $this->render('update', [
+            "model" => $model,
+        ]);
+    }
+
+
+    /**
+     * 分配角色
+     * @param $id
+     * @return string
+     */
+    public function actionAssign($id)
+    {
+        $model = new OperatorForm();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->validate() && $model->assign($id)) {
+                Yii::$app->session->setFlash('assign', 'success');
+
+                return $this->renderPartial('assign', [
+                    "model" => $model,
+                ]);
+            }
+        }
+
+        $model->get($id);
+
+        return $this->renderPartial('assign', [
             "model" => $model,
         ]);
     }

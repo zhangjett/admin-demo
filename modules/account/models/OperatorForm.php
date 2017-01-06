@@ -22,7 +22,7 @@ class OperatorForm extends Model
     public $gender;
     public $createTime;
     public $updateTime;
-    public $role;
+    public $role = [];
 
     public function rules()
     {
@@ -83,15 +83,8 @@ class OperatorForm extends Model
         $this->status = $row['status'];
         $this->gender = $row['gender'];
 
-        $auth = Yii::$app->authManager;
-        $rows = $query
-            ->select(['item_id'])
-            ->from('auth_assignment')
-            ->where(['operator_id' => $this->operatorId])
-            ->indexBy('item_id')
-            ->column();
+        $this->role = Yii::$app->authManager->getAssignments($id);
 
-        $this->role = $rows;
         return true;
     }
 
@@ -121,34 +114,14 @@ class OperatorForm extends Model
             ];
             $connection->createCommand()->update('operator', $columns, $condition)->execute();
 
-//            $condition = [
-//                'operator_id' => $this->operatorId,
-//            ];
-//            $connection->createCommand()->delete('auth_assignment', $condition)->execute();
-//
-//            if(is_array($this->role) && count($this->role)>0){
-//                $columns = [];
-//                $date=date("Y-m-d H:i:s");
-//                foreach($this->role as $role){
-//                    $column = [];
-//                    $column[] = $this->operatorId;
-//                    $column[] = $role;
-//                    $column[] = $date;
-//                    $columns[] = $column;
-//                }
-//                $connection->createCommand()->batchInsert('auth_assignment', ['operator_id','item_id','create_time'], $columns)->execute();
-//            }
-
             $transaction->commit();
+
+            return true;
 
         } catch(Exception $e) {
             $transaction->rollBack();
-
+            return false;
         }
-
-        $this->batchAssign($this->role, $id);
-
-        return true;
     }
 
     /**
@@ -208,24 +181,25 @@ class OperatorForm extends Model
     }
 
     /**
-     * 批量分配角色
-     * @param $roleList
-     * @param $userId
+     * 分配角色
+     * @param $id
      * @return bool
      */
-    public function batchAssign($roleList, $userId)
+    public function assign($id)
     {
-        $auth = Yii::$app->authManager;
-
-        if ($roleList == null) {
+        if ($this->role == null) {
             return true;
         }
 
-        foreach ($roleList as $value) {
+        $auth = Yii::$app->authManager;
+
+        $auth->revokeAll($id);
+
+        foreach ($this->role as $value) {
             $role = new Role();
             $role->name = $value;
 
-            $auth->assign($role, $userId);
+            $auth->assign($role, $id);
         }
 
         return true;

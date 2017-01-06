@@ -16,9 +16,9 @@ var tool = {
         }
 
 		if(typeof(_option.timeout)=="undefined") _option.timeout = 20000; // 默认超时设置20秒
-		if(typeof(_option.type)=="undefined") _option.type = 'post';// 默认请求方式POST
+		if(typeof(_option.type)=="undefined") _option.type = 'GET';// 默认请求方式GET
 		if(typeof(_option.dataType)=="undefined") _option.dataType = 'json';// 默认返回格式JSON
-		if(typeof(_option.shade)=="undefined") _option.shade = true; // 是否显示遮罩层
+		if(typeof(_option.shade)=="undefined") _option.shade = false; // 是否显示遮罩层
 		if(typeof(_option.shadeText)=="undefined") _option.shadeText = "加载中...请稍后"; // 遮罩层文本内容
 		if(typeof(_option.async)=="undefined")_option.async=true;//是否是异步的
 		if(typeof(_option.data)=="undefined")_option.data="";//请求数据

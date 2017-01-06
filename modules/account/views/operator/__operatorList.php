@@ -48,8 +48,9 @@ use yii\helpers\Url;
                     <td><?php echo $operator['updateTime']; ?></td>
                     <td><span class="label <?php echo (int)$operator['status']==1?'label-success':'label-danger';?>"><?php echo (int)$operator['status']==1?'正常':'停用'; ?></span></td>
                     <td>
-                        <span class="label label-success edit" data="<?php echo $operator['operatorId']; ?>" href="<?php echo Url::to(['//account/operator/update','id'=>$operator['operatorId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-danger delete" data="<?php echo $operator['operatorId']; ?>" href="<?php echo Url::to(['//account/operator/update','id'=>$operator['operatorId']]); ?>"><?php echo $operator['status']==0?"恢复":"停用"?></span>
+                        <span class="label label-success edit" href="<?php echo Url::to(['//account/operator/update','id'=>$operator['operatorId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-success assign" href="<?php echo Url::to(['//account/operator/assign','id'=>$operator['operatorId']]); ?>" data-toggle="modal" data-target="#assignModal">分配角色</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-danger delete" href="<?php echo Url::to(['//account/operator/update','id'=>$operator['operatorId']]); ?>"><?php echo $operator['status']==0?"恢复":"停用"?></span>
                     </td>
                 </tr>
             <?php }

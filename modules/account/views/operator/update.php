@@ -104,30 +104,6 @@ use app\components\Dictionary;
             ])
             ->dropDownList(Dictionary::getDictionaryItemByType($statusTypeId), ['prompt' => '状态'])
             ->label($model->getAttributeLabel('status')); ?>
-        <div class="form-group">
-            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('role'); ?></label>
-            <div class="col-sm-8">
-                <div class="form-group">
-                    <?php foreach (Yii::$app->authManager->getRoles() as $index => $role) {
-                        if ($model->name == $index) {
-                            continue;
-                        }
-                        echo $form->field($model, 'role[]', [
-                            'inputOptions' => [
-                                'type' => 'checkbox',
-                                'value' => $index,
-                                'checked' => 1?'checked':false
-                            ],
-                            'options' => [
-                                'tag' => false
-                            ],
-                            'labelOptions' => ['class' => false],
-                            'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                        ])->label($role->description);
-                    } ?>
-                </div>
-            </div>
-        </div>
         <?php echo $form->field($model, 'operatorId')->hiddenInput()->label(false); ?>
     </div>
     <!-- /.box-body -->

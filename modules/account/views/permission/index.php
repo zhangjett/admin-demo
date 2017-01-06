@@ -49,8 +49,8 @@ use yii\helpers\Url;
         });
         //添加子权限
         $(document).on('submit','#updateChildForm',function(e){
-            console.log($(this).attr('action'));
             tool.ajax({
+                type:"POST",
                 url:$(this).attr('action'),
                 data:$(this).serialize(),
                 dataType:'html',

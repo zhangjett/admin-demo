@@ -22,22 +22,24 @@ class AppAsset extends AssetBundle
         'css/font-awesome.min.css',
         'css/AdminLTE.min.css',
         'css/skin-green-light.min.css',
+        'css/pace/pace.min.css',
         'css/app.css'
     ];
     public $js = [
         'js/jquery.slimscroll.min.js',
         'js/AdminLTE.min.js',
-        'js/app.js',
         'js/layer/layer.js',
         'js/tool.js',
-        'js/iconfont/iconfont.js'
+        'js/iconfont/iconfont.js',
+        'js/pace/pace.min.js',
+        'js/app.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
         'yii\bootstrap\BootstrapPluginAsset',
     ];
 
-    //定义按需加载JS方法，注意加载顺序在最后
+    //定义按需加载CSS方法，注意加载顺序在最后
     public static function addCss(View $view, $cssFile) {
         if(is_array($cssFile)&&count($cssFile)>0){
             foreach($cssFile as $css){

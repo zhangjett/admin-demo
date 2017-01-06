@@ -55,9 +55,18 @@ use yii\bootstrap\ActiveForm;
     </div>
     <!-- /.col -->
 </div>
+<div class="modal fade" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        $("#assignModal").on("hidden.bs.modal", function() {
+            $(this).removeData("bs.modal");
+        });
         $(document).on("click",".mailbox-controls button.add",function(){
             var url = '<?php echo Url::to(['//account/operator/create']); ?>';
             window.open(url);
@@ -88,6 +97,19 @@ use yii\bootstrap\ActiveForm;
         });
         $(document).on("click","table tr td span.edit",function(){
             window.open($(this).attr("href"));
+        });
+        //分配角色
+        $(document).on('submit','#assignForm',function(e){
+            tool.ajax({
+                type:"POST",
+                url:$(this).attr('action'),
+                data:$(this).serialize(),
+                dataType:'html',
+                success:function(response){
+                    $('#assignModal').find("div.modal-content").html(response);
+                }
+            });
+            e.preventDefault();
         });
     });
     <?php

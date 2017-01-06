@@ -22,6 +22,12 @@ use yii\bootstrap\ActiveForm;
     </div>
     <!-- /.col -->
 </div>
+<div class="modal fade" id="addChild" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
@@ -46,8 +52,8 @@ use yii\bootstrap\ActiveForm;
         });
         //添加权限/子角色
         $(document).on('submit','#updateChildForm',function(e){
-            console.log($(this).attr('action'));
             tool.ajax({
+                type:"POST",
                 url:$(this).attr('action'),
                 data:$(this).serialize(),
                 dataType:'html',
