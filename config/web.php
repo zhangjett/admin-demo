@@ -35,7 +35,7 @@ $config = [
         ],
         'authManager' => [
             'class' => 'app\components\rbac\DbManager',
-            'itemTable' => 'item',
+            'itemTable' => 'auth_item',
             'itemChildTable' => 'item_child',
             'assignmentTable' => 'assignment',
             'ruleTable' => 'rule',
