@@ -21,6 +21,11 @@ class DictionaryItemController extends Controller
         'icheck/icheck.min.js'
     ];
 
+    /**
+     * 字典列表
+     * @param null $typeId
+     * @return string
+     */
     public function actionIndex($typeId = null)
     {
         $model = new DictionaryItemSearchForm();
@@ -43,6 +48,10 @@ class DictionaryItemController extends Controller
         ]);
     }
 
+    /**
+     * 创建字典
+     * @return int
+     */
     public function actionCreate()
     {
         $model = new DictionaryItemForm();
@@ -62,7 +71,11 @@ class DictionaryItemController extends Controller
         return 0;
     }
 
-
+    /**
+     * 修改字典
+     * @param $id
+     * @return int
+     */
     public function actionUpdate($id)
     {
         $model = new DictionaryItemForm();

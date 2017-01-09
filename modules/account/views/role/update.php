@@ -33,10 +33,10 @@ use app\components\Dictionary;
             </div>
         <?php }; ?>
         <?php
-        if (Yii::$app->session->getFlash('createRole') == 'success'){
+        if (Yii::$app->session->getFlash('createRole') == 'success') {
             echo Html::hiddenInput("createOperator","success",['id'=>'createRole']);
         }
-        if (Yii::$app->session->getFlash('updateRole') == 'success'){
+        if (Yii::$app->session->getFlash('updateRole') == 'success') {
             echo Html::hiddenInput("updateOperator","success",['id'=>'updateRole']);
         }
         ?>
@@ -51,11 +51,6 @@ use app\components\Dictionary;
                 ],
             ]
         )->label($model->getAttributeLabel('name')); ?>
-        <?php
-        $statusTypeId = Dictionary::getDictionaryTypeIdByCode('status');
-        $roleTypeId = Dictionary::getDictionaryTypeIdByCode('role');
-        $menuTypeId = Dictionary::getDictionaryTypeIdByCode('menu');
-        ?>
         <?php echo $form
             ->field($model, 'description', [
                     'horizontalCssClasses' => [
@@ -75,56 +70,6 @@ use app\components\Dictionary;
             ])
             ->dropDownList(Dictionary::getRules(), ['prompt' => '--规则--'])
             ->label($model->getAttributeLabel('ruleName')); ?>
-        <div class="form-group">
-            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('childPermission'); ?></label>
-            <div class="col-sm-8">
-                <div class="form-group">
-                    <?php foreach (Yii::$app->authManager->getPermissions() as $index => $permission) {
-                        if ($model->name == $index) {
-                            continue;
-                        }
-
-                        echo $form->field($model, 'childPermission[]', [
-                            'inputOptions' => [
-                                'type' => 'checkbox',
-                                'value' => $index,
-                                'checked' => isset($model->childPermission[$index])?'checked':false
-                            ],
-                            'options' => [
-                                'tag' => false
-                            ],
-                            'labelOptions' => ['class' => false],
-                            'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                        ])->label($permission->description);
-                    } ?>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="col-sm-3 control-label"><?php echo $model->getAttributeLabel('childRole'); ?></label>
-            <div class="col-sm-8">
-                <div class="form-group">
-                    <?php foreach (Yii::$app->authManager->getRoles() as $index => $role) {
-                        if ($model->name == $index) {
-                            continue;
-                        }
-
-                        echo $form->field($model, 'childRole[]', [
-                            'inputOptions' => [
-                                'type' => 'checkbox',
-                                'value' => $index,
-                                'checked' => isset($model->childRole[$index])?'checked':false
-                            ],
-                            'options' => [
-                                'tag' => false
-                            ],
-                            'labelOptions' => ['class' => false],
-                            'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
-                        ])->label($role->description);
-                    } ?>
-                </div>
-            </div>
-        </div>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
@@ -132,8 +77,6 @@ use app\components\Dictionary;
     </div>
     <?php ActiveForm::end(); ?>
 </div>
-
-
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
@@ -143,10 +86,10 @@ use app\components\Dictionary;
                 $(this).closest("li").addClass("active").closest("ul").css("display","block").closest("li").addClass("active");
             }
         });
-        if(($('#createRole').length > 0) && ($('#createRole').val() == 'success')){
+        if($('#createRole').val() == 'success'){
             setTimeout(function(){layer.msg('新建成功了呦', {icon: 6});}, 1000);
         }
-        if(($('#updateRole').length > 0) && ($('#updateRole').val() == 'success')){
+        if($('#updateRole').val() == 'success'){
             setTimeout(function(){layer.msg('修改成功了呦', {icon: 6});}, 1000);
         }
     });

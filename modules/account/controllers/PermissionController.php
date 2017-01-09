@@ -19,6 +19,10 @@ class PermissionController extends Controller
         'icheck/icheck.min.js'
     ];
 
+    /**
+     * 权限列表
+     * @return string
+     */
     public function actionIndex()
     {
         $auth = Yii::$app->authManager;

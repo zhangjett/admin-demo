@@ -21,6 +21,10 @@ class DictionaryController extends Controller
         'icheck/icheck.min.js'
     ];
 
+    /**
+     * 字典类型类别
+     * @return string
+     */
     public function actionIndex()
     {
         $model = new DictionaryTypeSearchForm();
@@ -41,6 +45,10 @@ class DictionaryController extends Controller
         ]);
     }
 
+    /**
+     * 创建字典类型
+     * @return int
+     */
     public function actionCreate()
     {
         $model = new DictionaryTypeForm();
@@ -61,7 +69,7 @@ class DictionaryController extends Controller
     }
 
     /**
-     * 删除菜单
+     * 删除字典类型
      * @return string
      */
     public function actionDelete()
@@ -76,6 +84,11 @@ class DictionaryController extends Controller
         return Json::encode(['status'=>'error','msg'=>'删除失败！']);
     }
 
+    /**
+     * 修改字典类型
+     * @param $id
+     * @return int
+     */
     public function actionUpdate($id)
     {
         $model = new DictionaryTypeForm();

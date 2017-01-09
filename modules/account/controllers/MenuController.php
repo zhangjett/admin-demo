@@ -21,6 +21,10 @@ class MenuController extends Controller
         'icheck/icheck.min.js'
     ];
 
+    /**
+     * 菜单列表
+     * @return string
+     */
     public function actionIndex()
     {
         $model = new MenuSearchForm();
@@ -42,6 +46,10 @@ class MenuController extends Controller
         ]);
     }
 
+    /**
+     * 创建菜单
+     * @return string|\yii\web\Response
+     */
     public function actionCreate()
     {
         $model = new MenuForm();
@@ -75,6 +83,10 @@ class MenuController extends Controller
         return Json::encode(['status'=>'error','msg'=>'删除失败！']);
     }
 
+    /**
+     * 修改菜单
+     * @return string|\yii\web\Response
+     */
     public function actionUpdate()
     {
         $model = new MenuForm();

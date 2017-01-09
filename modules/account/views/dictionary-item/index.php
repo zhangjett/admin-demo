@@ -1,4 +1,7 @@
 <?php
+
+/* @var $content */
+
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 ?>
@@ -7,7 +10,7 @@ use yii\bootstrap\ActiveForm;
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">Inbox</h3>
+                <h3 class="box-title">字典列表</h3>
                 <div class="box-tools pull-right">
                     <?php $form = ActiveForm::begin([
                         'id' => 'searchForm',

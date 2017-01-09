@@ -10,7 +10,7 @@ use yii\helpers\Url;
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">Inbox</h3>
+                <h3 class="box-title">权限列表</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding list-box">
@@ -24,6 +24,12 @@ use yii\helpers\Url;
         <!-- /. box -->
     </div>
     <!-- /.col -->
+</div>
+<div class="modal fade" id="addChild" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        </div>
+    </div>
 </div>
 <script>
     <?php $this->beginBlock('JS_END');?>

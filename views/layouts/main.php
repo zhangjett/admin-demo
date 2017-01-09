@@ -283,7 +283,7 @@ AppAsset::addScript($this, Yii::$app->controller->getJsFile());
                             <!-- Menu Footer-->
                             <li class="user-footer">
                                 <div class="pull-left">
-                                    <a href="#" class="btn btn-default btn-flat">个人中心</a>
+                                    <a href="<?php echo Url::to(['//account/operator/update', 'id' => Yii::$app->user->identity->getId()])?>" class="btn btn-default btn-flat">个人中心</a>
                                 </div>
                                 <div class="pull-right">
                                     <a href="<?php echo Url::to(['//account/home/logout'])?>" class="btn btn-default btn-flat">退出</a>
@@ -324,7 +324,6 @@ AppAsset::addScript($this, Yii::$app->controller->getJsFile());
                                 ['label' => ' 后台用户', 'icon' => 'fa fa-circle-o', 'url' => ['//account/operator/index'],],
                                 ['label' => ' 角色', 'icon' => 'fa fa-circle-o', 'url' => ['//account/role/index'],],
                                 ['label' => ' 权限', 'icon' => 'fa fa-circle-o', 'url' => ['//account/permission/index'],],
-                                ['label' => ' 菜单', 'icon' => 'fa fa-circle-o', 'url' => ['//account/menu/index'],],
                                 ['label' => ' 字典维护', 'icon' => 'fa fa-circle-o', 'url' => ['//account/dictionary/index'],],
                             ],
                         ],

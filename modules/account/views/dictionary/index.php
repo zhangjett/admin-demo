@@ -1,12 +1,16 @@
 <?php
+
+/* @var $content */
+
 use yii\helpers\Url;
+
 ?>
 <div class="row">
     <!-- /.col -->
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-header with-border">
-                <h3 class="box-title">Inbox</h3>
+                <h3 class="box-title">字典类型列表</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding list-box">
