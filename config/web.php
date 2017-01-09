@@ -12,13 +12,7 @@ $config = [
     'modules' => [
         'account' => [
             'class' => 'app\modules\account\Module',
-        ],
-        'v1' => [
-            'class' => 'app\modules\v1\Module',
-        ],
-        'v2' => [
-            'class' => 'app\modules\v2\Module',
-        ],
+        ]
     ],
     'components' => [
         'request' => [
@@ -35,7 +29,7 @@ $config = [
         ],
         'authManager' => [
             'class' => 'app\components\rbac\DbManager',
-            'itemTable' => 'auth_item',
+            'itemTable' => 'item',
             'itemChildTable' => 'item_child',
             'assignmentTable' => 'assignment',
             'ruleTable' => 'rule',
