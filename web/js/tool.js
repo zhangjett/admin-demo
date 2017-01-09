@@ -39,9 +39,8 @@ var tool = {
 			layerId && layer.close(layerId);
 			if(option.error && typeof(option.error)=='function') {
 				option.error(response.responseText); // 用户自定义error
-				layer.msg("额...出错了！", {icon: 5,shade:[0.3,'#000']});
 			} else {
-				layer.msg("额...出错了！", {icon: 5,shade:[0.3,'#000']});
+				layer.msg(response.responseText, {icon: 5,shade:[0.3,'#000']});
 			}
 		};
 		_option.complete = function(XHR, status) {

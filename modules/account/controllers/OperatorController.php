@@ -53,7 +53,7 @@ class OperatorController extends Controller
         $model = new OperatorSearchForm();
 
         if (Yii::$app->request->isAjax) {
-            $model->load(Yii::$app->request->post());
+            $model->load(Yii::$app->request->get());
             $result = $model->search();
             echo $this->renderPartial("__operatorList", ['operatorList' => $result['rows'],'pages' => $result['pages']]);
             Yii::$app->end();

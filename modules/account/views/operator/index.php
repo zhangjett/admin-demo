@@ -15,7 +15,7 @@ use yii\bootstrap\ActiveForm;
                     'id' => 'searchForm',
                     'enableClientValidation' => true,
                     'options' => [
-                        'method' => 'post',
+                        'method' => 'POST',
                         'role' => "form"
                     ],
                     'layout' => 'inline',
@@ -33,13 +33,16 @@ use yii\bootstrap\ActiveForm;
                 ?>
                 <?php echo $form
                     ->field($model, 'filter', [
+                            'horizontalCssClasses' => [
+                                'wrapper' => 'col-sm-3',
+                            ],
                             'inputOptions' => [
+                                'type' => 'text',
                                 'placeholder' =>'search...',
                             ],
-                            'inputTemplate' => '<div class="has-feedback">{input}<span class="glyphicon glyphicon-search form-control-feedback"></span></div>'
+                            'inputTemplate' => "<div class=\"input-group\">\n{input}\n<div class=\"input-group-btn\">\n<button type=\"submit\" class=\"btn btn-default\">\n<i class=\"fa fa-search\">\n</i>\n</button>\n</div>\n</div>"
                         ]
-                    )
-                    ->label($model->getAttributeLabel('filter')); ?>
+                    )->label($model->getAttributeLabel('filter')); ?>
                 <?php ActiveForm::end(); ?>
             </div>
             <!-- /.box-header -->
@@ -107,6 +110,23 @@ use yii\bootstrap\ActiveForm;
                 dataType:'html',
                 success:function(response){
                     $('#assignModal').find("div.modal-content").html(response);
+                }
+            });
+            e.preventDefault();
+        });
+        /**
+         * 搜索
+         */
+        $(document).on("submit","#searchForm",function(e){
+            var url='<?php echo Url::to(['//account/operator/index'])?>';
+            tool.ajax({
+                type:'POST',
+                url:url,
+                data:$("#searchForm").serialize(),
+                dataType:'html',
+                success:function(response){
+                    $(".list-box").html(response);
+                    $(document).trigger('icheck');
                 }
             });
             e.preventDefault();

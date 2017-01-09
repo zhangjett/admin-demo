@@ -42,16 +42,16 @@ class OperatorSearchForm extends Model
 
         $condition = ['and'];
 
-        if($this->status != ""){
+        if($this->status != null){
             $condition[] = 'status='.$this->status;
         }
 
-        if(($this->beginTime != "") && ($this->endTime) != ""){
+        if(($this->beginTime != null) && ($this->endTime) != null){
             $condition[] = ['between', 'approve', $this->beginTime." 00:00:00", $this->endTime." 23:59:59"];
         }
 
         if($this->filter != ""){
-            $condition[] = ['or', ['like', 'login', $this->filter], ['like', 'name', $this->filter]];
+            $condition[] = ['or', ['like', 'username', $this->filter], ['like', 'name', $this->filter]];
         }
 
         $count = (new Query())
