@@ -27,9 +27,9 @@ class PermissionController extends Controller
      */
     public function actionIndex()
     {
-        if (! Yii::$app->user->can('viewPermissionList')) {
-            throw new ForbiddenHttpException('您没有权限查看权限列表！');
-        }
+//        if (! Yii::$app->user->can('viewPermissionList')) {
+//            throw new ForbiddenHttpException('您没有权限查看权限列表！');
+//        }
 
         $auth = Yii::$app->authManager;
 
@@ -47,9 +47,9 @@ class PermissionController extends Controller
      */
     public function actionCreate()
     {
-        if (! Yii::$app->user->can('createPermission')) {
-            throw new ForbiddenHttpException('您没有权限创建权限！');
-        }
+//        if (! Yii::$app->user->can('createPermission')) {
+//            throw new ForbiddenHttpException('您没有权限创建权限！');
+//        }
 
         $model = new PermissionForm();
         $model->setScenario('create');
@@ -78,9 +78,9 @@ class PermissionController extends Controller
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
-            if (! Yii::$app->user->can('updatePermission')) {
-                throw new ForbiddenHttpException('您没有权限修改权限！');
-            }
+//            if (! Yii::$app->user->can('updatePermission')) {
+//                throw new ForbiddenHttpException('您没有权限修改权限！');
+//            }
             if ($model->validate() && $model->update($name)) {
                 Yii::$app->session->setFlash('updatePermission', 'success');
                 return $this->redirect(['//account/permission/update', 'name' => $model->name]);
@@ -91,9 +91,9 @@ class PermissionController extends Controller
             ]);
         }
 
-        if (! Yii::$app->user->can('viewPermission')) {
-            throw new ForbiddenHttpException('您没有权限查看权限详情！');
-        }
+//        if (! Yii::$app->user->can('viewPermission')) {
+//            throw new ForbiddenHttpException('您没有权限查看权限详情！');
+//        }
 
         $model->get($name);
 
@@ -110,9 +110,9 @@ class PermissionController extends Controller
      */
     public function actionDelete($name)
     {
-        if (! Yii::$app->user->can('deletePermission')) {
-            throw new ForbiddenHttpException('您没有权限删除权限！');
-        }
+//        if (! Yii::$app->user->can('deletePermission')) {
+//            throw new ForbiddenHttpException('您没有权限删除权限！');
+//        }
 
         $model = new PermissionForm();
 
@@ -134,9 +134,9 @@ class PermissionController extends Controller
         $model = new PermissionForm();
 
         if ($model->load(Yii::$app->request->post())) {
-            if (! Yii::$app->user->can('addChildPermission')) {
-                throw new ForbiddenHttpException('您没有权限添加子权限！');
-            }
+//            if (! Yii::$app->user->can('addChildPermission')) {
+//                throw new ForbiddenHttpException('您没有权限添加子权限！');
+//            }
             if ($model->validate() && $model->updateChild($name)) {
                 Yii::$app->session->setFlash('updateChild', 'success');
 
@@ -146,9 +146,9 @@ class PermissionController extends Controller
             }
         }
 
-        if (! Yii::$app->user->can('viewPermission')) {
-            throw new ForbiddenHttpException('您没有权限查看权限详情！');
-        }
+//        if (! Yii::$app->user->can('viewPermission')) {
+//            throw new ForbiddenHttpException('您没有权限查看权限详情！');
+//        }
 
         $model->get($name);
 

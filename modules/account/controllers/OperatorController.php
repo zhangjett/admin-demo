@@ -142,9 +142,9 @@ class OperatorController extends Controller
         $model = new OperatorForm();
 
         if ($model->load(Yii::$app->request->post())) {
-            if (! Yii::$app->user->can('assignOperator')) {
-                throw new ForbiddenHttpException('您没有权限给后台用户分配角色！');
-            }
+//            if (! Yii::$app->user->can('assignOperator')) {
+//                throw new ForbiddenHttpException('您没有权限给后台用户分配角色！');
+//            }
             if ($model->validate() && $model->assign($id)) {
                 Yii::$app->session->setFlash('assign', 'success');
 
@@ -154,9 +154,9 @@ class OperatorController extends Controller
             }
         }
 
-        if (! Yii::$app->user->can('viewOperatorProfile')) {
-            throw new ForbiddenHttpException('您没有权限查看后台用户信息！');
-        }
+//        if (! Yii::$app->user->can('viewOperatorProfile')) {
+//            throw new ForbiddenHttpException('您没有权限查看后台用户信息！');
+//        }
 
         $model->get($id);
 
