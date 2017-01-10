@@ -134,13 +134,13 @@ class OperatorForm extends Model
         $transaction = $connection->beginTransaction();
 
         try {
+            $time = time();
             $columns=[
-                'login' => $this->login,
+                'username' => $this->username,
                 'password' => Yii::$app->getSecurity()->generatePasswordHash($this->password),
                 'name' => $this->name,
                 'email' => $this->email,
-                'create_time'=> date("Y-m-d H:i:s"),
-                'update_time' => date("Y-m-d H:i:s"),
+                'created_at'=> $time
             ];
             $connection->createCommand()->insert('operator', $columns)->execute();
 

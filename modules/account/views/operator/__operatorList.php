@@ -45,7 +45,7 @@ use yii\helpers\Url;
                     <td><a href="javascript:void(0);"><?php echo $operator['username']; ?></a></td>
                     <td><?php echo $operator['name']; ?></td>
                     <td><?php echo $operator['email']; ?></td>
-                    <td><?php echo $operator['updateTime']; ?></td>
+                    <td><?php echo date("Y-m-d H:i:s", $operator['updatedAt']); ?></td>
                     <td><span class="label <?php echo (int)$operator['status']==1?'label-success':'label-danger';?>"><?php echo (int)$operator['status']==1?'正常':'停用'; ?></span></td>
                     <td>
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/operator/update','id'=>$operator['operatorId']]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
