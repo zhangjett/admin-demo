@@ -133,7 +133,7 @@ class RoleController extends Controller
         $model = new RoleForm();
 
         if ($model->load(Yii::$app->request->post())) {
-//            if (! Yii::$app->user->can('addPermissionORChildRole')) {
+//            if (! Yii::$app->user->can('addPermissionOrChildRole')) {
 //                throw new ForbiddenHttpException('您没有权限添加权限或着子角色！');
 //            }
             if ($model->validate() && $model->updateChild($name)) {
