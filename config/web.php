@@ -11,7 +11,7 @@ $config = [
     'defaultRoute' => '//account/operator/index',
     'modules' => [
         'account' => [
-            'class' => 'app\modules\account\Module'
+            'class' => 'app\modules\account\Module',
         ]
     ],
     'components' => [
