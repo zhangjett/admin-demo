@@ -7,7 +7,6 @@ use app\components\Controller;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\modules\account\models\LoginForm;
-use yii\db\Query;
 
 class HomeController extends Controller
 {
