@@ -44,7 +44,7 @@ class RoleForm extends Model
     public function validateName($attribute, $params)
     {
         $count = (new Query())
-            ->from('item')
+            ->from('auth_item')
             ->where(['name' => $this->$attribute])
             ->count();
 
