@@ -25,7 +25,7 @@ $config = [
         'user' => [
             'identityClass' => 'app\modules\account\models\User',
             'enableAutoLogin' => true,
-            'loginUrl' => ['//account/home/login'],
+            'loginUrl' => ['//account/home/login']
         ],
         'authManager' => [
             'class' => 'app\components\rbac\DbManager'
