@@ -28,11 +28,7 @@ $config = [
             'loginUrl' => ['//account/home/login'],
         ],
         'authManager' => [
-            'class' => 'app\components\rbac\DbManager',
-            'itemTable' => 'item',
-            'itemChildTable' => 'item_child',
-            'assignmentTable' => 'assignment',
-            'ruleTable' => 'rule',
+            'class' => 'app\components\rbac\DbManager'
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
