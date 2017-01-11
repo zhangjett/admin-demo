@@ -1,9 +1,11 @@
 <?php
 
+/* @var $this yii\web\View */
 /* @var $content */
 
 use yii\helpers\Url;
 
+$this->title = '权限列表'
 ?>
 <div class="row">
     <!-- /.col -->

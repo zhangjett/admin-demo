@@ -1,11 +1,14 @@
 <?php
 
+/* @var $this yii\web\View */
 /* @var $model app\modules\account\models\OperatorForm */
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\components\Dictionary;
+
+$this->title = $model->operatorId?'修改后台用户':'新建后台用户'
 ?>
 <div class="box box-solid">
     <?php $form = ActiveForm::begin([
@@ -30,7 +33,6 @@ use app\components\Dictionary;
         <?php
         $genderTypeId = Dictionary::getDictionaryTypeIdByCode('gender');
         $statusTypeId = Dictionary::getDictionaryTypeIdByCode('status');
-        $roleTypeId = Dictionary::getDictionaryTypeIdByCode('role');
         ?>
         <?php if(count($model->getFirstErrors())>0){ ?>
             <div class="alert alert-danger alert-dismissible">

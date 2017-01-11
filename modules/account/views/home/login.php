@@ -1,5 +1,8 @@
 <?php
-use yii\helpers\Html;
+
+/* @var $this yii\web\View */
+/* @var $model app\modules\account\models\LoginForm */
+
 use yii\bootstrap\ActiveForm;
 
 $this->title = 'Login';

@@ -1,6 +1,10 @@
 <?php
+
+/* @var $this yii\web\View */
+
 use yii\helpers\Url;
-use yii\bootstrap\ActiveForm;
+
+$this->title = '角色列表'
 ?>
 <div class="row">
     <!-- /.col -->

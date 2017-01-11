@@ -1,4 +1,9 @@
 <?php
+
+/* @var $this yii\web\View */
+/* @var $model app\modules\account\models\MenuSearchForm */
+/* @var $content */
+
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
 ?>

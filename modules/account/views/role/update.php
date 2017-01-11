@@ -1,11 +1,22 @@
 <?php
 
+/* @var $this yii\web\View */
 /* @var $model app\modules\account\models\RoleForm */
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\components\Dictionary;
+
+if (Yii::$app->session->getFlash('createRole') == 'success') {
+    echo Html::hiddenInput("createOperator","success",['id'=>'createRole']);
+}
+if (Yii::$app->session->getFlash('updateRole') == 'success') {
+    echo Html::hiddenInput("updateOperator","success",['id'=>'updateRole']);
+}
+
+$this->title = $model->name?'修改角色':'新建角色'
+
 ?>
 <div class="box box-solid">
     <div class="box-header with-border">
@@ -32,14 +43,6 @@ use app\components\Dictionary;
                 <?php echo $form->errorSummary($model); ?>
             </div>
         <?php }; ?>
-        <?php
-        if (Yii::$app->session->getFlash('createRole') == 'success') {
-            echo Html::hiddenInput("createOperator","success",['id'=>'createRole']);
-        }
-        if (Yii::$app->session->getFlash('updateRole') == 'success') {
-            echo Html::hiddenInput("updateOperator","success",['id'=>'updateRole']);
-        }
-        ?>
         <?php echo $form
             ->field($model, 'name', [
                 'horizontalCssClasses' => [

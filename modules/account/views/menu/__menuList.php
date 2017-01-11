@@ -1,4 +1,7 @@
 <?php
+
+/* @var $this yii\web\View */
+
 use app\components\LinkPager;
 use yii\helpers\Url;
 ?>

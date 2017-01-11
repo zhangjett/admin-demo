@@ -1,6 +1,7 @@
 <?php
 
 /* @var $model app\modules\account\models\DictionaryItemForm */
+/* @var $this yii\web\View */
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;

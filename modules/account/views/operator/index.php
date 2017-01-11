@@ -1,10 +1,13 @@
 <?php
 
+/* @var $this yii\web\View */
 /* @var $model app\modules\account\models\OperatorForm */
 /* @var $content */
 
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
+
+$this->title = '后台用户列表'
 ?>
 <div class="row">
     <!-- /.col -->

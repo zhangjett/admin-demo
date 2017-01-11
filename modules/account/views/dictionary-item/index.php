@@ -1,6 +1,7 @@
 <?php
 
 /* @var $content */
+/* @var $this yii\web\View */
 
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;

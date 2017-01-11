@@ -1,5 +1,6 @@
 <?php
 
+/* @var $this yii\web\View */
 /* @var $model app\modules\account\models\OperatorForm */
 
 use yii\bootstrap\ActiveForm;

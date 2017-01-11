@@ -1,5 +1,6 @@
 <?php
 
+/* @var $this yii\web\View */
 /* @var $model app\modules\account\models\PermissionForm */
 
 use yii\bootstrap\ActiveForm;
@@ -13,6 +14,7 @@ if (Yii::$app->session->getFlash('createPermission') == 'success') {
 if (Yii::$app->session->getFlash('updatePermission') == 'success') {
     echo Html::hiddenInput("updatePermission", "success");
 }
+$this->title = $model->name?'修改权限':'新建权限'
 ?>
 <div class="box box-solid">
     <div class="box-header with-border">
