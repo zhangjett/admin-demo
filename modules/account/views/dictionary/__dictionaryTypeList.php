@@ -1,6 +1,10 @@
 <?php
+/* @var $this yii\web\View */
+
 use app\components\LinkPager;
 use yii\helpers\Url;
+
+$this->title = '字典类型列表'
 ?>
 <div class="mailbox-controls">
     <!-- Check all button -->
