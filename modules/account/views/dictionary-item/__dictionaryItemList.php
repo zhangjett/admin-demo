@@ -42,7 +42,7 @@ use yii\helpers\Url;
                     <td><input type="checkbox" value="<?php echo $dictionaryItem['itemId']; ?>"></td>
                     <td><?php echo $dictionaryItem['value']; ?></td>
                     <td><a href="javascript:void(0);"><?php echo $dictionaryItem['name']; ?></a></td>
-                    <td><?php echo $dictionaryItem['updateTime']; ?></td>
+                    <td><?php echo $dictionaryItem['updatedAt']; ?></td>
                     <td>
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/dictionary-item/update','id'=>$dictionaryItem['itemId']]); ?>"  data-toggle="modal" data-target="#updateDictionaryItemModal">编辑</span>
                     </td>

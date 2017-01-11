@@ -98,13 +98,12 @@ class DictionaryItemForm extends Model
         $transaction = $connection->beginTransaction();
 
         try {
-            $date = date("Y-m-d H:i:s");
+            $date = time();
             $columns = [
                 'value' => $this->value,
                 'name' => $this->name,
                 'type_id' => $this->typeId,
-                'create_time' => $date,
-                'update_time' => $date,
+                'created_at' => $date
             ];
             $connection->createCommand()->insert('dictionary_item', $columns)->execute();
             $transaction->commit();
