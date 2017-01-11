@@ -75,6 +75,7 @@ use yii\helpers\Url;
         //编辑
         $(document).on('submit','#updateDictionaryType',function(e){
             tool.ajax({
+                type:"POST",
                 url:$(this).attr('action'),
                 data:$(this).serialize(),
                 dataType:'html',

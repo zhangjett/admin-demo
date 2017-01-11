@@ -90,6 +90,7 @@ use yii\bootstrap\ActiveForm;
         $(document).on('submit','#updateDictionaryItem',function(e){
             $('input[name="DictionaryItemForm[typeId]"]').val($('input[name="DictionaryItemSearchForm[typeId]"]').val());
             tool.ajax({
+                type:"POST",
                 url:$(this).attr('action'),
                 data:$(this).serialize(),
                 dataType:'html',
