@@ -73,7 +73,7 @@ class DictionaryTypeForm extends Model
             $columns = [
                 'code' => $this->code,
                 'name' => $this->name,
-                'update_time' => date("Y-m-d H:i:s")
+                'updated_at' => time()
             ];
             $condition = [
                 'type_id' => $this->typeId,
@@ -98,11 +98,12 @@ class DictionaryTypeForm extends Model
         $transaction = $connection->beginTransaction();
 
         try {
-            $date = date("Y-m-d H:i:s");
+            $time = time();
             $columns = [
                 'code' => $this->code,
                 'name' => $this->name,
-                'create_time' => $date
+                'created_at' => $time,
+                'updated_at' => $time
             ];
             $connection->createCommand()->insert('dictionary_type', $columns)->execute();
             $transaction->commit();

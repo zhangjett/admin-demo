@@ -104,7 +104,8 @@ class OperatorForm extends Model
                 'name' => $this->name,
                 'email' => $this->email,
                 'status' => $this->status,
-                'gender' => $this->gender
+                'gender' => $this->gender,
+                'updated_at' => time()
             ];
 
             ($this->password != null ) && ($columns['password'] = Yii::$app->getSecurity()->generatePasswordHash($this->password));
@@ -140,7 +141,8 @@ class OperatorForm extends Model
                 'password' => Yii::$app->getSecurity()->generatePasswordHash($this->password),
                 'name' => $this->name,
                 'email' => $this->email,
-                'created_at'=> $time
+                'created_at'=> $time,
+                'updated_at' => $time
             ];
             $connection->createCommand()->insert('operator', $columns)->execute();
 

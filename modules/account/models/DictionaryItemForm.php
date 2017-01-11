@@ -70,6 +70,7 @@ class DictionaryItemForm extends Model
     {
         $connection = Yii::$app->db;
         $transaction = $connection->beginTransaction();
+
         try {
             $columns = [
                 'value' => $this->value,
