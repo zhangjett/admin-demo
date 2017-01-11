@@ -75,6 +75,7 @@ class DictionaryItemForm extends Model
             $columns = [
                 'value' => $this->value,
                 'name' => $this->name,
+                'updated_at' => time()
             ];
             $condition = [
                 'item_id' => $this->itemId,
@@ -99,12 +100,13 @@ class DictionaryItemForm extends Model
         $transaction = $connection->beginTransaction();
 
         try {
-            $date = time();
+            $time = time();
             $columns = [
                 'value' => $this->value,
                 'name' => $this->name,
                 'type_id' => $this->typeId,
-                'created_at' => $date
+                'created_at' => $time,
+                'updated_at' => $time
             ];
             $connection->createCommand()->insert('dictionary_item', $columns)->execute();
             $transaction->commit();
