@@ -27,9 +27,9 @@ class RoleController extends Controller
      */
     public function actionIndex()
     {
-        if (! Yii::$app->user->can('viewRoleList')) {
-            throw new ForbiddenHttpException('您没有权限查看角色列表！');
-        }
+//        if (! Yii::$app->user->can('viewRoleList')) {
+//            throw new ForbiddenHttpException('您没有权限查看角色列表！');
+//        }
 
         $auth = Yii::$app->authManager;
 
@@ -47,9 +47,9 @@ class RoleController extends Controller
      */
     public function actionCreate()
     {
-        if (! Yii::$app->user->can('createRole')) {
-            throw new ForbiddenHttpException('您没有权限创建角色！');
-        }
+//        if (! Yii::$app->user->can('createRole')) {
+//            throw new ForbiddenHttpException('您没有权限创建角色！');
+//        }
 
         $model = new RoleForm();
         $model->setScenario('create');
@@ -74,9 +74,9 @@ class RoleController extends Controller
      */
     public function actionDelete($name)
     {
-        if (! Yii::$app->user->can('deleteRole')) {
-            throw new ForbiddenHttpException('您没有权限删除角色！');
-        }
+//        if (! Yii::$app->user->can('deleteRole')) {
+//            throw new ForbiddenHttpException('您没有权限删除角色！');
+//        }
 
         $model = new RoleForm();
 
@@ -99,9 +99,9 @@ class RoleController extends Controller
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
-            if (! Yii::$app->user->can('updateRole')) {
-                throw new ForbiddenHttpException('您没有权限修改角色！');
-            }
+//            if (! Yii::$app->user->can('updateRole')) {
+//                throw new ForbiddenHttpException('您没有权限修改角色！');
+//            }
             if ($model->validate() && $model->update($name)) {
                 Yii::$app->session->setFlash('updateRole','success');
                 return $this->redirect(['//account/role/update', 'name' => $model->name]);
@@ -111,9 +111,9 @@ class RoleController extends Controller
             ]);
         }
 
-        if (! Yii::$app->user->can('viewRole')) {
-            throw new ForbiddenHttpException('您没有权限查看角色详情！');
-        }
+//        if (! Yii::$app->user->can('viewRole')) {
+//            throw new ForbiddenHttpException('您没有权限查看角色详情！');
+//        }
 
         $model->get($name);
 
@@ -133,9 +133,9 @@ class RoleController extends Controller
         $model = new RoleForm();
 
         if ($model->load(Yii::$app->request->post())) {
-            if (! Yii::$app->user->can('addPermissionOrChildRole')) {
-                throw new ForbiddenHttpException('您没有权限添加权限或着子角色！');
-            }
+//            if (! Yii::$app->user->can('addPermissionOrChildRole')) {
+//                throw new ForbiddenHttpException('您没有权限添加权限或着子角色！');
+//            }
             if ($model->validate() && $model->updateChild($name)) {
                 Yii::$app->session->setFlash('updateChild', 'success');
 
@@ -145,9 +145,9 @@ class RoleController extends Controller
             }
         }
 
-        if (! Yii::$app->user->can('viewRole')) {
-            throw new ForbiddenHttpException('您没有权限查看角色详情！');
-        }
+//        if (! Yii::$app->user->can('viewRole')) {
+//            throw new ForbiddenHttpException('您没有权限查看角色详情！');
+//        }
 
         $model->get($name);
 
