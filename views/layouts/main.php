@@ -1,5 +1,8 @@
 <?php
 
+/* @var $this \yii\web\View */
+/* @var $content string */
+
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\assets\AppAsset;
@@ -23,9 +26,10 @@ AppAsset::addScript($this, Yii::$app->controller->getJsFile());
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <?php $this->registerJsFile("@web/js/html5shiv.min.js")?>
+    <?php $this->registerJsFile("@web/js/respond.min.js")?>
     <![endif]-->
+
     <?php $this->head() ?>
 </head>
 <body class="hold-transition skin-green-light sidebar-mini">

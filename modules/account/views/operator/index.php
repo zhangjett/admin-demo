@@ -2,7 +2,7 @@
 
 /* @var $this yii\web\View */
 /* @var $model app\modules\account\models\OperatorForm */
-/* @var $content */
+/* @var $content string */
 
 use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
