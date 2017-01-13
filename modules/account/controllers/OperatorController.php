@@ -15,11 +15,11 @@ use yii\web\ForbiddenHttpException;
 class OperatorController extends Controller
 {
     public $cssFile = [
-        'icheck/green.css'
+        'icheck/green.css', 'fineuploader/fine-uploader-new.css'
     ];
 
     public $jsFile = [
-        'icheck/icheck.min.js'
+        'icheck/icheck.min.js', 'fineuploader/fine-uploader.js'
     ];
 
     public function behaviors()
@@ -160,6 +160,20 @@ class OperatorController extends Controller
         $model->get($id);
 
         return $this->renderPartial('assign', [
+            "model" => $model,
+        ]);
+    }
+
+    /**
+     * 上传
+     * @return string
+     * @throws ForbiddenHttpException
+     */
+    public function actionUpload()
+    {
+        $model = new OperatorForm();
+
+        return $this->renderAjax('upload', [
             "model" => $model,
         ]);
     }

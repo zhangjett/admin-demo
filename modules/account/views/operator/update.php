@@ -110,13 +110,23 @@ $this->title = $model->operatorId?'修改后台用户':'新建后台用户'
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
+        <?php echo Html::button('启动', ['class' => 'btn btn-success', 'data-toggle' => 'modal', 'data-target' => '#uploadModal', 'href' => Url::to(['//account/operator/upload',])]); ?>
         <?php echo Html::submitButton('提交', ['class' => 'btn btn-success pull-right']); ?>
     </div>
     <?php ActiveForm::end(); ?>
 </div>
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+        </div>
+    </div>
+</div>
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+//        $(document).on("hidden.bs.modal", ".modal:not(.local-modal)", function (e) {
+//            $(e.target).removeData("bs.modal").find(".modal-content").empty();
+//        });
         if($('#createOperator').val() == 'success'){
             setTimeout(function(){layer.msg('新建成功了呦', {icon: 6});}, 1000);
         }
