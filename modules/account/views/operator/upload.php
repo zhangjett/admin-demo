@@ -4,6 +4,7 @@
 /* @var $model app\modules\account\models\OperatorForm */
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 
 $this->title = '分配角色';
 
@@ -88,7 +89,13 @@ $this->title = '分配角色';
         element: document.getElementById('fine-uploader-manual-trigger'),
         template: 'qq-template-manual-trigger',
         request: {
-            endpoint: '/server/uploads'
+            endpoint: '<?php echo Url::to(['//account/util/upload'])?>',
+            filenameParam: "filename",
+            inputName: "file",
+            params: {
+                _csrf: "<?=Yii::$app->request->getCsrfToken() ?>",
+                type: "avatar"
+            }
         },
         thumbnails: {
             placeholders: {
@@ -98,9 +105,6 @@ $this->title = '分配角色';
         },
         autoUpload: false,
         debug: true,
-        text: {
-            failUpload: "上传失败"
-        },
         validation: {
             allowedExtensions: ['jpeg', 'jpg', 'txt'],
             itemLimit: 3,
