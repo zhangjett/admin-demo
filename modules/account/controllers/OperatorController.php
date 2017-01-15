@@ -103,14 +103,26 @@ class OperatorController extends Controller
     public function actionUpdate($id)
     {
         $model = new OperatorForm();
-        $model->setScenario('update');
 
-        if ($model->load(Yii::$app->request->post())) {
+        if (($params = Yii::$app->request->post('OperatorForm')) != null) {
             if (! Yii::$app->user->can('updateOperatorProfile', ['operatorId' => $id])) {
                 throw new ForbiddenHttpException('您没有权限修改后台用户信息！');
             }
-            if ($model->validate() && $model->update($id)) {
-                Yii::$app->session->setFlash('updateOperator', 'success');
+
+            $updateContent = isset($params['updateContent'])?$params['updateContent']:'';
+            switch ($updateContent) {
+                case $model::updateContentBase :
+                    $model->scenario = 'updateBase';
+                    break;
+                case $model::updateContentAvatar :
+                    $model->scenario = 'updateAvatar';
+                    break;
+                default :
+                    $model->scenario = 'updateBase';
+            }
+
+            if ($model->load(Yii::$app->request->post())&& $model->validate() && $model->update($id)) {
+                Yii::$app->session->setFlash(($model->scenario=='updateBase')?'updateBase':'updateAvatar', 'success');
                 return $this->refresh();
             }
             return $this->render('update', [

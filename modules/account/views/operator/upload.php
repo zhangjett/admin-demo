@@ -107,13 +107,14 @@ $this->title = '上传图片';
         debug: true,
         validation: {
             allowedExtensions: ['jpeg', 'jpg', 'txt'],
-            itemLimit: 3,
-            sizeLimit: 51200 // 50 kB = 50 * 1024 bytes
+            itemLimit: 1,
+            sizeLimit: 512000 // 500 kB = 50 * 1024 bytes
         },
         callbacks: {
             onComplete: function(id, name, responseJSON, maybeXhr) {
                 if (responseJSON.success) {
-                    console.log(responseJSON.data);
+                    $('img.profile-user-img').attr('src', responseJSON.data.url);
+                    $('#operatorform-avatar').val(responseJSON.data.url);
                 }
             },
             onError: function(id, name, errorReason, xhrOrXdr) {
@@ -126,7 +127,7 @@ $this->title = '上传图片';
     qq(document.getElementById("trigger-upload")).attach("click", function() {
         manualUploader.uploadStoredFiles();
     });
-//</script>
+</script>
 
 
 
