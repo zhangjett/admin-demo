@@ -18,8 +18,9 @@ $this->title = $model->operatorId?'修改后台用户':'新建后台用户'
     <div class="tab-content">
         <div class="tab-pane active" id="baseTab">
             <?php $form = ActiveForm::begin([
+                'action' => ['//account/operator/update', 'id' => $model->operatorId, 'scenario' => 'updateBase'],
                 'id' => 'updateForm',
-                'enableClientValidation'=>true,
+                'enableClientValidation' => false,
                 'options' => [
                     'method' => 'post',
                     'role'=>"form"
@@ -120,8 +121,9 @@ $this->title = $model->operatorId?'修改后台用户':'新建后台用户'
         </div>
         <div class="tab-pane" id="avatarTab">
             <?php $form = ActiveForm::begin([
+                'action' => ['//account/operator/update', 'id' => $model->operatorId, 'scenario' => 'updateAvatar'],
                 'id' => 'avatarUpdateForm',
-                'enableClientValidation'=>true,
+                'enableClientValidation' => false,
                 'options' => [
                     'method' => 'post',
                     'role'=>"form"
@@ -172,6 +174,12 @@ $this->title = $model->operatorId?'修改后台用户':'新建后台用户'
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
+        if('<?= $model->scenario ?>' == 'updateAvatar') {
+            $('a[href="#baseTab"]').attr('aria-expanded', false).closest('li').attr('class', '');
+            $('a[href="#avatarTab"]').attr('aria-expanded', true).closest('li').attr('class', 'active');
+            $('div[id="baseTab"]').attr('class', 'tab-pane');
+            $('div[id="avatarTab"]').attr('class', 'tab-pane active');
+        }
         $(document).on("hidden.bs.modal", ".modal:not(.local-modal)", function (e) {
             $(e.target).removeData("bs.modal").find(".modal-content").empty();
         });
@@ -182,10 +190,6 @@ $this->title = $model->operatorId?'修改后台用户':'新建后台用户'
             setTimeout(function(){layer.msg('用户信息修改成功了呦', {icon: 6});}, 1000);
         }
         if($('input[name="updateAvatar"]').val() == 'success'){
-            $('a[href="#baseTab"]').attr('aria-expanded', false).closest('li').attr('class', '');
-            $('a[href="#avatarTab"]').attr('aria-expanded', true).closest('li').attr('class', 'active');
-            $('div[id="baseTab"]').attr('class', 'tab-pane');
-            $('div[id="avatarTab"]').attr('class', 'tab-pane active');
             setTimeout(function(){layer.msg('头像修改成功了呦', {icon: 6});}, 1000);
         }
         //遍历左菜单,增加active

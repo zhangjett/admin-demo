@@ -97,32 +97,22 @@ class OperatorController extends Controller
     /**
      * 修改后台用户
      * @param $id
+     * @param string $scenario
      * @return string|\yii\web\Response
      * @throws ForbiddenHttpException
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id, $scenario='default')
     {
         $model = new OperatorForm();
+        $model->setScenario($scenario);
 
-        if (($params = Yii::$app->request->post('OperatorForm')) != null) {
+        if ($model->load(Yii::$app->request->post())) {
             if (! Yii::$app->user->can('updateOperatorProfile', ['operatorId' => $id])) {
                 throw new ForbiddenHttpException('您没有权限修改后台用户信息！');
             }
 
-            $updateContent = isset($params['updateContent'])?$params['updateContent']:'';
-            switch ($updateContent) {
-                case $model::updateContentBase :
-                    $model->scenario = 'updateBase';
-                    break;
-                case $model::updateContentAvatar :
-                    $model->scenario = 'updateAvatar';
-                    break;
-                default :
-                    $model->scenario = 'updateBase';
-            }
-
-            if ($model->load(Yii::$app->request->post())&& $model->validate() && $model->update($id)) {
-                Yii::$app->session->setFlash(($model->scenario=='updateBase')?'updateBase':'updateAvatar', 'success');
+            if ($model->validate() && $model->update($id)) {
+                Yii::$app->session->setFlash($scenario, 'success');
                 return $this->refresh();
             }
             return $this->render('update', [
@@ -137,10 +127,9 @@ class OperatorController extends Controller
         $model->get($id);
 
         return $this->render('update', [
-            "model" => $model,
+            "model" => $model
         ]);
     }
-
 
     /**
      * 分配角色
