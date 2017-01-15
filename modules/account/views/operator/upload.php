@@ -6,7 +6,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 
-$this->title = '分配角色';
+$this->title = '上传图片';
 
 ?>
 
@@ -109,13 +109,24 @@ $this->title = '分配角色';
             allowedExtensions: ['jpeg', 'jpg', 'txt'],
             itemLimit: 3,
             sizeLimit: 51200 // 50 kB = 50 * 1024 bytes
+        },
+        callbacks: {
+            onComplete: function(id, name, responseJSON, maybeXhr) {
+                if (responseJSON.success) {
+                    console.log(responseJSON.data);
+                }
+            },
+            onError: function(id, name, errorReason, xhrOrXdr) {
+                layer.msg(errorReason, {icon: 5});
+                alert(qq.format("Error on file number {} - {}.  Reason: {}", id, name, errorReason));
+            }
         }
     });
 
     qq(document.getElementById("trigger-upload")).attach("click", function() {
         manualUploader.uploadStoredFiles();
     });
-</script>
-</body>
+//</script>
+
 
 

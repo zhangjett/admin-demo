@@ -6,6 +6,7 @@ use Yii;
 use app\components\Controller;
 use app\modules\account\models\RoleForm;
 use yii\web\ForbiddenHttpException;
+use yii\filters\AccessControl;
 
 /**
  * Role controller for the `account` module
@@ -19,6 +20,22 @@ class RoleController extends Controller
     public $jsFile = [
         'icheck/icheck.min.js'
     ];
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'create', 'update'],
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ]
+                ],
+            ],
+        ];
+    }
 
     /**
      * 角色列表

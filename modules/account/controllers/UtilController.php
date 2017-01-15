@@ -7,6 +7,13 @@ use app\components\Controller;
 use yii\web\UploadedFile;
 use yii\filters\AccessControl;
 use yii\web\ForbiddenHttpException;
+use yii\validators\FileValidator;
+use yii\base\Event;
+use yii\web\Response;
+use yii\imagine\Image;
+use Qiniu\Auth;
+use Qiniu\Storage\UploadManager;
+use Yii\web\BadRequestHttpException;
 
 /**
  * Util controller for the `account` module
@@ -20,9 +27,57 @@ class UtilController extends Controller
      */
     public function actionUpload()
     {
+        Event::on(Response::className(), Response::EVENT_BEFORE_SEND, function ($event) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $response = $event->sender;
+            if ($response->data !== null) {
+                Yii::$app->response->data = [
+                    'success' => $response->isSuccessful,
+                    'data' => $response->data,
+                    'error' => $response->data
+                ];
+                Yii::$app->response->statusCode = 200;
+            }
+        });
+
+//        Yii::$app->response->format = Response::FORMAT_JSON;
+
+//        throw new ForbiddenHttpException('您没有权限查看角色列表！');
+
         $file = UploadedFile::getInstanceByName("file");
-        $file->saveAs(Yii::$app->basePath.'/uploads/'.$file->baseName.'.' .$file->extension);;
-        echo json_encode(['success' => true]);
-        exit();
+
+        $validator = new FileValidator([
+            'extensions' => ['jpg']
+        ]);
+
+        $error = '';
+        $filePath = Yii::$app->basePath.'/uploads/'.$file->baseName.'.' .$file->extension;
+        if ($file&&$validator->validate($file, $error)) {
+            $file->saveAs($filePath);
+        } else {
+            throw new BadRequestHttpException('文件上传失败！');
+        }
+
+        $thumbnailFilePath = Yii::$app->basePath.'/uploads/thumbnail-'.$file->baseName.'.' .$file->extension;
+        Image::thumbnail($filePath, 120, 120)->save($thumbnailFilePath, ['quality' => 100]);
+
+        $auth = new Auth(Yii::$app->params['qiNiu']['accessKey'], Yii::$app->params['qiNiu']['secretKey']);
+
+        $bucket = 'avatar';
+
+        $token = $auth->uploadToken($bucket);
+
+        $key = null;
+
+        $uploadMgr = new UploadManager();
+
+        list($ret, $err) = $uploadMgr->putFile($token, $key, $thumbnailFilePath);
+        if ($err !== null) {
+            throw new BadRequestHttpException('文件上传失败！');
+        } else {
+            $ret['url'] = Yii::$app->params['qiNiu']['bucket']['avatar']['domain'].'/'.$ret['key'];
+        }
+
+        return $ret;
     }
 }
