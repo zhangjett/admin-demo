@@ -128,6 +128,3 @@ $this->title = '上传图片';
         manualUploader.uploadStoredFiles();
     });
 </script>
-
-
-
