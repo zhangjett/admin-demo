@@ -68,20 +68,6 @@ $this->title = '权限列表'
             });
             e.preventDefault();
         });
-
-
-//        //删除
-//        $(document).on("click","table tr td span.add-child",function(){
-//            tool.ajax({
-//                url:$(this).attr("href"),
-//                data:$('#searchForm').serialize(),
-//                dataType:'html',
-//                success:function(response){
-//                    console.log(response);
-//                }
-//            });
-//        });
-
     });
     <?php
     $this->endBlock();
