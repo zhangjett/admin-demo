@@ -9,7 +9,6 @@ use yii\helpers\Url;
 $this->title = '上传图片';
 
 ?>
-
 <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">关闭</span></button>
     <h4 class="modal-title" id="myModalLabel"><?= $this->title; ?></h4>

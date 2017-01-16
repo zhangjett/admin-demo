@@ -136,7 +136,7 @@ $this->title = $model->operatorId?'修改后台用户':'新建后台用户'
                 </div>
             <?php }; ?>
             <div class="form-group field-operatorform-password">
-                <label class="control-label col-sm-3" for="operatorform-password">头像</label>
+                <label class="control-label col-sm-3" for="operatorform-password"><?php echo $model->getAttributeLabel('avatar')?></label>
                 <div class="col-sm-3">
                     <div class="small-box bg-gray">
                         <div class="inner">
