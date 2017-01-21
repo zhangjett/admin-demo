@@ -56,14 +56,12 @@ $config = [
             'password' => 'admin',
             'charset' => 'utf8',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
     ],
     'params' => $params,
 ];
