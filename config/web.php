@@ -61,7 +61,7 @@ $config = [
             'showScriptName' => false,
             'rules' => [
             ],
-        ]
+        ],
     ],
     'params' => $params,
 ];
