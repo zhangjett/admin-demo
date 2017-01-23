@@ -112,10 +112,6 @@ class DictionaryItemController extends Controller
 
         $model->get($id);
 
-        echo $this->renderPartial("update", ['model' => $model]);
-        Yii::$app->end();
-
-        
-        return 0;
+        return $this->renderPartial("update", ['model' => $model]);
     }
 }

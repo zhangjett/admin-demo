@@ -30,7 +30,7 @@ class DictionaryController extends Controller
     public function actionIndex()
     {
         if (! Yii::$app->user->can('viewDictionaryTypeList')) {
-            throw new ForbiddenHttpException('您没有权限查字典类型列表！');
+            throw new ForbiddenHttpException('您没有权限查看字典类型列表！');
         }
 
         $model = new DictionaryTypeSearchForm();
@@ -104,14 +104,11 @@ class DictionaryController extends Controller
         }
 
         if (! Yii::$app->user->can('viewDictionaryType')) {
-            throw new ForbiddenHttpException('您没有权限查看角色详情！');
+            throw new ForbiddenHttpException('您没有权限查看字典类型详情！');
         }
 
         $model->get($id);
 
-        echo $this->renderPartial("update", ['model' => $model]);
-        Yii::$app->end();
-
-        return 0;
+        return $this->renderPartial("update", ['model' => $model]);
     }
 }
