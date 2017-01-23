@@ -103,7 +103,7 @@ $this->title = '上传图片';
             }
         },
         autoUpload: false,
-        debug: true,
+        debug: false,
         validation: {
             allowedExtensions: ['jpeg', 'jpg', 'txt'],
             itemLimit: 1,
