@@ -118,7 +118,6 @@ $this->title = '上传图片';
             },
             onError: function(id, name, errorReason, xhrOrXdr) {
                 layer.msg(errorReason, {icon: 5});
-                
             }
         }
     });
