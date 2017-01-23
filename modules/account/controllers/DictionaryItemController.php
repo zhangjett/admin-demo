@@ -114,6 +114,7 @@ class DictionaryItemController extends Controller
 
         echo $this->renderPartial("update", ['model' => $model]);
         Yii::$app->end();
+
         
         return 0;
     }
