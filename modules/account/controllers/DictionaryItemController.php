@@ -6,7 +6,8 @@ use Yii;
 use app\components\Controller;
 use app\modules\account\models\DictionaryItemForm;
 use app\modules\account\models\DictionaryItemSearchForm;
-use yii\helpers\Json;
+use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 
 /**
  * DictionaryItem controller for the `account` module
@@ -25,9 +26,14 @@ class DictionaryItemController extends Controller
      * 字典列表
      * @param null $typeId
      * @return string
+     * @throws ForbiddenHttpException
      */
     public function actionIndex($typeId = null)
     {
+        if (! Yii::$app->user->can('viewDictionaryItemList')) {
+            throw new ForbiddenHttpException('您没有权限查看字典列表！');
+        }
+
         $model = new DictionaryItemSearchForm();
 
         if (Yii::$app->request->isAjax) {
@@ -51,9 +57,14 @@ class DictionaryItemController extends Controller
     /**
      * 创建字典
      * @return int
+     * @throws ForbiddenHttpException
      */
     public function actionCreate()
     {
+        if (! Yii::$app->user->can('createDictionaryItem')) {
+            throw new ForbiddenHttpException('您没有权限创建字典！');
+        }
+
         $model = new DictionaryItemForm();
         $model->setScenario('create');
 
@@ -75,6 +86,7 @@ class DictionaryItemController extends Controller
      * 修改字典
      * @param $id
      * @return int
+     * @throws ForbiddenHttpException
      */
     public function actionUpdate($id)
     {
@@ -82,6 +94,9 @@ class DictionaryItemController extends Controller
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
+            if (! Yii::$app->user->can('updateDictionaryItem')) {
+                throw new ForbiddenHttpException('您没有权限修改字典！');
+            }
             if ($model->validate() && $model->update()) {
                 Yii::$app->session->setFlash('updateDictionaryItem','success');
                 echo $this->renderPartial("update", ['model' => $model]);
@@ -89,6 +104,10 @@ class DictionaryItemController extends Controller
             }
             echo $this->renderPartial("update", ['model' => $model]);
             Yii::$app->end();
+        }
+
+        if (! Yii::$app->user->can('viewDictionaryItem')) {
+            throw new ForbiddenHttpException('您没有权限查看字典详情！');
         }
 
         $model->get($id);

@@ -8,6 +8,7 @@ use app\modules\account\models\DictionaryTypeForm;
 use app\modules\account\models\DictionaryTypeSearchForm;
 use yii\helpers\Json;
 use yii\filters\AccessControl;
+use yii\web\ForbiddenHttpException;
 /**
  * Dictionary controller for the `account` module
  */
@@ -22,11 +23,16 @@ class DictionaryController extends Controller
     ];
 
     /**
-     * 字典类型类别
+     * 字典类型列表
      * @return string
+     * @throws ForbiddenHttpException
      */
     public function actionIndex()
     {
+        if (! Yii::$app->user->can('viewDictionaryTypeList')) {
+            throw new ForbiddenHttpException('您没有权限查字典类型列表！');
+        }
+
         $model = new DictionaryTypeSearchForm();
 
         if (Yii::$app->request->isAjax) {
@@ -48,9 +54,14 @@ class DictionaryController extends Controller
     /**
      * 创建字典类型
      * @return int
+     * @throws ForbiddenHttpException
      */
     public function actionCreate()
     {
+        if (! Yii::$app->user->can('createDictionaryType')) {
+            throw new ForbiddenHttpException('您没有权限创建字典类型！');
+        }
+
         $model = new DictionaryTypeForm();
         $model->setScenario('create');
 
@@ -69,25 +80,10 @@ class DictionaryController extends Controller
     }
 
     /**
-     * 删除字典类型
-     * @return string
-     */
-    public function actionDelete()
-    {
-        $model = new DictionaryTypeForm();
-        $permissionId = Yii::$app->request->post("menuId");
-
-        if (is_array($permissionId) && count($permissionId)>0 && $model->delete($permissionId)) {
-            return Json::encode(['status'=>'ok','msg'=>'删除成功！']);
-        }
-
-        return Json::encode(['status'=>'error','msg'=>'删除失败！']);
-    }
-
-    /**
      * 修改字典类型
      * @param $id
      * @return int
+     * @throws ForbiddenHttpException
      */
     public function actionUpdate($id)
     {
@@ -95,6 +91,9 @@ class DictionaryController extends Controller
         $model->setScenario('update');
 
         if ($model->load(Yii::$app->request->post())) {
+            if (! Yii::$app->user->can('updateDictionaryType')) {
+                throw new ForbiddenHttpException('您没有权限修改字典类型！');
+            }
             if ($model->validate() && $model->update()) {
                 Yii::$app->session->setFlash('updateDictionaryType','success');
                 echo $this->renderPartial("update", ['model' => $model]);
@@ -102,6 +101,10 @@ class DictionaryController extends Controller
             }
             echo $this->renderPartial("update", ['model' => $model]);
             Yii::$app->end();
+        }
+
+        if (! Yii::$app->user->can('viewDictionaryType')) {
+            throw new ForbiddenHttpException('您没有权限查看角色详情！');
         }
 
         $model->get($id);

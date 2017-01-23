@@ -20,9 +20,11 @@ use Yii\web\BadRequestHttpException;
  */
 class UtilController extends Controller
 {
+
     /**
-     * 上传
-     * @return string
+     * 上传图片
+     * @return mixed
+     * @throws BadRequestHttpException
      * @throws ForbiddenHttpException
      */
     public function actionUpload()
@@ -40,9 +42,9 @@ class UtilController extends Controller
             }
         });
 
-//        Yii::$app->response->format = Response::FORMAT_JSON;
-
-//        throw new ForbiddenHttpException('您没有权限查看角色列表！');
+        if (! Yii::$app->user->can('upload')) {
+            throw new ForbiddenHttpException('您没有权限上传文件！');
+        }
 
         $file = UploadedFile::getInstanceByName("file");
 
