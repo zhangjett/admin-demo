@@ -35,15 +35,15 @@ var tool = {
 			if(option.beforeSend && typeof(option.beforeSend) == 'function') option.beforeSend(); // 用户自定义beforeSend
 		};
 
-		_option.error = function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR);
-            console.log(textStatus);
-			console.log(errorThrown);
+		_option.error = function(xhr, ajaxOptions, thrownError) {
+            console.log(xhr);
+            console.log(xhr);
+			console.log(xhr);
 			layerId && layer.close(layerId);
 			if(option.error && typeof(option.error)=='function') {
-				option.error(textStatus); // 用户自定义error
+				option.error(xhr); // 用户自定义error
 			} else {
-				layer.msg(textStatus, {icon: 5,shade:[0.3,'#000']});
+				layer.msg(xhr, {icon: 5,shade:[0.3,'#000']});
 			}
 		};
 		_option.complete = function(XHR, status) {
