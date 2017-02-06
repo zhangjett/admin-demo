@@ -8,6 +8,8 @@ use app\modules\account\models\OperatorForm;
 use app\modules\account\models\OperatorSearchForm;
 use yii\filters\AccessControl;
 use yii\web\ForbiddenHttpException;
+use yii\base\Event;
+use yii\web\Response;
 
 /**
  * Operator controller for the `account` module
@@ -153,6 +155,19 @@ class OperatorController extends Controller
                 ]);
             }
         }
+
+        Event::on(Response::className(), Response::EVENT_BEFORE_SEND, function ($event) {
+            Yii::$app->response->format = Response::FORMAT_HTML;
+            $response = $event->sender;
+            if ($response->data !== null) {
+                Yii::$app->response->data = [
+                    'success' => $response->isSuccessful,
+                    'data' => $response->data,
+                    'error' => $response->data
+                ];
+                Yii::$app->response->statusCode = 200;
+            }
+        });
 
         if (! Yii::$app->user->can('viewOperatorProfile')) {
             throw new ForbiddenHttpException('您没有权限查看后台用户信息！');
