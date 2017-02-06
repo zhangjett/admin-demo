@@ -127,7 +127,7 @@ class OperatorForm extends Model
                 ];
             }
 
-            ($this->password != null ) && ($columns['password'] = Yii::$app->getSecurity()->generatePasswordHash($this->password));
+            ($this->password != null ) || ($columns['password'] = Yii::$app->getSecurity()->generatePasswordHash($this->password));
 
             $condition = [
                 'operator_id' => $id,
