@@ -18,7 +18,7 @@ $this->title = $model->operatorId?'修改后台用户':'新建后台用户'
     <div class="tab-content">
         <div class="tab-pane active" id="baseTab">
             <?php $form = ActiveForm::begin([
-                'action' => $model->operatorId == null?['//account/operator/update']:['//account/operator/update', 'id' => $model->operatorId, 'scenario' => 'updateBase'],
+                'action' => $model->operatorId == null?['//account/operator/create']:['//account/operator/update', 'id' => $model->operatorId, 'scenario' => 'updateBase'],
                 'id' => 'updateForm',
                 'enableClientValidation' => false,
                 'options' => [
