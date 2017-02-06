@@ -13,7 +13,9 @@ $this->title = $model->operatorId?'修改后台用户':'新建后台用户'
 <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
         <li class="active"><a href="#baseTab" data-toggle="tab" aria-expanded="true">基本信息</a></li>
-        <li class=""><a href="#avatarTab" data-toggle="tab" aria-expanded="false">头像</a></li>
+        <?php if ($model->operatorId != null) { ?>
+            <li class=""><a href="#avatarTab" data-toggle="tab" aria-expanded="false">头像</a></li>
+        <?php } ?>
     </ul>
     <div class="tab-content">
         <div class="tab-pane active" id="baseTab">
@@ -119,49 +121,51 @@ $this->title = $model->operatorId?'修改后台用户':'新建后台用户'
             ?>
             <?php ActiveForm::end(); ?>
         </div>
-        <div class="tab-pane" id="avatarTab">
-            <?php $form = ActiveForm::begin([
-                'action' => ['//account/operator/update', 'id' => $model->operatorId, 'scenario' => 'updateAvatar'],
-                'id' => 'avatarUpdateForm',
-                'enableClientValidation' => false,
-                'options' => [
-                    'method' => 'post',
-                    'role'=>"form"
-                ],
-                'layout' => 'horizontal',
-            ]); ?>
-            <?php if(count($model->getFirstErrors())>0){ ?>
-                <div class="alert alert-danger alert-dismissible">
-                    <?php echo $form->errorSummary($model); ?>
-                </div>
-            <?php }; ?>
-            <div class="form-group field-operatorform-password">
-                <label class="control-label col-sm-3" for="operatorform-password"><?php echo $model->getAttributeLabel('avatar')?></label>
-                <div class="col-sm-3">
-                    <div class="small-box bg-gray">
-                        <div class="inner">
-                            <img class="profile-user-img img-responsive img-circle" src="<?php echo $model->avatar; ?>" alt="用户头像">
-                        </div>
-                        <a href="<?php echo Url::to(['//account/operator/upload',]); ?>" class="small-box-footer" data-toggle="modal" data-target="#uploadModal">
-                            更换 <i class="fa fa-exchange"></i>
-                        </a>
+        <?php if ($model->operatorId != null) { ?>
+            <div class="tab-pane" id="avatarTab">
+                <?php $form = ActiveForm::begin([
+                    'action' => ['//account/operator/update', 'id' => $model->operatorId, 'scenario' => 'updateAvatar'],
+                    'id' => 'avatarUpdateForm',
+                    'enableClientValidation' => false,
+                    'options' => [
+                        'method' => 'post',
+                        'role'=>"form"
+                    ],
+                    'layout' => 'horizontal',
+                ]); ?>
+                <?php if(count($model->getFirstErrors())>0){ ?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <?php echo $form->errorSummary($model); ?>
                     </div>
-                    <div class="help-block help-block-error "></div>
+                <?php }; ?>
+                <div class="form-group field-operatorform-password">
+                    <label class="control-label col-sm-3" for="operatorform-password"><?php echo $model->getAttributeLabel('avatar')?></label>
+                    <div class="col-sm-3">
+                        <div class="small-box bg-gray">
+                            <div class="inner">
+                                <img class="profile-user-img img-responsive img-circle" src="<?php echo $model->avatar; ?>" alt="用户头像">
+                            </div>
+                            <a href="<?php echo Url::to(['//account/operator/upload',]); ?>" class="small-box-footer" data-toggle="modal" data-target="#uploadModal">
+                                更换 <i class="fa fa-exchange"></i>
+                            </a>
+                        </div>
+                        <div class="help-block help-block-error "></div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
-                    <?php echo Html::submitButton('提交', ['class' => 'btn btn-success']); ?>
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <?php echo Html::submitButton('提交', ['class' => 'btn btn-success']); ?>
+                    </div>
                 </div>
+                <?php echo $form->field($model, 'avatar')->hiddenInput()->label(false); ?>
+                <?php echo $form->field($model, 'updateContent', [
+                    'inputOptions' => [
+                        'value' => 'avatar',
+                    ],
+                ])->hiddenInput()->label(false); ?>
+                <?php ActiveForm::end(); ?>
             </div>
-            <?php echo $form->field($model, 'avatar')->hiddenInput()->label(false); ?>
-            <?php echo $form->field($model, 'updateContent', [
-                'inputOptions' => [
-                    'value' => 'avatar',
-                ],
-            ])->hiddenInput()->label(false); ?>
-            <?php ActiveForm::end(); ?>
-        </div>
+        <?php } ?>
     </div>
     <!-- /.tab-content -->
 </div>
