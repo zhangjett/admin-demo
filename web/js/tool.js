@@ -36,6 +36,7 @@ var tool = {
 		};
 
 		_option.error = function(response) {
+			console.log(response);
 			layerId && layer.close(layerId);
 			if(option.error && typeof(option.error)=='function') {
 				option.error(response.responseText); // 用户自定义error
