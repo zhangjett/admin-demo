@@ -163,7 +163,10 @@ class RoleController extends Controller
         }
 
         if (! Yii::$app->user->can('viewRole')) {
-            throw new ForbiddenHttpException('您没有权限查看角色详情！');
+            return $this->renderPartial('error', [
+                'name' => '403',
+                'message' => '您没有权限查看角色详情！'
+            ]);
         }
 
         $model->get($name);
