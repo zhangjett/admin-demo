@@ -157,16 +157,17 @@ class OperatorController extends Controller
         }
 
         Event::on(Response::className(), Response::EVENT_BEFORE_SEND, function ($event) {
-            Yii::$app->response->format = Response::FORMAT_HTML;
-            $response = $event->sender;
-            if ($response->data !== null) {
-                Yii::$app->response->data = [
-                    'success' => $response->isSuccessful,
-                    'data' => $response->data,
-                    'error' => $response->data
-                ];
-                Yii::$app->response->statusCode = 200;
-            }
+//            Yii::$app->response->format = Response::FORMAT_HTML;
+            Yii::$app->response->statusCode = 200;
+//            $response = $event->sender;
+//            if ($response->data !== null) {
+//                Yii::$app->response->data = [
+//                    'success' => $response->isSuccessful,
+//                    'data' => $response->data,
+//                    'error' => $response->data
+//                ];
+//                Yii::$app->response->statusCode = 200;
+//            }
         });
 
         if (! Yii::$app->user->can('viewOperatorProfile')) {
