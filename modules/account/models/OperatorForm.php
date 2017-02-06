@@ -36,7 +36,7 @@ class OperatorForm extends Model
             [['operatorId', 'username', 'name', 'gender' ,'status', 'updateContent'], 'required', 'on' => 'updateBase'],
             [['avatar', 'updateContent'], 'required', 'on' => 'updateAvatar'],
             [['username', 'password', 'name', 'gender' ,'status'], 'validateLogin', 'on' => 'create'],
-            [['email', 'role'], 'safe'],
+            [['password', 'email', 'role'], 'safe'],
         ];
     }
 
@@ -127,7 +127,7 @@ class OperatorForm extends Model
                 ];
             }
 
-            ($this->password != null ) || ($columns['password'] = Yii::$app->getSecurity()->generatePasswordHash($this->password));
+            ($this->password != null ) && ($columns['password'] = Yii::$app->getSecurity()->generatePasswordHash($this->password));
 
             $condition = [
                 'operator_id' => $id,
