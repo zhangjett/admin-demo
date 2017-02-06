@@ -49,7 +49,7 @@ class UtilController extends Controller
         $file = UploadedFile::getInstanceByName("file");
 
         $validator = new FileValidator([
-            'extensions' => ['jpg']
+            'extensions' => ['jpeg', 'jpg', 'txt', 'png']
         ]);
 
         $error = '';
