@@ -59,7 +59,10 @@ class DictionaryController extends Controller
     public function actionCreate()
     {
         if (! Yii::$app->user->can('createDictionaryType')) {
-            throw new ForbiddenHttpException('您没有权限创建字典类型！');
+            return $this->renderPartial('error', [
+                'name' => '403',
+                'message' => '您没有权限创建字典类型！'
+            ]);
         }
 
         $model = new DictionaryTypeForm();
@@ -73,10 +76,7 @@ class DictionaryController extends Controller
             }
         }
 
-        echo $this->renderPartial("update", ['model' => $model]);
-        Yii::$app->end();
-
-        return 0;
+        return $this->renderPartial("update", ['model' => $model]);
     }
 
     /**
@@ -104,7 +104,10 @@ class DictionaryController extends Controller
         }
 
         if (! Yii::$app->user->can('viewDictionaryType')) {
-            throw new ForbiddenHttpException('您没有权限查看字典类型详情！');
+            return $this->renderPartial('error', [
+                'name' => '403',
+                'message' => '您没有权限查看字典类型详情！'
+            ]);
         }
 
         $model->get($id);
