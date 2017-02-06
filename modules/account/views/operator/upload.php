@@ -105,7 +105,7 @@ $this->title = '上传图片';
         autoUpload: false,
         debug: false,
         validation: {
-            allowedExtensions: ['jpeg', 'jpg', 'txt'],
+            allowedExtensions: ['jpeg', 'jpg', 'txt', 'png'],
             itemLimit: 1,
             sizeLimit: 512000 // 500 kB = 50 * 1024 bytes
         },
