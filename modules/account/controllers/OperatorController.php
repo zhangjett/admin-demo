@@ -156,22 +156,9 @@ class OperatorController extends Controller
             }
         }
 
-        Event::on(Response::className(), Response::EVENT_BEFORE_SEND, function ($event) {
-            Yii::$app->response->format = Response::FORMAT_HTML;
-            Yii::$app->response->statusCode = 200;
-//            $response = $event->sender;
-//            if ($response->data !== null) {
-//                Yii::$app->response->data = [
-//                    'success' => $response->isSuccessful,
-//                    'data' => $response->data,
-//                    'error' => $response->data
-//                ];
-//                Yii::$app->response->statusCode = 200;
-//            }
-        });
-
         if (! Yii::$app->user->can('viewOperatorProfile')) {
-            throw new ForbiddenHttpException('您没有权限查看后台用户信息！');
+            return $this->render('site/error', ['name' => 'xx']);
+//            throw new ForbiddenHttpException('您没有权限查看后台用户信息！');
         }
 
         $model->get($id);
