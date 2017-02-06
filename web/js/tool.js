@@ -39,12 +39,12 @@ var tool = {
             console.log(xhr);
             console.log(xhr);
 			console.log(xhr);
-			layerId && layer.close(layerId);
-			if(option.error && typeof(option.error)=='function') {
-				option.error(xhr); // 用户自定义error
-			} else {
-				layer.msg(xhr, {icon: 5,shade:[0.3,'#000']});
-			}
+			// layerId && layer.close(layerId);
+			// if(option.error && typeof(option.error)=='function') {
+			// 	option.error(xhr); // 用户自定义error
+			// } else {
+			// 	layer.msg(xhr, {icon: 5,shade:[0.3,'#000']});
+			// }
 		};
 		_option.complete = function(XHR, status) {
 			if(status == 'timeout') {
