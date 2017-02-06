@@ -1,4 +1,7 @@
 <?php
+
+/* @var $model app\modules\account\models\MenuForm */
+
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
