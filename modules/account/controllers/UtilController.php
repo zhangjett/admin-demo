@@ -48,13 +48,13 @@ class UtilController extends Controller
 
         $file = UploadedFile::getInstanceByName("file");
 
-        $validator = new FileValidator([
-            'extensions' => ['jpg']
-        ]);
+//        $validator = new FileValidator([
+//            'extensions' => ['jpg']
+//        ]);
 
-        $error = '';
+//        $error = '';
         $filePath = Yii::$app->basePath.'/uploads/'.$file->baseName.'.' .$file->extension;
-        if ($file&&$validator->validate($file, $error)) {
+        if ($file) {
             $file->saveAs($filePath);
         } else {
             throw new BadRequestHttpException('文件上传失败！');
