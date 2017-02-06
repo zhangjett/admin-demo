@@ -35,16 +35,13 @@ var tool = {
 			if(option.beforeSend && typeof(option.beforeSend) == 'function') option.beforeSend(); // 用户自定义beforeSend
 		};
 
-		_option.error = function(xhr, ajaxOptions, thrownError) {
-            console.log(xhr);
-            console.log(xhr);
-			console.log(xhr);
-			// layerId && layer.close(layerId);
-			// if(option.error && typeof(option.error)=='function') {
-			// 	option.error(xhr); // 用户自定义error
-			// } else {
-			// 	layer.msg(xhr, {icon: 5,shade:[0.3,'#000']});
-			// }
+		_option.error = function(response) {
+			layerId && layer.close(layerId);
+			if(option.error && typeof(option.error)=='function') {
+				option.error(response.responseText); // 用户自定义error
+			} else {
+				layer.msg(response.responseText, {icon: 5,shade:[0.3,'#000']});
+			}
 		};
 		_option.complete = function(XHR, status) {
 			if(status == 'timeout') {
