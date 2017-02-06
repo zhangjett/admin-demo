@@ -13,7 +13,7 @@ use yii\web\Response;
 use yii\imagine\Image;
 use Qiniu\Auth;
 use Qiniu\Storage\UploadManager;
-use Yii\web\BadRequestHttpException;
+use yii\web\BadRequestHttpException;
 
 /**
  * Util controller for the `account` module
