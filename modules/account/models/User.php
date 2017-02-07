@@ -38,7 +38,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     public static function findIdentity($id)
     {
         $row = (new Query())
-            ->select(['operator_id AS id', 'username', 'password', 'name'])
+            ->select(['operator_id AS id', 'username', 'password', 'name', 'auth_key' => 'authKey'])
             ->from('operator')
             ->where('operator_id = :operator_id')
             ->addParams([':operator_id' => $id])
@@ -74,7 +74,7 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
     public static function findByUsername($username)
     {
         $row = (new Query())
-            ->select(['operator_id AS id', 'username', 'password', 'name'])
+            ->select(['operator_id AS id', 'username', 'password', 'name', 'auth_key' => 'authKey'])
             ->from('operator')
             ->where('username = :username')
             ->addParams([':username' => $username])

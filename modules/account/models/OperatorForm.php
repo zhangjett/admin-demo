@@ -129,6 +129,8 @@ class OperatorForm extends Model
 
             ($this->password != null ) && ($columns['password'] = Yii::$app->getSecurity()->generatePasswordHash($this->password));
 
+            $columns['auth_key'] = Yii::$app->security->generateRandomString();
+
             $condition = [
                 'operator_id' => $id,
             ];
@@ -160,6 +162,7 @@ class OperatorForm extends Model
                 'password' => Yii::$app->getSecurity()->generatePasswordHash($this->password),
                 'name' => $this->name,
                 'email' => $this->email,
+                'auth_key' => Yii::$app->security->generateRandomString(),
                 'created_at'=> $time,
                 'updated_at' => $time
             ];
