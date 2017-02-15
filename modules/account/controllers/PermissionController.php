@@ -147,10 +147,7 @@ class PermissionController extends Controller
         }
 
         if (! Yii::$app->user->can('viewPermission')) {
-            return $this->renderPartial('error', [
-                'name' => '403',
-                'message' => '您没有权限查看权限详情！'
-            ]);
+            throw new ForbiddenHttpException('您没有权限查看权限详情！');
         }
 
         $model->get($name);

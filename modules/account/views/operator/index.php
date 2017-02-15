@@ -61,12 +61,6 @@ $this->title = '后台用户列表'
     </div>
     <!-- /.col -->
 </div>
-<div class="modal fade" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
@@ -104,7 +98,7 @@ $this->title = '后台用户列表'
         $(document).on("click","table tr td span.edit",function(){
             window.open($(this).attr("href"));
         });
-        $(document).on("click","table tr td span.layer",function(){
+        $(document).on("click","table tr td span.assign",function(){
             tool.ajax({
                 type:"GET",
                 url:$(this).attr('href'),

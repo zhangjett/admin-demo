@@ -27,12 +27,6 @@ $this->title = '角色列表'
     </div>
     <!-- /.col -->
 </div>
-<div class="modal fade" id="addChild" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-        </div>
-    </div>
-</div>
 <script>
     <?php $this->beginBlock('JS_END');?>
     $(function(){
@@ -55,15 +49,34 @@ $this->title = '角色列表'
         $(document).on("click","table tr td span.delete",function(){
             window.open($(this).attr("href"));
         });
+        $(document).on("click","table tr td span.add-child",function(){
+            tool.ajax({
+                type:"GET",
+                url:$(this).attr('href'),
+                dataType:'html',
+                success:function(response){
+                    layer.open({
+                        type: 1,
+                        title: '添加权限/子角色',
+                        content: response
+                    });
+                }
+            });
+
+        });
         //添加权限/子角色
         $(document).on('submit','#updateChildForm',function(e){
+            var obj = $(this);
             tool.ajax({
                 type:"POST",
                 url:$(this).attr('action'),
                 data:$(this).serialize(),
                 dataType:'html',
                 success:function(response){
-                    $('#addChild').find("div.modal-content").html(response);
+                    obj.closest('div.layui-layer-content').html(response);
+                    window.setTimeout(function() {
+                        $('.alert').alert('close');
+                    }, 3000);
                 }
             });
             e.preventDefault();

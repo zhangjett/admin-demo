@@ -36,7 +36,7 @@ if (Yii::$app->session->getFlash('deletePermission') == 'success') {
                     <td><?php echo date("Y-m-d H:i:s", $permission->updatedAt); ?></td>
                     <td>
                         <span class="label label-success edit" href="<?php echo Url::to(['//account/permission/update','name'=>$permission->name]); ?>">编辑</span>&nbsp;&nbsp;&nbsp;&nbsp;
-                        <span class="label label-success add-child" href="<?php echo Url::to(['//account/permission/add-child','name'=>$permission->name]); ?>" data-toggle="modal" data-target="#addChild">子权限</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="label label-success add-child" href="<?php echo Url::to(['//account/permission/add-child','name'=>$permission->name]); ?>">子权限</span>&nbsp;&nbsp;&nbsp;&nbsp;
                         <span class="label label-danger delete" href="<?php echo Url::to(['//account/permission/delete','name'=>$permission->name]); ?>">删除</span>
                     </td>
                 </tr>
