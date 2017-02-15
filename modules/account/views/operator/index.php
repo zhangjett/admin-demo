@@ -129,6 +129,9 @@ $this->title = '后台用户列表'
                 dataType:'html',
                 success:function(response){
                     obj.closest('div.layui-layer-content').html(response);
+                    window.setTimeout(function() {
+                        $('.alert').alert('close');
+                    }, 3000);
                 }
             });
             e.preventDefault();

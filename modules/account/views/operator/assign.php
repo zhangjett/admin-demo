@@ -69,7 +69,4 @@ $this->title = '分配角色';
     $(function(){
         $(document).trigger('icheck');
     });
-    window.setTimeout(function() {
-        $('.alert').alert('close');
-    }, 3000);
 </script>
