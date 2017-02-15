@@ -54,6 +54,7 @@ $this->title = '添加权限/子角色';
                             'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                         ])->label($permission->description);
                     } ?>
+                    <?php echo Html::hiddenInput('RoleForm[childPermission][]')?>
                 </div>
             </div>
         </div>
@@ -81,6 +82,7 @@ $this->title = '添加权限/子角色';
                             'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n{endLabel}\n{hint}\n&nbsp;&nbsp;",
                         ])->label($role->description);
                     } ?>
+                    <?php echo Html::hiddenInput('RoleForm[childRole][]')?>
                 </div>
             </div>
         </div>

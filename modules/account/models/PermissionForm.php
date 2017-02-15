@@ -138,6 +138,10 @@ class PermissionForm extends Model
         }
 
         foreach ($this->childPermission as $permission) {
+            if (empty($permission)) {
+                continue;
+            }
+
             $child = new Permission();
             $child->name = $permission;
 

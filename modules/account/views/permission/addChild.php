@@ -5,8 +5,6 @@
 
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
-use yii\helpers\Url;
-use app\components\Dictionary;
 
 if (Yii::$app->session->getFlash('updateChild') == 'success') {
     echo Html::hiddenInput("createPermission", "success");
@@ -56,6 +54,7 @@ $this->title = '添加子权限';
                             'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n&nbsp;&nbsp;{endLabel}\n{hint}",
                         ])->label($permission->description);
                     } ?>
+                    <?php echo Html::hiddenInput("PermissionForm[childPermission][]"); ?>
                 </div>
             </div>
         </div>

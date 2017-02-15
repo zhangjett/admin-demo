@@ -144,6 +144,9 @@ class RoleForm extends Model
 
         if ($this->childPermission != null) {
             foreach ($this->childPermission as $permission) {
+                if (empty($permission)) {
+                    continue;
+                }
                 $child = new Permission();
                 $child->name = $permission;
 
@@ -153,6 +156,10 @@ class RoleForm extends Model
 
         if ($this->childRole != null) {
             foreach ($this->childRole as $role) {
+                if (empty($role)) {
+                    continue;
+                }
+
                 $child = new Role();
                 $child->name = $role;
 

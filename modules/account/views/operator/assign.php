@@ -56,6 +56,7 @@ $this->title = '分配角色';
                             'template' => "{beginLabel}\n{input}\n&nbsp;{labelTitle}\n&nbsp;&nbsp;{endLabel}\n{hint}",
                         ])->label($role->description);
                     } ?>
+                    <?php echo Html::hiddenInput('OperatorForm[role][]')?>
                 </div>
             </div>
         </div>

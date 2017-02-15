@@ -218,6 +218,10 @@ class OperatorForm extends Model
         $auth->revokeAll($id);
 
         foreach ($this->role as $value) {
+            if (empty($value)) {
+                continue;
+            }
+
             $role = new Role();
             $role->name = $value;
 
