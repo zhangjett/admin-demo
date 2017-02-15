@@ -157,10 +157,7 @@ class OperatorController extends Controller
         }
 
         if (! Yii::$app->user->can('viewOperatorProfile')) {
-            return $this->renderPartial('error', [
-                'name' => '403',
-                'message' => '您没有权限查看后台用户信息！'
-            ]);
+            throw new ForbiddenHttpException('您没有权限查看后台用户信息！');
         }
 
         $model->get($id);

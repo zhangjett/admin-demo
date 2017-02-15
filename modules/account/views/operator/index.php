@@ -104,15 +104,31 @@ $this->title = '后台用户列表'
         $(document).on("click","table tr td span.edit",function(){
             window.open($(this).attr("href"));
         });
+        $(document).on("click","table tr td span.layer",function(){
+            tool.ajax({
+                type:"GET",
+                url:$(this).attr('href'),
+                dataType:'html',
+                success:function(response){
+                    layer.open({
+                        type: 1,
+                        title: '分配角色',
+                        content: response
+                    });
+                }
+            });
+
+        });
         //分配角色
         $(document).on('submit','#assignForm',function(e){
+            var obj = $(this);
             tool.ajax({
                 type:"POST",
                 url:$(this).attr('action'),
                 data:$(this).serialize(),
                 dataType:'html',
                 success:function(response){
-                    $('#assignModal').find("div.modal-content").html(response);
+                    obj.closest('div.layui-layer-content').html(response);
                 }
             });
             e.preventDefault();
