@@ -27,7 +27,7 @@ $config = [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=demo',
             'username' => 'root',
-            'password' => 'admin',
+            'password' => '',
             'charset' => 'utf8',
         ],
     ],
